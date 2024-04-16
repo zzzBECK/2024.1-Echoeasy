@@ -10,13 +10,17 @@
   
   <!-- Theme -->
   <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css"> -->
-  <link
+  <!-- <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css"
-  />
+  /> -->
+
+  <!-- Theme: Simple Dark -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css">
+
 
   <!-- Favicon  -->
-  <link rel="icon" href="./assets/imgs/brasao.jpg" />
+  <link rel="icon" href="https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/docs/docs/assets/imgs/brasao.jpg" />
   <link href="./assets/css/base.css" rel="stylesheet" />
     
 </head>
@@ -28,12 +32,13 @@
       name: 'Echoeasy',
       repo: 'mdsreq-fga-unb/2024.1-Echoeasy',
       homepage: 'home.md',
+      cornerExternalLinkTarget: '_blank', // default: '_blank'
       subMaxLevel: 2,
         loadSidebar: true,
         loadNavbar: true,
         alias: { "/.*/_sidebar.md": "/_sidebar.md" },
         coverpage: false,
-        logo: "./assets/imgs/brasao.jpg",
+        logo: "https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/docs/docs/assets/imgs/brasao.jpg",
         search: {
           placeholder: {
             "/ zh CN /": "Procurar",
@@ -50,6 +55,7 @@
           readyTransition: true, // default
           responsiveTables: true, // default
         },
+      
     }
   </script>
   <!-- Docsify v4 -->
