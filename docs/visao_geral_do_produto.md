@@ -1,6 +1,6 @@
 # VISÃO GERAL DO PRODUTO
 
-## Problema
+## 1. Problema
 
 Adenalva Beck, médica ecocardiografista renomada e professora, tem se destacado por sua dedicação em fornecer conteúdos especializados
 para seus alunos residentes na área de ecocardiografia. Com o tempo, sua expertise e material educacional ganharam notoriedade,
@@ -9,9 +9,13 @@ chegando no problema da **falha da disseminação de conteúdo autoral para méd
 os quais tem dificuldade em realizar alguns diagnósticos com acurácia** e dificuldade em acompanhar as atualizações
 científicas em tempo real.
 
-## Declaração de Posição do Produto
+<center>
+    <img id= "ishikawa" src= "https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/docs/docs/assets/imgs/Diagrama de Ishikawa.png">
+</center>
 
-#### 1. Q Qo pr tetet eoduto que você se propõe a desenvolver?
+## 2. Declaração de Posição do Produto
+
+#### 1. Qual é o produto que você se propõe a desenvolver??
 
 Um Aplicativo mobile que é uma biblioteca autoral de resumo de diretrizes médicas e artigos cientificos relevantes na área de ecocardiografia (manuais de condutas ou rotinas), de rápida consulta e atualizados constantemente, com fluxos de algoritmos que facilitam o diagnóstico.
 
@@ -39,43 +43,14 @@ Residentes e médicos da área de ecocardiografia de todo o Brasil, além da equ
 | **Ao contrário do** | Whitebook                                                                                                                                                                              |
 | **Nosso produto**   | Irá difundir materiais autorais exclusivos da área de ecocardiografia, resumos, revisão crítica de artigos científicos e diretrizes da área, com exemplos para facilitar o diagnóstico |
 
-## Objetivos do Produto
+## 3. Objetivos do Produto
 
 O objetivo é disseminar o conhecimento de forma abrangente, atualizado e prático, buscando simplificar o acesso, eliminando a necessidade
 de procurar em diversos lugares por informações dispersas, facilitando assim, o trabalho do médico em diagnosticar seu paciente.
 Com essa abordagem, a busca por material relevante e atualizado torna-se ágil e direta, proporcionando uma experiência mais eficiente
 para os profissionais da saúde.
 
-# Processo de Desenvolvimento de Software
-
-## Metodologia
-
-_Após análise em equipe, guiados pelo Framework de Gupta, escolhemos, à priori:_
-
-- Abordagem de desenvolvimento: Ágil
-- Ciclo de Vida: Ágil
-- Processo: XP
-
-## Fluxo de Trabalho
-
-Utilizaremos Discord para reuniões entre o time, WhatsApp para comunicação rápida entre o time, monitor da disciplina e o PO, além do Zoom para reuniões com o cliente.
-O fórum do aprender servirá para tirar dúvidas diretamente com o professor. Referente ao desenvolvimento, a IDE será o vscode. Outras ferramentas a serem utilizadas
-serão o Miro e Lucidchart para construção de quadros visuais e o github para controle de versionamento.
-
-## Processo de ER
-
-## Atividades
-
-| Nome da Atividade         | Método                                      | Ferramenta            | Entrega                      |
-| ------------------------- | ------------------------------------------- | --------------------- | ---------------------------- |
-| Elicitação e Descoberta   | Reunião com o cliente e Brainstorming       | Zoom e Miro           | Lista de RFs e RNFs          |
-| Análise e consenso        | Reunião com o cliente, USM e Brainstorming  | Zoom                  | User Stories                 |
-| Declaração                | Planning                                    | Planning Poker Online | Temas, Épicos e Task         |
-| Representação             | Prototipagem                                | Figma                 | Protótipo de alta fidelidade |
-| Verificação e Validação   | DoR e DoD; Checklist; Reunião com o cliente | Miro e Trello/Jira    | Definição de DoR e DoD       |
-| Organização e Atualização | USM                                         | Miro e Trello/Jira    | Backlog                      |
-
-## Histórico de revisão
+## 4. Histórico de revisão
 
 |    Data    | Versão |         Alteração         |                                                                                                                                                    Autor                                                                                                                                                     |
 | :--------: | :----: | :-----------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
