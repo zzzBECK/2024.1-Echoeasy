@@ -45,12 +45,19 @@ Residentes e médicos da área de ecocardiografia de todo o Brasil, além da equ
 
 ## 3. Objetivos do Produto
 
-O objetivo é disseminar o conhecimento de forma abrangente, atualizado e prático, buscando simplificar o acesso, eliminando a necessidade
-de procurar em diversos lugares por informações dispersas, facilitando assim, o trabalho do médico em diagnosticar seu paciente.
-Com essa abordagem, a busca por material relevante e atualizado torna-se ágil e direta, proporcionando uma experiência mais eficiente
-para os profissionais da saúde.
+O objetivo é disseminar o conhecimento de forma abrangente, atualizado e prático, buscando simplificar o acesso, eliminando a necessidade de procurar em diversos lugares por informações dispersas, facilitando assim, o trabalho do médico em diagnosticar seu paciente. Com essa abordagem, a busca por material relevante e atualizado torna-se ágil e direta, proporcionando uma experiência mais eficiente para os profissionais da saúde.
 
-## 4. Histórico de revisão
+## 4. Tecnologias a Serem Utilizadas
+
+- Frontend: (a definir)
+- Backend: (a definir)
+- Persistência de dados: (a definir)
+- Testes e CI: (a definir)
+- Documentação: GitHub Pages, Github, Docsify
+- APIs: (a definir)
+- Ferramentas de IDE: VSCode
+
+## 5. Histórico de revisão
 
 |    Data    | Versão |         Alteração         |                                                                                                                                                    Autor                                                                                                                                                     |
 | :--------: | :----: | :-----------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
