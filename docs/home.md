@@ -13,58 +13,27 @@ O projeto Echoeasy é um projeto desenvolvido pela equipe "Space Edge" durante a
 
 Nossa equipe de trabalho é composta pelos estudantes de Engenharia de Software da Universidade de Brasília presentes na Tabela 1.
 
-<center>
-  <table style="margin-left: auto; margin-right: auto;">
-  Tabela 1: Equipe de trabalho 
-  <tr>
-      <td align="center">
-          <a href="https://github.com/zzzBECK" target='_blank'>
-          <img style="border-radius: 50%;" src="https://github.com/zzzBECK.png" width="150px;"/>
-          <h5 class="text-center">Alexandre de Santana Beck</h5>
-        </a>
-      </td>
-      <td align="center">
-          <a href="https://github.com/arthur-heleno" target='_blank'>
-          <img style="border-radius: 50%;" src="https://github.com/arthur-heleno.png" width="150px;"/>
-          <h5 class="text-center">Arthur Heleno do Couto da Silva</h5>
-        </a>
-      </td>
-      <td align="center">
-          <a href="https://github.com/LeanArs" target="_blank">
-          <img style="border-radius: 50%;" src="https://github.com/LeanArs.png" width="150px;"/>
-          <h5 class="text-center">Leandro Almeida Rocha Santos</h5>
-        </a>
-      </td>
-      <td align="center">
-          <a href="https://github.com/LucasGSAntunes" target='_blank'>
-          <img style="border-radius: 50%;" src="https://github.com/LucasGSAntunes.png" width="150px;"/>
-          <h5 class="text-center">Lucas Gabriel da Silva Antunes</h5>
-        </a>
-      </td>
-      <td align="center">
-          <a href="https://github.com/PedroHhenriq" target='_blank'>
-          <img style="border-radius: 50%;" src="https://github.com/PedroHhenriq.png" width="150px;"/>
-          <h5 class="text-center">Pedro Henrique Ferreira Nunes</h5>
-        </a>
-      </td>
-      <td align="center">
-          <a href="https://github.com/lucasdray" target='_blank'>
-          <img style="border-radius: 50%;" src="https://github.com/lucasdray.png" width="150px;"/>
-          <h5 class="text-center">Pedro Lucas Dourado Santos</h5>
-        </a>
-      </td>
-      <td align="center">
-          <a href="https://github.com/TalesRG" target='_blank'>
-          <img style="border-radius: 50%;" src="https://github.com/TalesRG.png" width="150px;"/>
-          <h5 class="text-center">Tales Rodrigues Gonçalves</h5>
-        </a>
-      </td>
-  </table>
-  Fonte: (Autor, 2024).
-</center>
+
+
+
+|                                                               Foto                                                               |                                Nome                                 |                                                                               Personagem                                                                                |        Codenome         |
+| :------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------: |
+|        [<img style="border-radius: 50%;" width="100px" src="https://github.com/zzzBECK.png">](https://github.com/zzzBECK)        |       [Alexandre de Santana Beck](https://github.com/zzzBECK)       |     <img style="border-radius: 50%;" width="100px" src="https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/docs/docs/assets/imgs/ZephyrSolaris.png">      |     Zephyr Solaris      |
+|  [<img style="border-radius: 50%;" width="100px" src="https://github.com/arthur-heleno.png">](https://github.com/arthur-heleno)  | [Arthur Heleno do Couto da Silva](https://github.com/arthur-heleno) |     <img style="border-radius: 50%;" width="100px" src="https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/docs/docs/assets/imgs/LesterLexhorn.jpeg">     |  Lester "Lex" Lexhorn   |
+|        [<img style="border-radius: 50%;" width="100px" src="https://github.com/LeanArs.png">](https://github.com/LeanArs)        |     [Leandro Almeida Rocha Santos](https://github.com/LeanArs)      |         <img style="border-radius: 50%;" width="100px" src="https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/docs/docs/assets/imgs/WX-78.jpeg">         |          WX-78          |
+| [<img style="border-radius: 50%;" width="100px" src="https://github.com/LucasGSAntunes.png">](https://github.com/LucasGSAntunes) | [Lucas Gabriel da Silva Antunes](https://github.com/LucasGSAntunes) |        <img style="border-radius: 50%;" width="100px" src="https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/docs/docs/assets/imgs/Lucydas.jpg">         | Lucydas "O Apotaktikós" |
+|   [<img style="border-radius: 50%;" width="100px" src="https://github.com/PedroHhenriq.png">](https://github.com/PedroHhenriq)   |  [Pedro Henrique Ferreira Nunes](https://github.com/PedroHhenriq)   |     <img style="border-radius: 50%;" width="100px" src="https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/docs/docs/assets/imgs/Ethan%20Drake.jfif">     | Ethan Drake "O novato"  |
+|      [<img style="border-radius: 50%;" width="100px" src="https://github.com/lucasdray.png">](https://github.com/lucasdray)      |     [Pedro Lucas Dourado Santos](https://github.com/lucasdray)      | <img style="border-radius: 50%;" width="100px" src="https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/docs/docs/assets/imgs/Aurelium%20Explorador.jpeg"> |      Aurelium Volt      |
+|        [<img style="border-radius: 50%;" width="100px" src="https://github.com/TalesRG.png">](https://github.com/TalesRG)        |       [Tales Rodrigues Gonçalves](https://github.com/TalesRG)       |     <img style="border-radius: 50%;" width="100px" src="https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/docs/docs/assets/imgs/Lhoyd-Pickard.png">      |      Lhoyd Pickard      |
+
+
+
+
+
 
 ## Historico de revisão
 
 |    Data    | Versão |              Descrição              |                      Autor(es)                      |
 | :--------: | :----: | :---------------------------------: | :-------------------------------------------------: |
 | 16/04/2024 | `1.0`  | Criação e Estruturação do documento | [Pedro Lucas Dourado](https://github.com/lucasdray) |
+| 17/04/2024 | `1.1`  |         Adição personagens          | [Pedro Lucas Dourado](https://github.com/lucasdray) |
