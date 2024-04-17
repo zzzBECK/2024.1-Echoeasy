@@ -2,30 +2,12 @@
 
 ## 1. Unidade 1
 
-[Liste as lições aprendidas na retrospectiva, com ênfase especial nas ações a serem tomadas para melhorar, por exemplo: o ambiente de desenvolvimento, o processo ou a colaboração da equipe.]
+Nesta unidade, nos deparamos com os conceitos iniciais da Engenharia de Requisitos, aprendendo seus valores e princípios, suas atividades e, somado a isso, entendemos como filtrar as necessidades dos desejos dos stakeholders. Além disso, compreendemos melhor como funcionam as abordagens, ciclos de vida e processos de um projeto de engenharia de software. 
+A equipe teve certa dificuldade para definir o verdadeiro problema que a cliente tinha, mas com a ajuda do diagrama de Ishikawa, foi bem fácil contornar esse problema. Também enfrentamos certa dificuldade com relação ao prazo para disponibilizar os documentos necessários da primeira entrega no GitPages, pois o prazo era curto e tivemos certa dificuldade para conciliar com outras matérias e os horários para os membros se reunirem.
 
-[Aqui, também devem estar registradas as dificuldades que a equipe teve durante a unidade, e como conseguiu (ou não superá-las).]
+## 2. Histórico de revisão
 
-## 2. Unidade 2
-
-[Liste as lições aprendidas na retrospectiva, com ênfase especial nas ações a serem tomadas para melhorar, por exemplo: o ambiente de desenvolvimento, o processo ou a colaboração da equipe.]
-
-[Aqui, também devem estar registradas as dificuldades que a equipe teve durante a unidade, e como conseguiu (ou não superá-las).]
-
-## 3. Unidade 3
-
-[Liste as lições aprendidas na retrospectiva, com ênfase especial nas ações a serem tomadas para melhorar, por exemplo: o ambiente de desenvolvimento, o processo ou a colaboração da equipe.]
-
-[Aqui, também devem estar registradas as dificuldades que a equipe teve durante a unidade, e como conseguiu (ou não superá-las).]
-
-## 4. Unidade 4
-
-[Liste as lições aprendidas na retrospectiva, com ênfase especial nas ações a serem tomadas para melhorar, por exemplo: o ambiente de desenvolvimento, o processo ou a colaboração da equipe.]
-
-[Aqui, também devem estar registradas as dificuldades que a equipe teve durante a unidade, e como conseguiu (ou não superá-las).]
-
-## 5. Histórico de revisão
-
-|    Data    | Versão |      Alteração       |                  Autor                  |
-| :--------: | :----: | :------------------: | :-------------------------------------: |
-| 16/04/2024 |  0.1   | Criação do documento | [Alexandre](https://github.com/zzzBECK) |
+|    Data    | Versão |      Alteração       |                                        Autor                                         |
+| :--------: | :----: | :------------------: | :----------------------------------------------------------------------------------: |
+| 16/04/2024 |  0.1   | Criação do documento | [Alexandre](https://github.com/zzzBECK), [Pedro Lucas](https://github.com/lucasdray) |
+|            |        |                      |                                                                                      |
