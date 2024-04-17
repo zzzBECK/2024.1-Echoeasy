@@ -243,53 +243,58 @@
    - D) Os requisitos validados são aqueles que foram verificados exclusivamente pela equipe de desenvolvimento, sem feedback do cliente.
 
 1. No que diz respeito ao Valor da Coragem em Engenharia de Requisitos, é correto afirmar que:
-   
+
    - A) A coragem é relevante apenas nas fases iniciais do desenvolvimento do software.
    - B) A coragem não é necessária quando a equipe possui alta competência técnica.
    - C) A coragem limita-se à disposição da equipe em trabalhar com prazos apertados.
    - D) A coragem envolve a ação efetiva diante do medo, como a coragem de falar verdades, sejam agradáveis ou desagradáveis.
 
 ## Gabarito
+
 ### Seção 1
-   1. A, B, C, D
-   1. E
-   1. D
-   1. C
-   1. A, B
-   1. A
-   1. A
+
+1.  A, B, C, D
+1.  E
+1.  D
+1.  C
+1.  A, B
+1.  A
+1.  A
 
 ### Seção 2
-   1. C
-   1. A
-   1. A
-   1. C
-   1. B
-   1. C
-   1. A
+
+1.  C
+1.  A
+1.  A
+1.  C
+1.  B
+1.  C
+1.  A
 
 ### Seção 3
-   1. C, E, G, H, I, N
-   1. A, B, D
-   1. D, F, G
-   1. B, E, F
-   1. A
-   1. A, D
-   1. A, B, D
-   1. D
+
+1.  C, E, G, H, I, N
+1.  A, B, D
+1.  D, F, G
+1.  B, E, F
+1.  A
+1.  A, D
+1.  A, B, D
+1.  D
 
 ### Seção 4
-   1. A, B, F
-   1. A
-   1. B, E, F
-   1. A, B
-   1. B
-   1. B
-   1. A
-   1. D
 
-   |    Data    | Versão |              Descrição              |                      Autor(es)                      |
-| :--------: | :----: | :---------------------------------: | :-------------------------------------------------: |
-| 11/04/2024 | `0.1`  | Criação e Estruturação do documento | [Leandro Almeida](https://github.com/LeanArs) |
-| 16/04/2024 | `0.2`  | Documentação no Git Pages | [Leandro Almeida](https://github.com/LeanArs) |
+1.  A, B, F
+1.  A
+1.  B, E, F
+1.  A, B
+1.  B
+1.  B
+1.  A
+1.  D
+
+|    Data    | Versão |                  Descrição                  |                   Autor(es)                   |
+| :--------: | :----: | :-----------------------------------------: | :-------------------------------------------: |
+| 11/04/2024 | `0.1`  |     Criação e Estruturação do documento     | [Leandro Almeida](https://github.com/LeanArs) |
+| 16/04/2024 | `0.2`  |          Documentação no Git Pages          | [Leandro Almeida](https://github.com/LeanArs) |
 | 17/04/2024 | `0.3`  | Inserção do gabarito e histórico de revisão | [Leandro Almeida](https://github.com/LeanArs) |
