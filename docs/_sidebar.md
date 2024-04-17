@@ -7,4 +7,6 @@
 - [Lições Aprendidas](./licoes_aprendidas.md)
 - [Entregas](#)
   - [Missão 1](#)
-    - [Questionário](./entregas/missao_01/Questionario.md)
+    - [Slide Facção](./entregas/missao_01/slide_faccao.md)
+    - [Questionário](./entregas/missao_01/questionario.md)
+    - [Processos](./entregas/missao_01/processos.md)
