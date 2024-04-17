@@ -1,6 +1,6 @@
 # VISÃO GERAL DO PROJETO
 
-## 1. Organização do Projeto
+## 1. Organização do Projeto (NÃO TA FEITO)
 
 [apresentada a divisão de atribuições e responsabilidades entre os membros do projeto, sem qualquer relação de hierarquia ou grau de importância. Todos os integrantes são igualmente importantes e responsáveis pelo sucesso do projeto.]
 
@@ -11,7 +11,7 @@
 | Analista de Qualidade | Garantir a qualidade do produto, garantir o cumprimento do conceito de pronto, realizar inspeções de código |    _---_    |     _---_     |
 |        Cliente        |                                                    _---_                                                    |    _---_    |     _---_     |
 
-## 2. Planejamento das Fases e/ou Iterações do Projeto
+## 2. Planejamento das Fases e/ou Iterações do Projeto (NÃO TA FEITO)
 
 [Registrar o projeto, as fases de seu ciclo de vida e suas iterações, especificando suas datas de início e de fim, bem como os produtos a serem gerados.
 O planejamento do projeto deve ser atualizado de maneira sucessiva, a partir da realização de cada ciclo (sprint, iteração) de desenvolvimento]
@@ -25,7 +25,7 @@ O planejamento do projeto deve ser atualizado de maneira sucessiva, a partir da 
 | Sprint 3 |    Desenvolvimento do MVP     |  18/01/22   | 03/02/22 |
 |  _..._   |             _..._             |    _..._    |  _..._   |
 
-## 3. Matiz de Comunicação
+## 3. Matiz de Comunicação (NÃO TA FEITO)
 
 [Esta seção descreve a estratégia de comunicação adotada para monitoramento do progresso do projeto. Identificar a periodicidade de reuniões e o envio dos relatórios exigidos pelo processo e opcionalmente outros relatórios exigidos pelo cliente.]
 
@@ -39,17 +39,18 @@ O planejamento do projeto deve ser atualizado de maneira sucessiva, a partir da 
 
 ## 4. Gerenciamento de Riscos
 
-[Para o Gerenciamento de Riscos devem ser realizadas tarefas, como:
+Abaixo estão listados os riscos do projeto que serão acompanhados e atualizados a cada ciclo, ou a medida que forem sendo percebidos.
 
-- Identificar todos os riscos possíveis e detectáveis em cada fase do projeto;
-- Executar as ações para mitigar os riscos que tenham um alto grau de exposição ao risco caso este ocorra na Lista de Riscos do Projeto;
-- Fazer uma revisão da lista dos riscos periodicamente, com o propósito de averiguar uma possível incidência de um risco e ver se há outros riscos ainda não relatados;
-- Em caso de confirmação de um risco previsto, agir no sentido de contingenciá-lo conforme programado;
-- Registrar os riscos no Painel de Controle do Projeto e no Plano do Projeto (Riscos iniciais);]
+|                   Lista de riscos                   |                                                                               Estratégias de mitigação                                                                                | Grau  |
+| :-------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---: |
+|       Membros da equipe saírem da disciplina        |                                    Estabelecer expectativas claras sobre o comportamento e responsabilidades dos membros da equipe desde o início.                                    | Baixo |
+|            Indisponibilidade do cliente             |                                   Comunicação frequente e constante com cliente deixando claro os prazos e as necessidades da equipe e do projeto.                                    | Baixo |
+|          Problemas de interação da equipe           |                                                   Criar um ambiente tranquilo em que cada membro pode se comunicar e se expressar.                                                    | Baixo |
+| Falta de habilidades técnicas dos membros da equipe | Identificar as lacunas técnicas com antecedência para definição de tecnologias de fácil entendimento para toda equipe, e antecipando os estudos das tecnologias que serão utilizadas. | Médio |
+|                       Atrasos                       |                                                     Definir as sprints de acordo com a disciplina e disponibilidade dos membros.                                                      | Médio |
 
-**Os riscos do projeto devem ser acompanhados e atualizados a cada ciclo.**
 
-## 5. Critérios de Replanejamento
+## 5. Critérios de Replanejamento (NÃO TA FEITO)
 
 [Descrever os critérios de replanejamento que serão utilizados, caso seja necessário realizá-lo no projeto.]
 
@@ -57,6 +58,8 @@ O planejamento do projeto deve ser atualizado de maneira sucessiva, a partir da 
 
 ## 5. Histórico de revisão
 
-|    Data    | Versão |      Alteração       |                  Autor                  |
-| :--------: | :----: | :------------------: | :-------------------------------------: |
-| 16/04/2024 |  0.1   | Criação do documento | [Alexandre](https://github.com/zzzBECK) |
+|    Data    | Versão |           Alteração            |                  Autor                  |
+| :--------: | :----: | :----------------------------: | :-------------------------------------: |
+| 16/04/2024 | `1.0`  |      Criação do documento      | [Alexandre](https://github.com/zzzBECK) |
+| 17/04/2024 | `1.1`  | Adição gerenciamento de riscos | [Pedro Lucas](https://github.com/lucasdray) |
+|            |        |                                |                                         |
