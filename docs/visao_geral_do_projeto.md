@@ -55,7 +55,7 @@ Abaixo estão listados os riscos do projeto que serão acompanhados e atualizado
 
 **Os critérios de replanejamento do projeto devem ser acompanhados e atualizados a cada ciclo. E, aplicados, conforme necessidade.**
 
-## 5. Histórico de revisão
+## 6. Histórico de revisão
 
 |    Data    | Versão |           Alteração            |                    Autor                    |
 | :--------: | :----: | :----------------------------: | :-----------------------------------------: |
