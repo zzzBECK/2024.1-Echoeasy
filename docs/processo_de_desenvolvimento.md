@@ -41,4 +41,4 @@ Utilizaremos Discord para reuniões entre o time, WhatsApp para comunicação r�
 
 |    Data    | Versão |      Alteração       |                  Autor                  |
 | :--------: | :----: | :------------------: | :-------------------------------------: |
-| 16/04/2024 |  0.1   | Criação do documento | [Alexandre](https://github.com/zzzBECK) |
+| 16/04/2024 | `0.1`  | Criação do documento | [Alexandre](https://github.com/zzzBECK) |

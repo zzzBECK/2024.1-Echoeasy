@@ -49,7 +49,6 @@ Abaixo estão listados os riscos do projeto que serão acompanhados e atualizado
 | Falta de habilidades técnicas dos membros da equipe | Identificar as lacunas técnicas com antecedência para definição de tecnologias de fácil entendimento para toda equipe, e antecipando os estudos das tecnologias que serão utilizadas. | Médio |
 |                       Atrasos                       |                                                     Definir as sprints de acordo com a disciplina e disponibilidade dos membros.                                                      | Médio |
 
-
 ## 5. Critérios de Replanejamento (NÃO TA FEITO)
 
 [Descrever os critérios de replanejamento que serão utilizados, caso seja necessário realizá-lo no projeto.]
@@ -58,8 +57,7 @@ Abaixo estão listados os riscos do projeto que serão acompanhados e atualizado
 
 ## 5. Histórico de revisão
 
-|    Data    | Versão |           Alteração            |                  Autor                  |
-| :--------: | :----: | :----------------------------: | :-------------------------------------: |
-| 16/04/2024 | `1.0`  |      Criação do documento      | [Alexandre](https://github.com/zzzBECK) |
+|    Data    | Versão |           Alteração            |                    Autor                    |
+| :--------: | :----: | :----------------------------: | :-----------------------------------------: |
+| 16/04/2024 | `1.0`  |      Criação do documento      |   [Alexandre](https://github.com/zzzBECK)   |
 | 17/04/2024 | `1.1`  | Adição gerenciamento de riscos | [Pedro Lucas](https://github.com/lucasdray) |
-|            |        |                                |                                         |
