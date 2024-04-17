@@ -10,7 +10,7 @@ os quais tem dificuldade em realizar alguns diagnósticos com acurácia** e difi
 científicas em tempo real.
 
 <center>
-    <img id= "ishikawa" src= "https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/docs/docs/assets/imgs/Diagrama de Ishikawa.png">
+    <img id= "ishikawa" src= "https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/gitpages/docs/assets/imgs/Diagrama de Ishikawa.png">
 </center>
 
 ## 2. Declaração de Posição do Produto

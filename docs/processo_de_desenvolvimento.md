@@ -9,7 +9,7 @@ Após análise em equipe, guiados pelo Framework de Gupta, escolhemos, à priori
 - **Processo**: XP
 
 <center>
-    <img id= "gupta" src= "https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/docs/docs/assets/imgs/Gupta.png">
+    <img id= "gupta" src= "https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/gitpages/docs/assets/imgs/Gupta.png">
 </center>
 
 ## 2. Fluxo de Trabalho
@@ -17,13 +17,13 @@ Após análise em equipe, guiados pelo Framework de Gupta, escolhemos, à priori
 Utilizaremos Discord para reuniões entre o time, WhatsApp para comunicação rápida entre o time, monitor da disciplina e o PO, além do Zoom para reuniões com o cliente. O fórum do aprender servirá para tirar dúvidas diretamente com o professor. Referente ao desenvolvimento, a IDE será o vscode. Outras ferramentas a serem utilizadas serão o Miro e Lucidchart para construção de quadros visuais e o github para controle de versionamento.
 
 <center>
-    <img id= "fluxo" src= "https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/docs/docs/assets/imgs/Fluxo de Trabalho.png">
+    <img id= "fluxo" src= "https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/gitpages/docs/assets/imgs/Fluxo de Trabalho.png">
 </center>
 
 ## 3. Processo de ER
 
 <center>
-    <img id= "processo" width="100%" src= "https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/docs/docs/assets/imgs/Processo de ER.png">
+    <img id= "processo" width="100%" src= "https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/gitpages/docs/assets/imgs/Processo de ER.png">
 </center>
 
 ## 4. Atividades
