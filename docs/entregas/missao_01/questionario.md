@@ -1,8 +1,6 @@
-﻿<a name="_3n1wg5nsizu3"></a>Requisitos de Software
+﻿# Módulo 1, Atividade 5 - Questionário
 
-<a name="_xkiqrs3w5ge5"></a>Módulo 1, Atividade 5 - Questionário
-
-## <a name="_hp6fy4s0x0gb"></a>Seção 1 - Entendendo a Necessidades dos Stakeholders
+## 1. Seção 1 - Entendendo a Necessidades dos Stakeholders
 
 1. Marque a(s) alternativa(s) correta(s):
 
@@ -47,7 +45,7 @@
    1. Agrega valor a solução que será construída
    1. Gera requisitos necessários.
 
-## <a name="_1jmiucixr2yd"></a>Seção 2 - Entendendo o Problema
+## 2. Seção 2 - Entendendo o Problema
 
 1. Por que é possível que existam projetos de sucesso com produtos fracassados?
 
@@ -104,7 +102,7 @@
    1. Ambiental, Política, Cultural, Técnica, Estratégica, Sustentabilidade.
    1. Ambiental, Administrativa, Econômica, Técnica, Segurança, Inovação.
 
-## <a name="_2de27v4iy43m"></a>Seção 3 - Requisitos de Software
+## 3. Seção 3 - Requisitos de Software
 
 1. Referente Engenharia de Requisitos, as seguintes opções fazem parte das atividades:
 
@@ -182,7 +180,7 @@
    1. A validação é a confirmação de que os requisitos foram realizados de maneira correta.
    1. A Organização estabelece a maneira como os requisitos do produto serão estruturados, rastreados, refinados e priorizados, enquanto a organização diz respeito a manter a organização dos requisitos sempre em seu estado mais atual.
 
-## <a name="_vxyt59vwnhyq"></a>Seção 4 - Valores e Princípios da Engenharia de Requisitos
+## 4. Seção 4 - Valores e Princípios da Engenharia de Requisitos
 
 1. De acordo com os 7 valores de Engenharia de requisitos:
 
@@ -246,3 +244,9 @@
    1. A coragem não é necessária quando a equipe possui alta competência técnica.
    1. A coragem limita-se à disposição da equipe em trabalhar com prazos apertados.
    1. A coragem envolve a ação efetiva diante do medo, como a coragem de falar verdades, sejam agradáveis ou desagradáveis.
+
+## 5. Historico de revisão
+
+|    Data    | Versão |              Descrição              |                      Autor(es)                      |
+| :--------: | :----: | :---------------------------------: | :-------------------------------------------------: |
+| 17/04/2024 | `1.0`  | Criação e Estruturação do documento | [Pedro Lucas Dourado](https://github.com/lucasdray) |

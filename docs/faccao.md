@@ -1,10 +1,13 @@
 <center>
 
-# Space Edge 
+# Space Edge
+
 <br>
 <img id= "logo" width="400px" src= "https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/docs/docs/assets/imgs/brasao.jpg">
+</center>
 
-## A história da facção
+## 1. A história da facção
+
 Nas profundezas imensuráveis do universo de Calamum Caerellium, entre as danças silenciosas das estrelas e os sussurros dos mundos antigos, nasce a facção Space Edge. Sua origem, tecida nas lendas e nos atos heroicos dos antepassados do capitão Zephyr Solaris, estabelece o alicerce para uma nova era de exploradores, unidos sob a bandeira da descoberta, do conhecimento e da unificação. Zephyr, destinado desde a juventude à grandeza e à liderança, foi forjado nas histórias de coragem que permeavam sua linhagem e refinado pela erudição da prestigiosa Academia Estelar de Exploradores. Com a visão clara e o coração ardente pela exploração, ele assumiu a capitania com um propósito: recrutar os espíritos mais brilhantes e aventureiros de Caerellum para a gloriosa missão da Space Edge.
 
 O primeiro a se juntar à constelação de talentos foi Aurelium Volt, cuja alma, embora assombrada pelas cicatrizes da guerra e da perda, encontrou em Zephyr uma promessa de paz e redenção. Sua história de coragem e sacrifício ecoava as qualidades que Zephyr buscava para sua equipe, marcando o início de uma nova jornada para o guerreiro marcado pelo passado. Não muito tempo depois, o destino teceu Lucydas "O Apotaktikós" no tapeçaria da Space Edge. Descoberto em meio às ruínas de um mundo esquecido, Lucydas, com sua sabedoria antiga e sua sede de paz, apresentava um contraponto à natureza guerreira de Aurelium, embora o passado sombrio entre eles lançasse sombras de tensão e desconfiança.
@@ -15,10 +18,14 @@ Lhoyd "O Duque" Pickard, com sua pele de um azul celeste profundo e sua mente ex
 
 Sob a égide de Zephyr Solaris, a Space Edge navegou pelas correntes estelares, cada membro contribuindo com sua própria luz para a missão coletiva. As relações entre eles, complexas e multifacetadas como o próprio universo, ressoavam com os ecos das histórias pessoais, das batalhas lutadas e das esperanças compartilhadas. A tensão entre Aurelium e Lucydas, a amizade universal com WX-78 e o vínculo intelectual entre Lucydas e Lhoyd eram apenas alguns dos fios que teciam o tecido da equipe. Sob a liderança astuta e inspiradora de Zephyr, a Space Edge não era apenas um grupo de exploradores; era um microcosmo da própria galáxia, um testemunho do poder da união, da curiosidade e da determinação em enfrentar o desconhecido, provando que mesmo nas sombras mais escuras do espaço, a luz da cooperação e da compreensão mútua pode brilhar intensamente.
 
+## 2. Membros da Space Edge
 
-## Membros da Space Edge
+<center>
 
-### Capitão Zephyr Solares</center> 
+### Capitão Zephyr Solares
+
+</center>
+
 <br>
 
 <div style="overflow: auto;">
@@ -74,10 +81,12 @@ tornou-se um farol de esperança, uma prova de que, mesmo nos confins mais
 sombrios do universo, a união e o propósito compartilhado podem acender luzes de
 mudança e esperança.
 
-------- 
-<center> 
+---
 
-### Aurelium Volt </center> 
+<center>
+
+### Aurelium Volt </center>
+
 <br>
 
 <div style="overflow: auto;">
@@ -101,12 +110,12 @@ orfanato Ozymandias e criou um vínculo muito forte com seus irmãos do orfanato
 orfanato era custeado pela empresa Celestia para que fossem treinados desde cedo
 para serem os militares perfeitos.
 
-Aurelium cresceu apegado ao seu planeta e aos seus moradores, e a ideia de que 
+Aurelium cresceu apegado ao seu planeta e aos seus moradores, e a ideia de que
 enquanto ele e seus irmãos servissem a Celestia o
 planeta fosse protegido de ser explorado por Slitherium o motivava a ser o melhor
 entre os melhores, sonhava também em conhecer outros planetas já que sempre foi
 fissurado em saber mais sobre outros planetas e seus diferentes mistérios e tesouros
-escondidos. 
+escondidos.
 
 Aos 20 anos Aurelium e seus irmãos partiram de Vivarium com seu
 treinamento concluído para poder realizar missões em nome de Celestia e ganharam
@@ -127,7 +136,7 @@ o acordo de não deixar Vivarium ser explorado, o esquadrão sabia muito sobre a
 organização e suas táticas e poderiam buscar vingança. Nessa emboscada o
 esquadrão foi atacado revidando, após uma batalha sanguinolenta apenas Aurelium
 sobrevive sem sua perna esquerda caída ao lado dos corpos de todos os seus
-irmãos. 
+irmãos.
 
 Ele consegue fugir e volta para Vivarium e se depara com um planeta
 destroçado pela exploração. Aurelium se isola em angústia e sofrimento por ter
@@ -136,12 +145,11 @@ dia um condecorado general de guerra no outro um velho caolho que só consegue
 andar com uma bengala de madeira Aurelium recebe uma visita que mudaria o
 destino de sua vida e que possibilitaria se vingar por seus irmãos.
 
-
-
 ---
-<center> 
 
-### Lucydas o Apotaktikós 
+<center>
+
+### Lucydas o Apotaktikós
 
 </center>
 
@@ -196,9 +204,10 @@ cruzavam novamente, talvez não por acidente, mas por uma trama do destino, teci
 com os fios da guerra e da esperança.
 
 ---
-<center> 
 
-### Android WX-78 
+<center>
+
+### Android WX-78
 
 </center>
 
@@ -251,7 +260,8 @@ exploração, na esperança de que um dia as histórias perdidas de WX-78 pudess
 ser desenterradas e contadas mais uma vez.
 
 ---
-<center> 
+
+<center>
 
 ### Lex Lester Lexhorn
 
@@ -274,7 +284,6 @@ ser desenterradas e contadas mais uma vez.
 </div>
 
 #### História:
-<br>
 
 No início do século 30 d.c. os cientistas, pesquisadores e médicos habitantes do
 planeta Uranus-6sext, que fica a 6 sextilhões de anos-luz de Uranus, desenvolveram
@@ -303,6 +312,7 @@ só sua família, mas também a maior riqueza de seu planeta.
 <center>
 
 ### Lorde Lhoyd Pickard
+
 </center>
 
 <br>
@@ -322,7 +332,6 @@ só sua família, mas também a maior riqueza de seu planeta.
 </div>
 
 #### História:
-<br>
 
 Lhoyd Pickard, descendente da antiga linhagem de nobres do planeta Quantum 6,
 viu sua vida desmoronar quando a entidade catastrófica conhecida como Slitherium
@@ -350,9 +359,8 @@ conhecimentos antigos. Com esses novos dons, Lhoyd viu uma oportunidade não
 apenas de sobreviver, mas de florescer no vasto e misterioso universo.
 Assim, transformado e revigorado, Lhoyd continuou sua busca não apenas por um
 lar, mas por um propósito maior.
- 
- ---
 
+---
 
 <center>
 
@@ -377,7 +385,7 @@ lar, mas por um propósito maior.
 </div>
 
 #### História:
-<br>
+
 Ethan Drake cresceu sob o céu estrelado de Vesser, onde as histórias de seu pai
 sobre os confins do espaço despertaram uma curiosidade inexplicável dentro dele.
 Seu pai, um mercador nômade com um olho afiado para a tecnologia perdida, guiou
@@ -396,8 +404,7 @@ Space Edge. Intrigado pelas histórias de suas façanhas e conquistas
 extraordinárias, Ethan soube instantaneamente que seu destino estava entrelaçado
 com o deles.
 
- ---
-## Historico de revisão
+## 3. Historico de revisão
 
 |    Data    | Versão |              Descrição              |                      Autor(es)                      |
 | :--------: | :----: | :---------------------------------: | :-------------------------------------------------: |

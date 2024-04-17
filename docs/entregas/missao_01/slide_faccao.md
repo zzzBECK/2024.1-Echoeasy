@@ -1,7 +1,6 @@
 # Slide apresentando Facção
-## Slide apresentado em 26/04/2024 em sala de aula
 
-
+## 1. Slide apresentado em 26/04/2024 em sala de aula
 
 ![Apresentação de protótipo 1](../../assets/slide%20Faccao/slide01.jpg)
 ![Apresentação de protótipo 2](../../assets/slide%20Faccao/slide02.jpg)
@@ -33,9 +32,8 @@
 ![Apresentação de protótipo 28](../../assets/slide%20Faccao/slide28.jpg)
 ![Apresentação de protótipo 29](../../assets/slide%20Faccao/slide29.jpg)
 
-## Historico de revisão
+## 2. Historico de revisão
 
 |    Data    | Versão |              Descrição              |                      Autor(es)                      |
 | :--------: | :----: | :---------------------------------: | :-------------------------------------------------: |
 | 17/04/2024 | `1.0`  | Criação e Estruturação do documento | [Pedro Lucas Dourado](https://github.com/lucasdray) |
-

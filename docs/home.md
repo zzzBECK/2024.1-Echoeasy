@@ -5,16 +5,13 @@
 
 </center>
 
-## Introdução
+## 1. Introdução
 
 O projeto Echoeasy é um projeto desenvolvido pela equipe "Space Edge" durante a disciplina de Requisitos de Software durante o semestre 2024.2. A ideia do projeto é criar um aplicativo mobile que agrupa os conteúdos autorais da nossa cliente facilitando o diagnóstico por meio do ecocardiograma das mais diversas doenças cardiovasculares. Mais informações disponíveis na [Visão Geral do Produto](./visao_geral_do_produto.md).
 
-## Equipe
+## 2. Equipe
 
 Nossa equipe de trabalho é composta pelos estudantes de Engenharia de Software da Universidade de Brasília presentes na Tabela 1.
-
-
-
 
 |                                                               Foto                                                               |                                Nome                                 |                                                                               Personagem                                                                                |        Codenome         |
 | :------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------: |
@@ -26,12 +23,7 @@ Nossa equipe de trabalho é composta pelos estudantes de Engenharia de Software 
 |      [<img style="border-radius: 50%;" width="100px" src="https://github.com/lucasdray.png">](https://github.com/lucasdray)      |     [Pedro Lucas Dourado Santos](https://github.com/lucasdray)      | <img style="border-radius: 50%;" width="100px" src="https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/docs/docs/assets/imgs/Aurelium%20Explorador.jpeg"> |      Aurelium Volt      |
 |        [<img style="border-radius: 50%;" width="100px" src="https://github.com/TalesRG.png">](https://github.com/TalesRG)        |       [Tales Rodrigues Gonçalves](https://github.com/TalesRG)       |     <img style="border-radius: 50%;" width="100px" src="https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/docs/docs/assets/imgs/Lhoyd-Pickard.png">      |      Lhoyd Pickard      |
 
-
-
-
-
-
-## Historico de revisão
+## 3. Historico de revisão
 
 |    Data    | Versão |              Descrição              |                      Autor(es)                      |
 | :--------: | :----: | :---------------------------------: | :-------------------------------------------------: |
