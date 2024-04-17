@@ -1,5 +1,6 @@
 - [Página Inicial](./home)
 
+- [Facção](./faccao.md)
 - [Visão Geral do Produto](./visao_geral_do_produto.md)
 - [Visão Geral do Projeto](./visao_geral_do_projeto.md)
 - [Processo de Desenvolvimento](./processo_de_desenvolvimento.md)

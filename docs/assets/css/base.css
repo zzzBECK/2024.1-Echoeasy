@@ -47,3 +47,11 @@
   border: var(--cover-button-border);
   border-radius: var(--cover-button-border-radius);
 }
+
+#img-personagens{
+  width: 300px;
+  float: left;
+  margin-right: 30px;
+
+
+}
