@@ -287,3 +287,9 @@
    1. B
    1. A
    1. D
+
+   |    Data    | Versão |              Descrição              |                      Autor(es)                      |
+| :--------: | :----: | :---------------------------------: | :-------------------------------------------------: |
+| 11/04/2024 | `0.1`  | Criação e Estruturação do documento | [Leandro Almeida](https://github.com/LeanArs) |
+| 16/04/2024 | `0.2`  | Documentação no Git Pages | [Leandro Almeida](https://github.com/LeanArs) |
+| 17/04/2024 | `0.3`  | Inserção do gabarito e histórico de revisão | [Leandro Almeida](https://github.com/LeanArs) |

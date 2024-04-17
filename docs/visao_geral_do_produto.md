@@ -15,7 +15,7 @@ científicas em tempo real.
 
 ## 2. Declaração de Posição do Produto
 
-#### 1. Qual é o produto que você se propõe a desenvolver??
+#### 1. Qual é o produto que você se propõe a desenvolver?
 
 Um Aplicativo mobile que é uma biblioteca autoral de resumo de diretrizes médicas e artigos cientificos relevantes na área de ecocardiografia (manuais de condutas ou rotinas), de rápida consulta e atualizados constantemente, com fluxos de algoritmos que facilitam o diagnóstico.
 
