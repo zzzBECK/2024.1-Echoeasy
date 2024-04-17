@@ -146,3 +146,8 @@ Sob a égide de Zephyr Solaris, a Space Edge navegou pelas correntes estelares, 
   </p>
 </div>
 
+## Historico de revisão
+
+|    Data    | Versão |              Descrição              |                      Autor(es)                      |
+| :--------: | :----: | :---------------------------------: | :-------------------------------------------------: |
+| 17/04/2024 | `1.0`  | Criação e Estruturação do documento | [Pedro Lucas Dourado](https://github.com/lucasdray) |
