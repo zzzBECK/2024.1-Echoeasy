@@ -249,7 +249,7 @@
    - C) A coragem limita-se à disposição da equipe em trabalhar com prazos apertados.
    - D) A coragem envolve a ação efetiva diante do medo, como a coragem de falar verdades, sejam agradáveis ou desagradáveis.
 
-## Gabarito
+## 5. Gabarito
 
 ### Seção 1
 
@@ -292,6 +292,8 @@
 1.  B
 1.  A
 1.  D
+
+## 6. Historico de revisão
 
 |    Data    | Versão |                  Descrição                  |                   Autor(es)                   |
 | :--------: | :----: | :-----------------------------------------: | :-------------------------------------------: |

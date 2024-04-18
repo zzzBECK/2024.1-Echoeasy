@@ -70,6 +70,6 @@ Tempo: Caso aja atrasos que influenciem no desenvolvimento do projeto, precisare
 
 |    Data    | Versão |                 Alteração                 |                    Autor                    |
 | :--------: | :----: | :---------------------------------------: | :-----------------------------------------: |
-| 16/04/2024 | `1.0`  |           Criação do documento            |   [Alexandre](https://github.com/zzzBECK)   |
-| 17/04/2024 | `1.1`  | Adição gerenciamento de riscos (tópico 4) | [Pedro Lucas](https://github.com/lucasdray) |
-| 17/04/2024 | `1.2`  |           Adição tópicos 2,3,5            |
+| 16/04/2024 | `0.1`  |           Criação do documento            |   [Alexandre](https://github.com/zzzBECK)   |
+| 17/04/2024 | `0.2`  | Adição gerenciamento de riscos (tópico 4) | [Pedro Lucas](https://github.com/lucasdray) |
+| 17/04/2024 | `0.3`  |           Adição tópicos 2,3,5            |

@@ -27,5 +27,5 @@ Nossa equipe de trabalho é composta pelos estudantes de Engenharia de Software 
 
 |    Data    | Versão |              Descrição              |                      Autor(es)                      |
 | :--------: | :----: | :---------------------------------: | :-------------------------------------------------: |
-| 16/04/2024 | `1.0`  | Criação e Estruturação do documento | [Pedro Lucas Dourado](https://github.com/lucasdray) |
-| 17/04/2024 | `1.1`  |         Adição personagens          | [Pedro Lucas Dourado](https://github.com/lucasdray) |
+| 16/04/2024 | `0.1`  | Criação e Estruturação do documento | [Pedro Lucas Dourado](https://github.com/lucasdray) |
+| 17/04/2024 | `0.2`  |         Adição personagens          | [Pedro Lucas Dourado](https://github.com/lucasdray) |
