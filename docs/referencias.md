@@ -5,3 +5,10 @@ Leffingwell, D., Widrig, D., Managing Software Requirements: A Use Case Approach
 Cockburn, A., Escrevendo Casos de Uso Eficazes: Um Guia Prático para Desenvolvedores de Software, 1a. Edição, Bookman Companhia, 2005.
 
 Ambler, S., Agile Modeling, Wiley, 2002.
+
+## 5. Histórico de revisão
+
+|    Data    | Versão |      Alteração       |                                                                                                                                                    Autor                                                                                                                                                     |
+| :--------: | :----: | :------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| 17/04/2024 | `0.1`  | Criação do documento | [Alexandre](https://github.com/zzzBECK), [Arthur](https://github.com/arthur-heleno), [Leandro](https://github.com/LeanArs), [Lucas](https://github.com/LucasGSAntunes), [Pedro Henrique](https://github.com/PedroHhenriq), [Pedro Lucas](https://github.com/lucasdray) e [Tales](https://github.com/TalesRG) |
+
