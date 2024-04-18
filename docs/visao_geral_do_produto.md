@@ -49,13 +49,14 @@ O objetivo é disseminar o conhecimento de forma abrangente, atualizado e práti
 
 ## 4. Tecnologias a Serem Utilizadas
 
-- Frontend: (a definir)
-- Backend: (a definir)
-- Persistência de dados: (a definir)
-- Testes e CI: (a definir)
+- Frontend: React Native
+- Backend: Nest.js
+- Deploy: (a definir)
+- Persistência de dados: MongoDB
+- Testes e CI: Jest, GitActions
 - Documentação: GitHub Pages, Github, Docsify
 - APIs: (a definir)
-- Ferramentas de IDE: VSCode
+- Ferramentas: VSCode, Docker, Postman, Insomnia
 
 ## 5. Histórico de revisão
 

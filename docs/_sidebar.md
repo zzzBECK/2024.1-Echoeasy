@@ -10,3 +10,7 @@
     - [Slide Facção](./entregas/missao_01/slide_faccao.md)
     - [Processos](./entregas/missao_01/processosESW.md)
     - [Questionário](./entregas/missao_01/questionario.md)
+- [Referências Bibliográficas](./referencias.md)
+- [Anexos](#)
+  - [Vídeos](#)
+    - [Primeira Reunião com Cliente](./entregas/missao_01/video.md)
