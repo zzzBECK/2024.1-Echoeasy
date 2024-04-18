@@ -3,6 +3,7 @@
 Repositório de projeto da disciplina de REQ-T2.
 
 <center>
+
 <img id= "logo" width="400px" src= "https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/gitpages/docs/assets/imgs/brasao.jpg">
 
 <span class="fonte-titulo">Space Edge <br> Echoeasy </span>
