@@ -37,12 +37,12 @@
 
 ## 3. Matriz de Comunicação
 
-|                  Descrição                  |      Área/Envolvidos       | Periodicidade |                    Produtos Gerados                    |
-| :-----------------------------------------: | :------------------------: | :-----------: | :----------------------------------------------------: |
-| Acompanhamento das Atividades em Andamento  |           Equipe           |    Semanal    |                     Ata de reunião                     |
-| Acompanhamento dos Riscos e Ações Pendentes |           Equipe           |    Diário     |                    Issues (GitHub)                     |
-|                Planejamento                 |     Equipe, Professor      |   Quinzenal   |                 Documentação da Sprint                 |
-|                Retrospectiva                | Equipe, Professor, Cliente |   Quinzenal   | Documentação de Sprint Review e Relatório de Progresso |
+|                  Descrição                  |      Área/Envolvidos       | Periodicidade |                    Produtos Gerados                    | Local de Disponibilização |
+| :-----------------------------------------: | :------------------------: | :-----------: | :----------------------------------------------------: | :---------------------------------: |
+| Acompanhamento das Atividades em Andamento  |           Equipe           |    Semanal    |                     Ata de reunião                     | |
+| Acompanhamento dos Riscos e Ações Pendentes |           Equipe           |    Diário     |                    Issues                      | GitHub |
+|                Planejamento                 |     Equipe, Professor      |   Quinzenal   |                 Documentação da Sprint                 |  |
+|                Retrospectiva                | Equipe, Professor, Cliente |   Quinzenal   | Documentação de Sprint Review e Relatório de Progresso | |
 
 ## 4. Gerenciamento de Riscos
 
