@@ -36,4 +36,4 @@
 
 |    Data    | Versão |              Descrição              |                      Autor(es)                      |
 | :--------: | :----: | :---------------------------------: | :-------------------------------------------------: |
-| 17/04/2024 | `1.0`  | Criação e Estruturação do documento | [Pedro Lucas Dourado](https://github.com/lucasdray) |
+| 17/04/2024 | `0.1`  | Criação e Estruturação do documento | [Pedro Lucas Dourado](https://github.com/lucasdray) |

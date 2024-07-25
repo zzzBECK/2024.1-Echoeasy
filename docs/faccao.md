@@ -3,7 +3,7 @@
 # Space Edge
 
 <br>
-<img id= "logo" width="400px" src= "https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/docs/docs/assets/imgs/brasao.jpg">
+<img id= "logo" width="400px" src= "https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/gitpages/docs/assets/imgs/brasao.jpg">
 </center>
 
 ## 1. A história da facção
@@ -29,7 +29,7 @@ Sob a égide de Zephyr Solaris, a Space Edge navegou pelas correntes estelares, 
 <br>
 
 <div style="overflow: auto;">
-  <img style="float: left; margin-right: 30px;" src="https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/docs/docs/assets/imgs/ZephyrSolaris.png" width="300px">
+  <img style="float: left; margin-right: 30px;" src="https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/gitpages/docs/assets/imgs/ZephyrSolaris.png" width="300px">
   
   <p>1. Liderença Visionária<br>
      2. Espírito Inspirador<br>
@@ -90,7 +90,7 @@ mudança e esperança.
 <br>
 
 <div style="overflow: auto;">
-  <img id="img-personagens" src="https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/docs/docs/assets/imgs/Aurelium Explorador.jpeg" >
+  <img id="img-personagens" src="https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/gitpages/docs/assets/imgs/Aurelium Explorador.jpeg" >
   
   <p>1. Resiliência inabalável<br>
      2. Competências estratégicas e táticas<br>
@@ -156,7 +156,7 @@ destino de sua vida e que possibilitaria se vingar por seus irmãos.
 <br>
 
 <div style="overflow: auto;">
-  <img id="img-personagens" src="https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/docs/docs/assets/imgs/Lucydas.jpg" >
+  <img id="img-personagens" src="https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/gitpages/docs/assets/imgs/Lucydas.jpg" >
   
   <p>1. Mestre em linguagens e escritas antigas <br>
      2. Buscador da paz e da unificação <br>
@@ -214,7 +214,7 @@ com os fios da guerra e da esperança.
 <br>
 
 <div style="overflow: auto;">
-  <img id="img-personagens" src="https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/docs/docs/assets/imgs/WX-78.jpeg" >
+  <img id="img-personagens" src="https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/gitpages/docs/assets/imgs/WX-78.jpeg" >
   
   <p>1. Arqueólogo robótico <br>
      2. Programado para explorar e descobrir <br>
@@ -270,7 +270,7 @@ ser desenterradas e contadas mais uma vez.
 <br>
 
 <div style="overflow: auto;">
-  <img id="img-personagens" src="https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/docs/docs/assets/imgs/LesterLexhorn.jpeg" >
+  <img id="img-personagens" src="https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/gitpages/docs/assets/imgs/LesterLexhorn.jpeg" >
   
   <p>1. Sobrevivente da invasão da SparkTech em Uranus <br>
      2. Perda trágica da família durante a invasão <br>
@@ -318,7 +318,7 @@ só sua família, mas também a maior riqueza de seu planeta.
 <br>
 
 <div style="overflow: auto;">
-  <img id="img-personagens" src="https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/docs/docs/assets/imgs/Lhoyd-Pickard.png" >
+  <img id="img-personagens" src="https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/gitpages/docs/assets/imgs/Lhoyd-Pickard.png" >
   
   <p>1. Nobre desterrado <br>
      2. Pele azul celeste pós transformação <br>
@@ -371,7 +371,7 @@ lar, mas por um propósito maior.
 <br>
 
 <div style="overflow: auto;">
-  <img id="img-personagens" src="https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/docs/docs/assets/imgs/Ethan Drake.jfif" >
+  <img id="img-personagens" src="https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/gitpages/docs/assets/imgs/Ethan Drake.jfif" >
   
   <p>1. Explorador nato <br>
      2. Vagante do espaço <br>
@@ -408,4 +408,4 @@ com o deles.
 
 |    Data    | Versão |              Descrição              |                      Autor(es)                      |
 | :--------: | :----: | :---------------------------------: | :-------------------------------------------------: |
-| 17/04/2024 | `1.0`  | Criação e Estruturação do documento | [Pedro Lucas Dourado](https://github.com/lucasdray) |
+| 17/04/2024 | `0.1`  | Criação e Estruturação do documento | [Pedro Lucas Dourado](https://github.com/lucasdray) |

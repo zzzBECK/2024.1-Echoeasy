@@ -10,7 +10,7 @@ os quais tem dificuldade em realizar alguns diagnósticos com acurácia** e difi
 científicas em tempo real.
 
 <center>
-    <img id= "ishikawa" src= "https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/docs/docs/assets/imgs/Diagrama de Ishikawa.png">
+    <img id= "ishikawa" src= "https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/gitpages/docs/assets/imgs/Diagrama de Ishikawa.png">
 </center>
 
 ## 2. Declaração de Posição do Produto
@@ -49,13 +49,14 @@ O objetivo é disseminar o conhecimento de forma abrangente, atualizado e práti
 
 ## 4. Tecnologias a Serem Utilizadas
 
-- Frontend: (a definir)
-- Backend: (a definir)
-- Persistência de dados: (a definir)
-- Testes e CI: (a definir)
+- Frontend: React Native
+- Backend: Nest.js
+- Deploy: (a definir)
+- Persistência de dados: MongoDB
+- Testes e CI: Jest, GitActions
 - Documentação: GitHub Pages, Github, Docsify
 - APIs: (a definir)
-- Ferramentas de IDE: VSCode
+- Ferramentas: VSCode, Docker, Postman, Insomnia
 
 ## 5. Histórico de revisão
 

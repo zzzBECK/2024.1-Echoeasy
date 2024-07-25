@@ -9,7 +9,7 @@ Após análise em equipe, guiados pelo Framework de Gupta, escolhemos:
 - **Processo**: XP
 
 <center>
-    <img id= "gupta" src= "https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/docs/docs/assets/imgs/Gupta.png">
+    <img id= "gupta" src= "https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/gitpages/docs/assets/imgs/Gupta.png">
 </center>
 
 ## 2. Fluxo de Trabalho
@@ -18,7 +18,7 @@ Os processos de planejamento da equipe são suportadas pelo Scrum, com reuniões
 Com relação as demais [atividades](#4-atividades) faz-se presente o GitHub, centro operacional do projeto, nesta ferramenta é disponibilizada toda a documentação de projeto, desde a declaração do problema até a solução codificada. Além deste também utilizaremos o miro para método de brainstorm, Figma para o método de prototipagem e USM para priorização.
 
 <center>
-    <img id= "fluxo" src= "https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/docs/docs/assets/imgs/Fluxo de Trabalho.png">
+    <img id= "fluxo" src= "https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/gitpages/docs/assets/imgs/Fluxo de Trabalho.png">
 </center>
 
 ## 3. Processo de ER
@@ -26,7 +26,7 @@ Com relação as demais [atividades](#4-atividades) faz-se presente o GitHub, ce
 O processo de Engenharia de Requisitos, definido com auxílio do algoritmo de escolha apresentado pelo [material de apoio do professor George](), segue como base o mesmo contexto apresentado anteriormente. Como características principais a se destacar estão o alvo que é um cliente específico, propósito exploratório de requisitos e tempo seccionado em sprints com tempo definido, o participativo é o que melhor se encaixa as nuances do projeto prosposto.
 
 <center>
-    <img id= "processo" width="100%" src= "https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/docs/docs/assets/imgs/Processo de ER.png">
+    <img id= "processo" width="100%" src= "https://raw.githubusercontent.com/mdsreq-fga-unb/2024.1-Echoeasy/gitpages/docs/assets/imgs/Processo de ER.png">
 </center>
 
 ## 4. Atividades
