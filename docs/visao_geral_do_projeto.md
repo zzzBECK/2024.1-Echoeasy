@@ -39,10 +39,10 @@
 
 |                  Descrição                  |      Área/Envolvidos       | Periodicidade |                    Produtos Gerados                    | Local de Disponibilização |
 | :-----------------------------------------: | :------------------------: | :-----------: | :----------------------------------------------------: | :---------------------------------: |
-| Acompanhamento das Atividades em Andamento  |           Equipe           |    Semanal    |                     Ata de reunião                     | |
+| Acompanhamento das Atividades em Andamento  |           Equipe           |    Semanal    |                     Ata de reunião                     | GitHub |
 | Acompanhamento dos Riscos e Ações Pendentes |           Equipe           |    Diário     |                    Issues                      | GitHub |
-|                Planejamento                 |     Equipe, Professor      |   Quinzenal   |                 Documentação da Sprint                 |  |
-|                Retrospectiva                | Equipe, Professor, Cliente |   Quinzenal   | Documentação de Sprint Review e Relatório de Progresso | |
+|                Planejamento                 |     Equipe, Professor      |   Quinzenal   |                 Documentação de Planejamento da Sprint                 | GitHub |
+|                Retrospectiva                | Equipe, Professor, Cliente |   Quinzenal   | Documentação de Sprint Review e Relatório de Progresso | GitHub |
 
 ## 4. Gerenciamento de Riscos
 
