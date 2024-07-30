@@ -48,10 +48,12 @@
   border-radius: var(--cover-button-border-radius);
 }
 
-#img-personagens{
+#img-personagens {
   width: 300px;
   float: left;
   margin-right: 30px;
-
-
+}
+.markdown-section {
+  padding: 0;
+  max-width: 80%;
 }

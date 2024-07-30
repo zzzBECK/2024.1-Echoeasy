@@ -1,27 +1,24 @@
 # VISÃO GERAL DO PROJETO
 
-## 1. Organização do Projeto
+# 1. Organização e Atribuições da Equipe XP
 
-### Organição da equipe XP
+A tabela a seguir apresenta uma visão integrada da organização e atribuições da equipe, detalhando os papéis e responsabilidades relevantes para cada membro:
 
-|         Papel         |                                                 Atribuições                                                 |               Responsável               |  Participantes   |
-| :-------------------: | :---------------------------------------------------------------------------------------------------------: | :-------------------------------------: | :--------------: |
-|     Desenvolvedor     |                    Codificar o produto, codificar testes unitários, realizar refatoração                    | [Alexandre](https://github.com/zzzBECK) |      Todos       |
-|    Dono do Produto    |             Atualizar o escopo do produto, organizar o escopo das sprints, validar as entregas              | [Alexandre](https://github.com/zzzBECK) |  Adenalva Beck   |
-| Analista de Qualidade | Garantir a qualidade do produto, garantir o cumprimento do conceito de pronto, realizar inspeções de código |   [Tales](https://github.com/TalesRG)   |      _---_       |
-|        Cliente        |   Define os requisitos do sistema fornecendo direção e feedback contínuo para a equipe de desenvolvimento   |              Adenalva Beck              | George Marsicano |
-|         Coach         |               Oferece orientação e suporte para a equipe na implementação das práticas do XP                |            George Marsicano             |  Pedro Henrique  |
+### Tabela de Organização e Atribuições da Equipe XP
 
-### Atribuições da Equipe
-
-|           Papel           |                                                                                              Atribuições                                                                                               |                                   Responsável                                   |
-| :-----------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------: |
-|  Elicitação e Descoberta  |                         Identificar as questões relacionadas ao projeto, problemática, interessados, desejos e expectativas, além de possibilidades ou restrições do produto.                          |                       [Tales](https://github.com/TalesRG)                       |
-|    Análise e Consenso     |                  Analisar os requisitos em sua forma "bruta", refinar, retirar e aperfeiçoar os requisitos,além de confirmar o entendimento comum com todos os envolvidos no projeto.                  |                   [Pedro Lucas](https://github.com/lucasdray)                   |
-|        Declaração         |                                                                Declarar e documentar os requisitos e comunicá-los entre os envolvidos.                                                                 |                [Pedro Henrique](https://github.com/PedroHhenriq)                |
-|       Representação       |                                                                 Representação dos Requisitos em modelos e/ou visualizações do produto.                                                                 |                   [Lucas](https://github.com/LucasGSAntunes)                    |
-|  Verificação e Validação  | Validação: É a confirmação (ou não) de que os requisitos definem a solução correta conforme combinado. Verificação: É a confirmação (ou não) de que os requisitos foram realizados da maneira correta. | [Alexandre](https://github.com/zzzBECK) e [Leandro](https://github.com/LeanArs) |
-| Organização e Atualização |                                                Manter o conjunto dos requisitos do produto, adequadamente organizados e atualizados ao longo do tempo.                                                 |                   [Arthur](https://github.com/arthur-heleno)                    |
+|           Papel           |                         Atribuições Principais                          |                 Responsável                 |      Participantes      |           Práticas XP Relacionadas            |                           Como as Práticas Suportam as Atribuições                           |
+| :-----------------------: | :---------------------------------------------------------------------: | :-----------------------------------------: | :---------------------: | :-------------------------------------------: | :------------------------------------------------------------------------------------------: |
+|       Desenvolvedor       |       Codificar o produto, testes unitários, realizar refatoração       |   [Alexandre](https://github.com/zzzBECK)   |          Todos          |  Programação em pares, Refatoração contínua   |  Facilita a colaboração e melhoria contínua do código, integrando soluções e conhecimentos.  |
+|      Dono do Produto      |            Atualizar e organizar o escopo, validar entregas             |   [Alexandre](https://github.com/zzzBECK)   |      Adenalva Beck      |    Planejamento do jogo, Reuniões diárias     |   Mantém o foco do projeto alinhado com as expectativas do cliente e objetivos do negócio.   |
+|   Analista de Qualidade   |           Garantir a qualidade, realizar inspeções de código            |     [Tales](https://github.com/TalesRG)     |          Todos          |     Testes contínuos, Integração contínua     |      Assegura que o produto atenda aos padrões de qualidade e funcionalidade esperados.      |
+|          Cliente          |                 Definir requisitos, direção e feedback                  |                Adenalva Beck                | Professor da disciplina |  Reuniões de feedback, Planejamento do jogo   | Oferece direcionamento claro e feedback contínuo para orientar o desenvolvimento do produto. |
+|           Coach           |                  Orientar a equipe nas práticas do XP                   |           Professor da disciplina           |     Pedro Henrique      | Mentoria, Coaching, Reuniões de retrospectiva |    Ajuda a equipe a melhorar suas práticas e resolve problemas de processo e colaboração.    |
+|  Elicitação e Descoberta  | Identificar questões, interessados, desejos, expectativas, e restrições |     [Tales](https://github.com/TalesRG)     |          Todos          |         Elicitação, Análise de risco          |  Identifica proativamente os desafios e oportunidades, ajustando o projeto para adequá-lo.   |
+|    Análise e Consenso     |       Analisar e refinar requisitos, confirmar entendimento comum       | [Pedro Lucas](https://github.com/lucasdray) |          Todos          | Planejamento do jogo, Revisões de requisitos  |  Garante que todos na equipe entendam e concordem com os requisitos antes da implementação.  |
+|        Declaração         |               Declarar, documentar e comunicar requisitos               |    [Leandro](https://github.com/LeanArs)    |          Todos          |        Documentação, Comunicação ativa        |         Assegura que os requisitos são claros e acessíveis para todos os envolvidos.         |
+|       Representação       |             Representar requisitos em modelos/visualizações             | [Lucas](https://github.com/LucasGSAntunes)  |          Todos          |       Modelagem, Criação de protótipos        |       Facilita a visualização e compreensão do produto final desde as fases iniciais.        |
+|  Verificação e Validação  |   Confirmar se os requisitos definem e foram realizados corretamente    |   [Alexandre](https://github.com/zzzBECK)   |          Todos          |     Testes contínuos, Revisões de código      |      Garante que o produto final esteja conforme especificado e funcione como esperado.      |
+| Organização e Atualização |              Manter e atualizar o conjunto dos requisitos               |     [Tales](https://github.com/TalesRG)     |          Todos          |    Gestão de mudanças, Controle de versões    |   Mantém a documentação e requisitos atualizados e organizados ao longo do ciclo de vida.    |
 
 ## 2. Planejamento das Fases e/ou Iterações do Projeto
 
@@ -38,11 +35,11 @@
 ## 3. Matriz de Comunicação
 
 |                  Descrição                  |      Área/Envolvidos       | Periodicidade |                    Produtos Gerados                    | Local de Disponibilização |
-| :-----------------------------------------: | :------------------------: | :-----------: | :----------------------------------------------------: | :---------------------------------: |
-| Acompanhamento das Atividades em Andamento  |           Equipe           |    Semanal    |                     Ata de reunião                     | GitHub |
-| Acompanhamento dos Riscos e Ações Pendentes |           Equipe           |    Diário     |                    Issues                      | GitHub |
-|                Planejamento                 |     Equipe, Professor      |   Quinzenal   |                 Documentação de Planejamento da Sprint                 | GitHub |
-|                Retrospectiva                | Equipe, Professor, Cliente |   Quinzenal   | Documentação de Sprint Review e Relatório de Progresso | GitHub |
+| :-----------------------------------------: | :------------------------: | :-----------: | :----------------------------------------------------: | :-----------------------: |
+| Acompanhamento das Atividades em Andamento  |           Equipe           |    Semanal    |                     Ata de reunião                     |          GitHub           |
+| Acompanhamento dos Riscos e Ações Pendentes |           Equipe           |    Diário     |                         Issues                         |          GitHub           |
+|                Planejamento                 |     Equipe, Professor      |   Quinzenal   |         Documentação de Planejamento da Sprint         |          GitHub           |
+|                Retrospectiva                | Equipe, Professor, Cliente |   Quinzenal   | Documentação de Sprint Review e Relatório de Progresso |          GitHub           |
 
 ## 4. Gerenciamento de Riscos
 
@@ -68,8 +65,8 @@ Tempo: Caso aja atrasos que influenciem no desenvolvimento do projeto, precisare
 
 ## 6. Histórico de revisão
 
-|    Data    | Versão |                 Alteração                 |                    Autor                    |
-| :--------: | :----: | :---------------------------------------: | :-----------------------------------------: |
-| 16/04/2024 | `0.1`  |           Criação do documento            |   [Alexandre](https://github.com/zzzBECK)   |
-| 17/04/2024 | `0.2`  | Adição gerenciamento de riscos (tópico 4) | [Pedro Lucas](https://github.com/lucasdray) |
-| 17/04/2024 | `0.3`  |           Adição tópicos 2,3,5            |[Alexandre](https://github.com/zzzBECK), [Arthur](https://github.com/arthur-heleno), [Leandro](https://github.com/LeanArs), [Lucas](https://github.com/LucasGSAntunes), [Pedro Henrique](https://github.com/PedroHhenriq), [Pedro Lucas](https://github.com/lucasdray) e [Tales](https://github.com/TalesRG)|
+|    Data    | Versão |                 Alteração                 |                                                                                                                                                    Autor                                                                                                                                                     |
+| :--------: | :----: | :---------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| 16/04/2024 | `0.1`  |           Criação do documento            |                                                                                                                                   [Alexandre](https://github.com/zzzBECK)                                                                                                                                    |
+| 17/04/2024 | `0.2`  | Adição gerenciamento de riscos (tópico 4) |                                                                                                                                 [Pedro Lucas](https://github.com/lucasdray)                                                                                                                                  |
+| 17/04/2024 | `0.3`  |           Adição tópicos 2,3,5            | [Alexandre](https://github.com/zzzBECK), [Arthur](https://github.com/arthur-heleno), [Leandro](https://github.com/LeanArs), [Lucas](https://github.com/LucasGSAntunes), [Pedro Henrique](https://github.com/PedroHhenriq), [Pedro Lucas](https://github.com/lucasdray) e [Tales](https://github.com/TalesRG) |
