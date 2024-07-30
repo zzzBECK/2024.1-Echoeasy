@@ -15,6 +15,7 @@
     - [Ata Reunião 06/04/2024](./entregas/planejamento/ata_reuniao_06_04_2024.md)
     - [Ata Reunião 17/04/2024](./entregas/planejamento/ata_reuniao_17_04_2024.md)
     - [Ata Reunião 23/07/2024](./entregas/planejamento/ata_reuniao_23_07_2024.md)
+    - [Ata Reunião 29/07/2024](./entregas/planejamento/ata_reuniao_29_07_2024.md)
   - [Desenvolvimento](#)
   - [Missão 1](#)
     - [Slide Facção](./entregas/missao_01/slide_faccao.md)
