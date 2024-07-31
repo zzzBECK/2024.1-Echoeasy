@@ -5,6 +5,7 @@
 - [Visão Geral do Projeto](./visao_geral_do_projeto.md)
 - [Processo de Desenvolvimento](./processo_de_desenvolvimento.md)
 - [Lições Aprendidas](./licoes_aprendidas.md)
+- [Backlog](./backlog.md)
 - [Entregas](#)
   - [Planejamento](#)
     - [Templates de Documentos](#)
