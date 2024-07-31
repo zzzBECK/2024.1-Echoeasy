@@ -1,6 +1,6 @@
 # VISÃO GERAL DO PROJETO
 
-# 1. Organização e Atribuições da Equipe XP
+## 1. Organização e Atribuições da Equipe XP
 
 A tabela a seguir apresenta uma visão integrada da organização e atribuições da equipe, detalhando os papéis e responsabilidades relevantes para cada membro:
 
