@@ -58,7 +58,7 @@ Requisitos não funcionais descrevem características e qualidades do sistema ou
 </center>
 
 ## 4. User Storys (USs)
-As user stories são descrições simples e concisas das funcionalidades desejadas do ponto de vista do usuário final. Elas servem como base para a compreensão dos requisitos e expectativas dos usuários em relação ao sistema e segue a estrutura " Como 'role', eu gostaria de 'objetivo' para que 'finalidade ". 
+As user stories são descrições simples e concisas das funcionalidades desejadas do ponto de vista do usuário final. Elas servem como base para a compreensão dos requisitos e expectativas dos usuários em relação ao sistema e segue a estrutura " Como 'cargo', eu gostaria de 'objetivo' para que 'finalidade ". 
 <center>
 
 **Tabela 03** - User storys
