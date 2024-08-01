@@ -22,15 +22,13 @@ A tabela a seguir apresenta uma visão integrada da organização e atribuiçõe
 
 ## 2. Planejamento das Fases e/ou Iterações do Projeto
 
-|  Sprint  |                                    Produto (Entrega)                                    | Data Início | Data Fim |
-| :------: | :-------------------------------------------------------------------------------------: | :---------: | :------: |
-| Sprint 0 | Visão geral do Produto e projeto, materal dos seminários da disciplina, site do projeto |  06/04/22   | 17/04/24 |
-| Sprint 1 |             Definição User Stories, Definição do Backlog, Definição do MVP              |  18/04/24   | 01/05/24 |
-| Sprint 2 |               User Stories atualizado, Backlog atualizado, MVP atualizado               |  01/05/24   | 14/05/24 |
-| Sprint 3 |                                         DoR,DoD                                         |  15/05/24   | 28/05/24 |
-| Sprint 4 |                              PBB, BDD, Useer Story mapping                              |  29/05/24   | 11/06/24 |
-| Sprint 5 |                         Modelos e Especificação de casos de uso                         |  12/06/24   | 25/06/24 |
-| Sprint 6 |                                      MVP completo                                       |  26/06/24   | 01/07/24 |
+|  Sprint  | Produto (Entrega) | Data Início |  Data Fim  |
+| :------: | :---------------: | :---------: | :--------: |
+| Sprint 1 |                   | 06/08/2024  | 13/08/2024 |
+| Sprint 2 |                   | 13/08/2024  | 20/08/2024 |
+| Sprint 3 |                   | 20/08/2024  | 27/08/2024 |
+| Sprint 4 |                   | 27/08/2024  | 03/09/2024 |
+| Sprint 5 |                   | 03/09/2024  | 10/09/2024 |
 
 ## 3. Matriz de Comunicação
 
