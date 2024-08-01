@@ -25,4 +25,6 @@
     - [Questionário](./entregas/missao_01/questionario.md)
     - [Primeira Reunião com Cliente](./entregas/missao_01/video.md)
     - [Entrega Final Missão 1](./entregas/missao_01/entrega_final_video.md)
+  - [Missão 2](#)
+    - [Entrega Final Missão 2](./entregas/missao_02/entrega_final_video.md)
 - [Referências Bibliográficas](./referencias.md)
