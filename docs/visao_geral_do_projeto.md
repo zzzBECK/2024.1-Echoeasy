@@ -24,11 +24,12 @@ A tabela a seguir apresenta uma visão integrada da organização e atribuiçõe
 
 |  Sprint  | Produto (Entrega) | Data Início |  Data Fim  |
 | :------: | :---------------: | :---------: | :--------: |
-| Sprint 1 |                   | 06/08/2024  | 13/08/2024 |
-| Sprint 2 |                   | 13/08/2024  | 20/08/2024 |
-| Sprint 3 |                   | 20/08/2024  | 27/08/2024 |
-| Sprint 4 |                   | 27/08/2024  | 03/09/2024 |
-| Sprint 5 |                   | 03/09/2024  | 10/09/2024 |
+| Sprint 0 | Configuração de ambiente, US01, US02, US03   | 01/08/2024  | 06/08/2024 |
+| Sprint 1 | US04, US05, US07  US08, US09,                | 06/08/2024  | 13/08/2024 |
+| Sprint 2 | US10, US11, US12, US13, US14,                | 13/08/2024  | 20/08/2024 |
+| Sprint 3 | US15, US16, US17, US18, US19,                | 20/08/2024  | 27/08/2024 |
+| Sprint 4 | US20, US23, US24, US26                       | 27/08/2024  | 03/09/2024 |
+| Sprint 5 | Débito técnico e finalização para entrega    | 03/09/2024  | 10/09/2024 |
 
 ## 3. Matriz de Comunicação
 
