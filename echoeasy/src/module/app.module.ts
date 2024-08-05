@@ -1,10 +1,20 @@
 import { Module } from '@nestjs/common';
-import { UsuarioModule } from './usuario.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { UsuarioModule } from './usuario.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost/echoeazy'),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        uri: configService.get<string>('MONGO_URI'),
+      }),
+      inject: [ConfigService],
+    }),
     UsuarioModule,
   ],
   controllers: [],

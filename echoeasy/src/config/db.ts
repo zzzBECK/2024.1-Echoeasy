@@ -1,5 +1,11 @@
-import { MongooseModule } from '@nestjs/mongoose';
+import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 
-export const MongoConnect = MongooseModule.forRoot(
-  'mongodb://localhost/echoeazy',
-);
+@Injectable()
+export class AppService {
+  constructor(private configService: ConfigService) {}
+
+  getMongoUrl(): string {
+    return this.configService.get<string>('MONGO_URI');
+  }
+}
