@@ -12,6 +12,7 @@ const SignUp: React.FC = () => {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const usuarioService = new UsuarioService();
+
   const handleSignUp = async () => {
     if (name === "" || password === "" || email === "") {
       setError("Todos os campos são obrigatórios");
@@ -29,6 +30,7 @@ const SignUp: React.FC = () => {
       console.log(usuario);
       setMessage("Usuário criado com sucesso");
     } catch (error) {
+      console.log(error);
       setError("Erro ao criar usuário");
     }
   };
