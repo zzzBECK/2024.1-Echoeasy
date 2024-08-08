@@ -1,4 +1,5 @@
 "use client";
+import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -22,7 +23,7 @@ export default function Home() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <p className="text-center text-2xl">{count}</p>
+          <p className="text-center text-4xl">{count}</p>
           <Button
             className="w-full"
             onClick={() => setCount((prev) => prev + 1)}
@@ -30,10 +31,11 @@ export default function Home() {
             Click me
           </Button>
         </CardContent>
-        <CardFooter>
+        <CardFooter className="flex-col gap-4">
           <Button className="w-full" onClick={() => setCount(0)}>
             Reset
           </Button>
+          <ModeToggle />
         </CardFooter>
       </Card>
     </main>
