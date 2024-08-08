@@ -1,28 +1,38 @@
-import axios from "axios";
+import axios, {constructor} from "axios";
 import { Link } from "expo-router";
 import React, { useState } from "react";
 import { Button, Text, View } from "react-native";
 import FormField from "../../components/FormField";
+import {UsuarioService} from "../service/UsuarioService";
+import {UserDto} from "../dto/UserDto";
 
 const SignUp: React.FC = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
+  const [message, setMessage] = useState("");
+  const usuarioService = new UsuarioService();
   const handleSignUp = async () => {
     if (name === "" || password === "" || email === "") {
       setError("Todos os campos são obrigatórios");
       return;
     }
-    const response = await axios.post(
-      `http://${process.env.EXPO_PUBLIC_LOCAL_IP}:3000/usuarios`,
-      {
+
+    const dadosUsuario : UserDto =  {
         nome: name,
-        email,
+        email: email,
         senha: password,
-      }
-    );
+    }
+
+    try {
+        const usuario = await usuarioService.create(dadosUsuario);
+        console.log(usuario);
+        setMessage("Usuário criado com sucesso");
+
+    } catch (error) {
+        setError("Erro ao criar usuário");
+    }
   };
 
   return (
