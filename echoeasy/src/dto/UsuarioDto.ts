@@ -1,10 +1,10 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsString } from 'class-validator';
 
 export class UsuarioDto {
   @IsString({ message: 'Nome inválido' })
-  nome: string;
+  name: string;
   @IsString({ message: 'Email inválido' })
   email: string;
   @IsString({ message: 'Senha inválida' })
-  senha: string;
+  password: string;
 }

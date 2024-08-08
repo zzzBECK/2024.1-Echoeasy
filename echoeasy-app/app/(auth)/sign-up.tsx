@@ -1,10 +1,9 @@
-import axios, {constructor} from "axios";
 import { Link } from "expo-router";
 import React, { useState } from "react";
 import { Button, Text, View } from "react-native";
 import FormField from "../../components/FormField";
-import {UsuarioService} from "../service/UsuarioService";
-import {UserDto} from "../dto/UserDto";
+import { UsuarioService } from "../service/UsuarioService";
+import { UserPayload } from "../types/User";
 
 const SignUp: React.FC = () => {
   const [name, setName] = useState("");
@@ -19,19 +18,18 @@ const SignUp: React.FC = () => {
       return;
     }
 
-    const dadosUsuario : UserDto =  {
-        nome: name,
-        email: email,
-        senha: password,
-    }
+    const dadosUsuario: UserPayload = {
+      name,
+      email,
+      password,
+    };
 
     try {
-        const usuario = await usuarioService.create(dadosUsuario);
-        console.log(usuario);
-        setMessage("Usuário criado com sucesso");
-
+      const usuario = await usuarioService.create(dadosUsuario);
+      console.log(usuario);
+      setMessage("Usuário criado com sucesso");
     } catch (error) {
-        setError("Erro ao criar usuário");
+      setError("Erro ao criar usuário");
     }
   };
 
