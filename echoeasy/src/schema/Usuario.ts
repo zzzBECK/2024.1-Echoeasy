@@ -7,6 +7,9 @@ export class Usuario extends Document {
   name: string;
 
   @Prop({ required: true })
+  sobrenome: string;
+
+  @Prop({ required: true })
   email: string;
 
   @Prop({ required: true })
@@ -14,6 +17,9 @@ export class Usuario extends Document {
 
   @Prop({ default: Date.now })
   createdAt: Date;
+
+  @Prop({ default: Date.now })
+  updatedAt: Date;
 }
 
 export const UsuarioSchema = SchemaFactory.createForClass(Usuario);
