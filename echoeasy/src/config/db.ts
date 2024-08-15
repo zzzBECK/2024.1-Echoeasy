@@ -5,7 +5,7 @@ import { ConfigService } from '@nestjs/config';
 export class AppService {
   constructor(private configService: ConfigService) {}
 
-  getMonoUgrl(): string {
+  getMongoUrl(): string {
     return this.configService.get<string>('MONGO_URI');
   }
 }
