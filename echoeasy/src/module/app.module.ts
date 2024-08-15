@@ -3,7 +3,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth.module';
 import { UsuarioModule } from './usuario.module';
-import { FirebaseAdminConfig } from '../config/firebase-admin';
 
 @Module({
   imports: [

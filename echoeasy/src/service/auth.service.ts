@@ -4,8 +4,6 @@ import { DecodedIdToken } from 'firebase-admin/lib/auth/token-verifier';
 import { FirebaseError } from 'firebase/app';
 import {
   createUserWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithCredential,
   signInWithEmailAndPassword,
 } from 'firebase/auth';
 import { Model } from 'mongoose';
@@ -23,8 +21,11 @@ export class AuthService {
     email: string;
     password: string;
     name: string;
+    lastname: string;
+    role: string;
+    cellphone: string;
   }) {
-    const { email, password, name } = payload;
+    const { email, password, name, lastname, role, cellphone } = payload;
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -35,9 +36,11 @@ export class AuthService {
 
       const newUser = new this.usuarioModel({
         firebaseId: user.uid,
-        email: user.email!,
-        sobrenome: 'Tales',
+        email,
+        lastname,
         name,
+        role,
+        cellphone,
       });
 
       await newUser.save();
@@ -108,49 +111,6 @@ export class AuthService {
     }
   }
 
-  async signUpWithGoogle(payload: { idToken: string }) {
-    const { idToken } = payload;
-    try {
-      const credential = GoogleAuthProvider.credential(idToken);
-      const userCredential = await signInWithCredential(auth, credential);
-      const user = userCredential.user;
-
-      const existingUser = await this.usuarioModel
-        .findOne({ firebaseId: user.uid })
-        .exec();
-
-      if (!existingUser) {
-        const newUser = new this.usuarioModel({
-          firebaseId: user.uid,
-          email: user.email!,
-          name: user.displayName,
-        });
-
-        await newUser.save();
-      }
-
-      return user;
-    } catch (error) {
-      throw new HttpException(
-        `Erro ao fazer login com Google: ${error.message}`,
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
-    }
-  }
-
-  async signInWithGoogle(idToken: string) {
-    try {
-      const credential = GoogleAuthProvider.credential(idToken);
-      const userCredential = await signInWithCredential(auth, credential);
-      return userCredential.user;
-    } catch (error) {
-      throw new HttpException(
-        `Erro ao fazer login com Google: ${error.message}`,
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
-    }
-  }
-
   async getMe(token: string): Promise<{ email: string; name: string }> {
     try {
       if (!token) {
@@ -164,7 +124,7 @@ export class AuthService {
         token.split(' ')[1],
       );
       const user = await this.usuarioModel
-        .findOne({ firebaseId: decodedToken.uid })
+        .findOne({ email: decodedToken.email })
         .exec();
 
       if (!user) {

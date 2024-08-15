@@ -1,10 +1,18 @@
-import { IsString } from 'class-validator';
+import { IsEmail, IsString } from 'class-validator';
 
 export class UsuarioDto {
-  @IsString({ message: 'Nome inválido' })
+  @IsString()
   name: string;
-  @IsString({ message: 'Email inválido' })
+
+  @IsString()
+  sobrenome: string;
+
+  @IsEmail()
   email: string;
-  @IsString({ message: 'Senha inválida' })
-  password: string;
+
+  @IsString()
+  role: string;
+
+  @IsString()
+  firebaseId: string;
 }

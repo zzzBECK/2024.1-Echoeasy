@@ -7,13 +7,19 @@ export class Usuario extends Document {
   name: string;
 
   @Prop({ required: true })
-  sobrenome: string;
+  lastname: string;
 
   @Prop({ required: true })
   email: string;
 
   @Prop({ required: true })
-  password: string;
+  cellphone: string;
+
+  @Prop({ required: true })
+  role: string;
+
+  @Prop({ required: true })
+  firebaseId: string;
 
   @Prop({ default: Date.now })
   createdAt: Date;

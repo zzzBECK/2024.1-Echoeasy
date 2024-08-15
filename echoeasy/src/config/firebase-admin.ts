@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import * as admin from 'firebase-admin';
 import * as dotenv from 'dotenv';
+import * as admin from 'firebase-admin';
 import * as process from 'process';
 dotenv.config();
 
@@ -11,14 +11,6 @@ export class FirebaseAdminConfig {
 
   public initializeFirebaseAdminApp() {
     const privateKey = process.env.FIREBASE_PRIVATE_KEY.toString();
-
-    console.log(privateKey);
-
-    if (!privateKey) {
-      throw new Error(
-        'FIREBASE_PRIVATE_KEY não foi definida corretamente no arquivo .env',
-      );
-    }
 
     const adminConfig = {
       credential: admin.credential.cert({
