@@ -1,13 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as admin from 'firebase-admin';
+import * as dotenv from 'dotenv';
+import * as process from 'process';
+dotenv.config();
 
 @Injectable()
 export class FirebaseAdminConfig {
   constructor(private configService: ConfigService) {}
 
   public initializeFirebaseAdminApp() {
-    const privateKey = process.env.FIREBASE_PRIVATE_KEY;
+    const privateKey = process.env.FIREBASE_PRIVATE_KEY.toString();
 
     console.log(privateKey);
 

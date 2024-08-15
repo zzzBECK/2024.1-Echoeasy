@@ -36,6 +36,7 @@ export class AuthService {
       const newUser = new this.usuarioModel({
         firebaseId: user.uid,
         email: user.email!,
+        sobrenome: 'Tales',
         name,
       });
 
