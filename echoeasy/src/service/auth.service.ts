@@ -1,21 +1,18 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
 import { DecodedIdToken } from 'firebase-admin/lib/auth/token-verifier';
 import { FirebaseError } from 'firebase/app';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from 'firebase/auth';
-import { Model } from 'mongoose';
 import { auth } from 'src/config/firebase';
 import { adminAuth } from 'src/config/firebase-admin';
-import { Usuario } from '../schema/Usuario';
+import { UsuarioDto } from 'src/dto/UsuarioDto';
+import { UsuarioService } from './usuario.service';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    @InjectModel(Usuario.name) private usuarioModel: Model<Usuario>,
-  ) {}
+  constructor(private readonly usuarioService: UsuarioService) {}
 
   async signUpWithEmail(payload: {
     email: string;
@@ -34,16 +31,16 @@ export class AuthService {
       );
       const user = userCredential.user;
 
-      const newUser = new this.usuarioModel({
+      const usuarioData: UsuarioDto = {
         firebaseId: user.uid,
         email,
         lastname,
         name,
         role,
         cellphone,
-      });
+      };
 
-      await newUser.save();
+      await this.usuarioService.create(usuarioData);
 
       return user;
     } catch (error) {
@@ -81,7 +78,7 @@ export class AuthService {
 
   async signInWithEmail(email: string, password: string) {
     try {
-      const existingUser = await this.usuarioModel.findOne({ email }).exec();
+      const existingUser = await this.usuarioService.findOne(email);
 
       if (!existingUser) {
         throw new HttpException(
@@ -123,9 +120,7 @@ export class AuthService {
       const decodedToken: DecodedIdToken = await adminAuth.verifyIdToken(
         token.split(' ')[1],
       );
-      const user = await this.usuarioModel
-        .findOne({ email: decodedToken.email })
-        .exec();
+      const user = await this.usuarioService.findOne(decodedToken.email);
 
       if (!user) {
         throw new HttpException(

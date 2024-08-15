@@ -1,18 +1,21 @@
 import { IsEmail, IsString } from 'class-validator';
 
 export class UsuarioDto {
-  @IsString()
+  @IsString({ message: 'Nome inválido' })
   name: string;
 
-  @IsString()
-  sobrenome: string;
+  @IsString({ message: 'Sobrenome inválido' })
+  lastname: string;
 
-  @IsEmail()
+  @IsEmail({}, { message: 'Email inválido' })
   email: string;
 
-  @IsString()
+  @IsString({ message: 'Celular inválido' })
+  cellphone: string;
+
+  @IsString({ message: 'Função inválida' })
   role: string;
 
-  @IsString()
+  @IsString({ message: 'ID do Firebase inválido' })
   firebaseId: string;
 }
