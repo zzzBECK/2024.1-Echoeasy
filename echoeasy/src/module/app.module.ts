@@ -10,7 +10,6 @@ import { UsuarioModule } from './usuario.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: ['.local.env'],
     }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
