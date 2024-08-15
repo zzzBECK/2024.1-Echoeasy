@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Query,
+  Delete,
+  Put,
+} from '@nestjs/common';
 import { Documento } from '../schema/Documento';
 import { DocumentoService } from '../service/documento.service';
 import { DocumentoDto } from '../dto/DocumentoDto';
@@ -14,15 +22,30 @@ export class DocumentoController {
     return this.documentoService.create(documentoData);
   }
 
-  @Get()
+  @Get('all')
   async getDocumentos(): Promise<Documento[]> {
     return this.documentoService.findAll();
   }
 
   @Get('search')
-  async findDocumentoByTittle(
-    @Query('tittle') tittle: string,
+  async findDocumentoByTitle(
+    @Query('title') title: string,
   ): Promise<Documento | null> {
-    return this.documentoService.findOne(tittle);
+    return this.documentoService.findOne(title);
+  }
+
+  @Put('update')
+  async updateDocumento(
+    @Query('title') title: string,
+    @Body() documentoData: DocumentoDto,
+  ): Promise<Documento | null> {
+    return this.documentoService.updateOne(title, documentoData);
+  }
+
+  @Delete('delete')
+  async deleteDocumentoByTitle(
+    @Query('title') title: string,
+  ): Promise<Documento | null> {
+    return this.documentoService.deleteOne(title);
   }
 }
