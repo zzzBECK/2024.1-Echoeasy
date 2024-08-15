@@ -1,12 +1,16 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { AuthModule } from './auth.module';
+import { FirebaseAdminModule } from './firebase-admin.module';
+import { FirebaseModule } from './firebase.module';
 import { UsuarioModule } from './usuario.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      envFilePath: ['.local.env'],
     }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
@@ -16,8 +20,9 @@ import { UsuarioModule } from './usuario.module';
       inject: [ConfigService],
     }),
     UsuarioModule,
+    AuthModule,
+    FirebaseAdminModule,
+    FirebaseModule,
   ],
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}
