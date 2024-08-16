@@ -1,5 +1,7 @@
 import { Document } from 'mongoose';
-import { Prop } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+
+@Schema()
 export class Assunto extends Document {
   @Prop({ required: true })
   document_id: string;
@@ -11,6 +13,12 @@ export class Assunto extends Document {
   description: string;
 
   @Prop({ required: true })
+  image: string;
+
+  @Prop({ required: false })
+  algorithm_link: string;
+
+  @Prop({ required: true })
   order: number;
 
   @Prop({ default: Date.now })
@@ -19,3 +27,5 @@ export class Assunto extends Document {
   @Prop({ default: Date.now })
   updatedAt: Date;
 }
+
+export const AssuntosSchema = SchemaFactory.createForClass(Assunto);
