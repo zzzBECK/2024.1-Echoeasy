@@ -7,6 +7,7 @@ import {
 } from 'firebase/auth';
 import { auth } from 'src/config/firebase';
 import { adminAuth } from 'src/config/firebase-admin';
+import { UpdateUsuarioDto } from 'src/dto/update-usuario.dto';
 import { UsuarioDto } from 'src/dto/UsuarioDto';
 import { UsuarioService } from './usuario.service';
 
@@ -108,7 +109,21 @@ export class AuthService {
     }
   }
 
-  async getMe(token: string): Promise<{ email: string; name: string }> {
+  async updateUsuario(token: string, usuarioData: UpdateUsuarioDto) {
+    const user = await this.getMe(token);
+
+    if (usuarioData.email) {
+      await adminAuth.updateUser(user.firebaseId, {
+        email: usuarioData.email,
+      });
+    }
+
+    return await this.usuarioService.update(user, usuarioData);
+  }
+
+  async getMe(
+    token: string,
+  ): Promise<{ email: string; name: string; firebaseId: string }> {
     try {
       if (!token) {
         throw new HttpException(
@@ -129,7 +144,11 @@ export class AuthService {
         );
       }
 
-      return { email: user.email, name: user.name };
+      return {
+        email: user.email,
+        name: user.name,
+        firebaseId: user.firebaseId,
+      };
     } catch (error) {
       throw new HttpException(
         `Erro ao buscar dados do usuário: ${error.message}`,
