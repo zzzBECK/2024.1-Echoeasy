@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { AuthModule } from './auth.module';
 import { UsuarioModule } from './usuario.module';
 import { DocumentoModule } from './documento.module';
 
@@ -18,8 +19,7 @@ import { DocumentoModule } from './documento.module';
     }),
     UsuarioModule,
     DocumentoModule,
+    AuthModule,
   ],
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}
