@@ -29,18 +29,18 @@ export class DocumentoService {
     return this.documentoModel.find().exec();
   }
 
-  async findOne(title: string): Promise<Documento | null> {
-    return this.documentoModel.findOne({ title }).exec();
+  async findOne(_id: string): Promise<Documento | null> {
+    return this.documentoModel.findOne({ _id }).exec();
   }
 
   async updateOne(
-    title: string,
+    _id: string,
     documentoData: DocumentoDto,
   ): Promise<Documento | null> {
     return this.documentoModel
       .findOneAndUpdate(
         {
-          title,
+          _id,
         },
         documentoData,
         {
@@ -50,7 +50,7 @@ export class DocumentoService {
       .exec();
   }
 
-  async deleteOne(title: string): Promise<Documento | null> {
-    return this.documentoModel.findOneAndDelete({ title }).exec();
+  async deleteOne(_id: string): Promise<Documento | null> {
+    return this.documentoModel.findOneAndDelete({ _id }).exec();
   }
 }

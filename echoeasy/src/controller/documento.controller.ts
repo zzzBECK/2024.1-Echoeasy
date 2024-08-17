@@ -33,26 +33,26 @@ export class DocumentoController {
 
   @Get('search')
   @UseGuards(AuthGuard)
-  async findDocumentoByTitle(
-    @Query('title') title: string,
+  async findDocumentoById(
+    @Query('_id') _id: string,
   ): Promise<Documento | null> {
-    return this.documentoService.findOne(title);
+    return this.documentoService.findOne(_id);
   }
 
   @Put('update')
   @UseGuards(AuthGuard)
   async updateDocumento(
-    @Query('title') title: string,
+    @Query('_id') _id: string,
     @Body() documentoData: DocumentoDto,
   ): Promise<Documento | null> {
-    return this.documentoService.updateOne(title, documentoData);
+    return this.documentoService.updateOne(_id, documentoData);
   }
 
   @Delete('delete')
   @UseGuards(AuthGuard)
-  async deleteDocumentoByTitle(
-    @Query('title') title: string,
+  async deleteDocumentoById(
+    @Query('_id') _id: string,
   ): Promise<Documento | null> {
-    return this.documentoService.deleteOne(title);
+    return this.documentoService.deleteOne(_id);
   }
 }

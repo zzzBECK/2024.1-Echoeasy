@@ -31,26 +31,22 @@ export class AssuntoController {
 
   @Get('search')
   @UseGuards(AuthGuard)
-  async findassuntoByTitle(
-    @Query('title') title: string,
-  ): Promise<Assunto | null> {
-    return this.assuntoService.findOne(title);
+  async findassuntoById(@Query('_id') _id: string): Promise<Assunto | null> {
+    return this.assuntoService.findOne(_id);
   }
 
   @Put('update')
   @UseGuards(AuthGuard)
   async updateAssunto(
-    @Query('title') title: string,
+    @Query('_id') _id: string,
     @Body() assuntoData: AssuntoDto,
   ): Promise<Assunto | null> {
-    return this.assuntoService.updateOne(title, assuntoData);
+    return this.assuntoService.updateOne(_id, assuntoData);
   }
 
   @Delete('delete')
   @UseGuards(AuthGuard)
-  async deleteAssuntoByTitle(
-    @Query('title') title: string,
-  ): Promise<Assunto | null> {
-    return this.assuntoService.deleteOne(title);
+  async deleteAssuntoById(@Query('_id') _id: string): Promise<Assunto | null> {
+    return this.assuntoService.deleteOne(_id);
   }
 }
