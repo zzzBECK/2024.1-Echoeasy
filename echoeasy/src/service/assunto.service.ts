@@ -28,18 +28,18 @@ export class AssuntoService {
     return this.assuntoModel.find().exec();
   }
 
-  async findOne(title: string): Promise<Assunto | null> {
-    return this.assuntoModel.findOne({ title }).exec();
+  async findOne(_id: string): Promise<Assunto | null> {
+    return this.assuntoModel.findOne({ _id }).exec();
   }
 
   async updateOne(
-    title: string,
+    _id: string,
     assuntoData: AssuntoDto,
   ): Promise<Assunto | null> {
     return this.assuntoModel
       .findOneAndUpdate(
         {
-          title,
+          _id,
         },
         assuntoData,
         {
@@ -49,7 +49,7 @@ export class AssuntoService {
       .exec();
   }
 
-  async deleteOne(title: string): Promise<Assunto | null> {
-    return this.assuntoModel.findOneAndDelete({ title }).exec();
+  async deleteOne(_id: string): Promise<Assunto | null> {
+    return this.assuntoModel.findOneAndDelete({ _id }).exec();
   }
 }
