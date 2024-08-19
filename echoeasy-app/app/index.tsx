@@ -13,8 +13,6 @@ const Welcome: React.FC = () => {
         <Link href="/sign-in" className="text-blue-500">
           Login
         </Link>
-        <Ionicons name="checkmark-circle" size={32} color="green" />
-        <Ionicons name="trophy-outline" size={32} color="green" />
       </View>
     </SafeAreaView>
   );
