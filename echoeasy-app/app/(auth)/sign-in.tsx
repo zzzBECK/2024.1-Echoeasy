@@ -8,8 +8,8 @@ import FormField from '../../components/FormField';
 const SignIn: React.FC = () => {
   return (
     <SafeAreaView className="flex-1 justify-center p-4">
-      <View className="items-center mb-8">
-        <Text className="text-3xl font-bold">Echoeasy</Text>
+      <View className="flex-row  justify-center items-center mb-8">
+        <Text className="text-3xl font-interMedium">Echo</Text><Text className="text-[#3CC1A9] text-3xl font-interMedium ">easy</Text>
       </View>
     
       <FormField
