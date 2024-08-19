@@ -1,7 +1,5 @@
-// FormField.tsx
 import React from 'react';
 import { View, TextInput, Text, TextInputProps } from 'react-native';
-import { styled } from 'nativewind';
 
 
 interface FormFieldProps extends TextInputProps {
@@ -12,12 +10,12 @@ interface FormFieldProps extends TextInputProps {
 
 const FormField: React.FC<FormFieldProps> = ({ label, error, icon, ...inputProps }) => {
   return (
-    <View className='space-y-2'>
-      <Text className="text-lg font-bold ">{label}</Text>
-      <View className="border border-gray-400 rounded">
+    <View className='space-y-1'>
+      <Text className="text-sm font-interRegular">{label}</Text>
+      <View className="border border-[#E3E3E3] rounded-2xl bg-[#FFFFFF] focus:border-[#333333] ">
         {icon && <View className="p-2">{icon}</View>}
         <TextInput
-          className="h-10 px-2"
+          className="h-11 px-2"
           {...inputProps}
         />
       </View>
