@@ -1,10 +1,8 @@
 // index.tsx
 import React from 'react';
-import { View, Button, Text, TouchableOpacity } from 'react-native';
-import { styled } from 'nativewind';
+import { View, Text } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Link, router } from "expo-router";
-import FormField from '../components/FormField';
+import { Link } from "expo-router";
 
 const Welcome: React.FC = () => {
   return (
