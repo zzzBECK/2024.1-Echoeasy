@@ -15,10 +15,12 @@ const SignIn: React.FC = () => {
 
       <FormField
         label="E-mail"
+        icon="mail-outline"
         placeholder="Insira o seu e-mail"
       />
       <FormField
         label="Senha"
+        icon="lock-closed-outline"
         placeholder="Insira sua senha"
         secureTextEntry
       />

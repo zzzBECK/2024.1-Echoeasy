@@ -8,7 +8,7 @@ interface CustomButtonProps {
 
 const CustomButton: React.FC<CustomButtonProps> = ({ title, active }) => {
   return (
-      <Pressable className={`justify-center items-center h-11 rounded-md ${active === true ? 'bg-[#3CC1A9]' : 'bg-[#99dcd0]'}`}>
+      <Pressable className={`justify-center items-center h-12 rounded-md ${active === true ? 'bg-[#3CC1A9]' : 'bg-[#99dcd0]'}`}>
         <Text className="font-interBold text-[#FFFFFF] text-base">{title}</Text>
       </Pressable>
   );
