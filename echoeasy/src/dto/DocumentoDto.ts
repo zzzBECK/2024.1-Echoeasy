@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 export class DocumentoDto {
   @IsString({ message: 'Título inválido' })
@@ -6,5 +6,6 @@ export class DocumentoDto {
   @IsString({ message: 'Descrição inválida' })
   description: string;
   @IsString({ message: 'Imagem inválida' })
+  @IsOptional()
   image: string;
 }

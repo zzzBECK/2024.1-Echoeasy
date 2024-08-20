@@ -1,28 +1,34 @@
 import {
+  Body,
   Controller,
+  Delete,
   Get,
   Post,
-  Body,
-  Query,
-  Delete,
   Put,
+  Query,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { AuthGuard } from 'src/guards/auth.guard';
+import { MulterFile } from 'src/types/File';
+import { DocumentoDto } from '../dto/DocumentoDto';
 import { Documento } from '../schema/Documento';
 import { DocumentoService } from '../service/documento.service';
-import { DocumentoDto } from '../dto/DocumentoDto';
-import { AuthGuard } from 'src/guards/auth.guard';
 
 @Controller('documentos')
 export class DocumentoController {
   constructor(private documentoService: DocumentoService) {}
 
   @Post()
+  @UseInterceptors(FileInterceptor('image'))
   @UseGuards(AuthGuard)
   async criarDocumento(
     @Body() documentoData: DocumentoDto,
+    @UploadedFile() file: MulterFile,
   ): Promise<Documento> {
-    return this.documentoService.create(documentoData);
+    return this.documentoService.create(documentoData, file);
   }
 
   @Get('all')

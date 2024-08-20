@@ -3,6 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Documento, DocumentosSchema } from '../schema/Documento';
 import { DocumentoService } from '../service/documento.service';
 import { DocumentoController } from 'src/controller/documento.controller';
+import { DocumentoRepository } from 'src/repositories/documento.repository';
 
 @Module({
   imports: [
@@ -11,6 +12,6 @@ import { DocumentoController } from 'src/controller/documento.controller';
     ]),
   ],
   controllers: [DocumentoController],
-  providers: [DocumentoService],
+  providers: [DocumentoService, DocumentoRepository],
 })
 export class DocumentoModule {}
