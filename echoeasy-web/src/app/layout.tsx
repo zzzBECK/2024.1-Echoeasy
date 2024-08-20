@@ -1,4 +1,6 @@
+import AuthChecker from "@/components/login-checker";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
@@ -36,7 +38,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <AuthChecker>
+            <main>{children}</main>
+          </AuthChecker>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
