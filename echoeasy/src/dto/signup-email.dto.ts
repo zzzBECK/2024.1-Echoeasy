@@ -20,8 +20,4 @@ export class SignUpEmailDto {
   @IsString()
   @IsNotEmpty()
   cellphone: string;
-
-  @IsString()
-  @IsNotEmpty()
-  role: string;
 }

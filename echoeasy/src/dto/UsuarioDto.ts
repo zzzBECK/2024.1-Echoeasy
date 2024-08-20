@@ -13,9 +13,6 @@ export class UsuarioDto {
   @IsString({ message: 'Celular inválido' })
   cellphone: string;
 
-  @IsString({ message: 'Função inválida' })
-  role: string;
-
   @IsString({ message: 'ID do Firebase inválido' })
   firebaseId: string;
 }
