@@ -4,14 +4,14 @@ import { ActivityIndicator, Text, TouchableOpacity } from 'react-native';
 interface CustomButtonProps {
   title: string;
   onPressProps?: () => void;
-  active: boolean;
+  isDisabled: boolean;
   isLoading: boolean;
 }
 
-const CustomButton: React.FC<CustomButtonProps> = ({ title, active, onPressProps, isLoading }) => {
+const CustomButton: React.FC<CustomButtonProps> = ({ title, isDisabled, onPressProps, isLoading }) => {
   return (
-    <TouchableOpacity onPress={onPressProps} activeOpacity={0.7} className={`w-80 h-12 flex flex-row  rounded-md justify-center items-center ${isLoading ? "opacity-50" : ""
-      } ${active === true ? 'bg-[#3CC1A9]' : 'bg-[#99dcd0]'} `}>
+    <TouchableOpacity disabled={isDisabled} onPress={onPressProps} activeOpacity={isDisabled ? 1 : 0.7} className={`w-80 h-12 flex flex-row  rounded-md justify-center items-center ${isLoading ? "opacity-50" : ""
+      } ${isDisabled === true ? 'bg-[#99dcd0]': 'bg-[#3CC1A9]'} `}>
       <Text className="font-interBold text-[#FFFFFF] text-base">{title}</Text>
 
       {isLoading && (

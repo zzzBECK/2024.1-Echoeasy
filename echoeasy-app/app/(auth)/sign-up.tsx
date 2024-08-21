@@ -48,7 +48,7 @@ const SignUp: React.FC = () => {
               handleSignUp(values);
             }}
           >
-            {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+            {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid }) => (
               <>
                 <Text className="text-2xl font-interMedium text-center">Cadastre-se</Text>
 
@@ -110,7 +110,7 @@ const SignUp: React.FC = () => {
                   <Text>.</Text>
                 </Text>
 
-                <CustomButton title="Confirmar" active={true} isLoading={false} onPressProps={handleSubmit} />
+                <CustomButton title="Confirmar" isDisabled={!isValid} isLoading={false} onPressProps={handleSubmit} />
 
                 {error ? (
                   <Text className="text-red-500 text-center mt-4">{error}</Text>
