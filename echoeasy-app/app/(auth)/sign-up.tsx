@@ -44,11 +44,12 @@ const SignUp: React.FC = () => {
           <Formik
             initialValues={{ name: '', email: '', phoneNumber: '', password: '', confirmPassword: '' }}
             validationSchema={signUpSchema}
+            validateOnMount={true}
             onSubmit={(values) => {
               handleSignUp(values);
             }}
           >
-            {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid }) => (
+            {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, isSubmitting }) => (
               <>
                 <Text className="text-2xl font-interMedium text-center">Cadastre-se</Text>
 
@@ -110,7 +111,7 @@ const SignUp: React.FC = () => {
                   <Text>.</Text>
                 </Text>
 
-                <CustomButton title="Confirmar" isDisabled={!isValid} isLoading={false} onPressProps={handleSubmit} />
+                <CustomButton title="Confirmar" isDisabled={!isValid || isSubmitting } isLoading={isSubmitting} onPressProps={handleSubmit} />
 
                 {error ? (
                   <Text className="text-red-500 text-center mt-4">{error}</Text>
