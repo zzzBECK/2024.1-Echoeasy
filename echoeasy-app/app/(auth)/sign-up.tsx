@@ -75,6 +75,7 @@ const SignUp: React.FC = () => {
                   <FormField
                     label="Telefone"
                     icon="call-outline"
+                    keyboardType = 'numeric'
                     placeholder="Digite seu número de telefone"
                     value={values.phoneNumber}
                     onChangeText={handleChange('phoneNumber')}

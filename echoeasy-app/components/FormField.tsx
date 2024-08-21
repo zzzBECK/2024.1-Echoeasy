@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, TextInput, Text, TextInputProps } from 'react-native';
+import React, { useState } from 'react';
+import { View, TextInput, Text, TextInputProps, TouchableOpacity } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { NativeSyntheticEvent, TextInputFocusEventData } from 'react-native';
 
@@ -8,12 +8,20 @@ interface FormFieldProps extends TextInputProps {
   placeholder?: string;
   icon?: React.ComponentProps<typeof Ionicons>['name'];
   value: string,
+  secureTextEntry?: boolean;
   error?: string;
   onChangeText: (text: string) => void;
   onBlur: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
 }
 
-const FormField: React.FC<FormFieldProps> = ({ label, placeholder, icon, value, error, onChangeText, onBlur, ...rest }) => {
+const FormField: React.FC<FormFieldProps> = ({ label, placeholder, icon, value, secureTextEntry, error, onChangeText, onBlur, ...rest }) => {
+
+  const [isSecure, setIsSecure] = useState(secureTextEntry || false);
+
+  const toggleSecureEntry = () => {
+    setIsSecure(!isSecure);
+  };
+
   return (
     <View className='space-y-1 my-1'>
       <Text className="text-base font-interRegular">{label}</Text>
@@ -25,8 +33,18 @@ const FormField: React.FC<FormFieldProps> = ({ label, placeholder, icon, value, 
           value={value}
           onChangeText={onChangeText}
           onBlur={onBlur}
+          secureTextEntry={isSecure}
           {...rest}
         />
+        {secureTextEntry && (
+          <TouchableOpacity onPress={toggleSecureEntry}>
+            <Ionicons 
+              name={isSecure ? 'eye-off-outline' : 'eye-outline'} 
+              size={25} 
+              color="#C4C4C4"
+            />
+          </TouchableOpacity>
+        )}
       </View>
       {error ? <Text className="text-red-500 mt-1">{error}</Text> : null}
     </View>
