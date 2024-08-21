@@ -38,8 +38,8 @@ const SignUp: React.FC = () => {
         }
       ),
     confirmPassword: yup.string()
-      .oneOf([yup.ref('password'), ""], 'As senhas devem coincidir')
-      .required('Confirmação de senha é obrigatória'),
+      .required('Confirmação de senha é obrigatória')
+      .oneOf([yup.ref('password'), ""], 'As senhas devem coincidir'),
   });
 
   const handleSignUp = async (values: UserPayload) => {
