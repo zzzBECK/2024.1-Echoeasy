@@ -17,9 +17,10 @@ const SignUp: React.FC = () => {
 
   const signUpSchema = yup.object().shape({
     name: yup.string().required('Nome é obrigatório'),
+    lastName: yup.string().required('Sobrenome é obrigatório'),
     email: yup.string().email('E-mail inválido').required('E-mail é obrigatório'),
     phoneNumber: yup.string().required('Número de telefone é obrigatório'),
-    password: yup.string().min(8, 'A senha deve ter no mínimo 8 caracteres').required('Senha é obrigatória'),
+    password: yup.string().min(8, 'A senha deve ter no mínimo 8 caracteres').required('Senha é obrigatória').max(20, 'A senha deve ter no máximo 20 caracteres'),
     confirmPassword: yup.string()
       .oneOf([yup.ref('password'), ""], 'As senhas devem coincidir')
       .required('Confirmação de senha é obrigatória'),
@@ -51,7 +52,7 @@ const SignUp: React.FC = () => {
           />
         </View>
           <Formik
-            initialValues={{ name: '', email: '', phoneNumber: '', password: '', confirmPassword: '' }}
+            initialValues={{ name: '', lastName: '', email: '', phoneNumber: '', password: '', confirmPassword: '' }}
             validationSchema={signUpSchema}
             validateOnMount={true}
             onSubmit={(values) => {
@@ -61,16 +62,25 @@ const SignUp: React.FC = () => {
             {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, isSubmitting }) => (
               <>
                 <Text className="text-2xl font-interMedium text-center">Cadastre-se</Text>
-
+                
                 <View className="my-5">
                   <FormField
                     label="Nome"
                     icon="person-outline"
-                    placeholder="Digite seu nome e sobrenome"
+                    placeholder="Digite seu nome"
                     value={values.name}
                     onChangeText={handleChange('name')}
                     onBlur={handleBlur('name')}
                     error={touched.name && errors.name ? errors.name : ""}
+                  />
+                  <FormField
+                    label="Sobrenome"
+                    icon="person-outline"
+                    placeholder="Digite seu sobrenome"
+                    value={values.name}
+                    onChangeText={handleChange('lastName')}
+                    onBlur={handleBlur('lastName')}
+                    error={touched.lastName && errors.lastName ? errors.lastName : ""}
                   />
                   <FormField
                     label="E-mail"
@@ -100,6 +110,7 @@ const SignUp: React.FC = () => {
                     onChangeText={handleChange('password')}
                     onBlur={handleBlur('password')}
                     error={touched.password && errors.password ? errors.password : ""}
+                    maxLength={20}
                   />
                   <FormField
                     label="Confirmação de Senha"
