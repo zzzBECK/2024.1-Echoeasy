@@ -9,6 +9,7 @@ import CustomButton from '../../components/CustomButton';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { Ionicons } from '@expo/vector-icons';
+import { formatPhoneNumber } from '../../src/utils/formatPhoneNumber';
 
 const SignUp: React.FC = () => {
   const [error, setError] = useState("");
@@ -19,7 +20,7 @@ const SignUp: React.FC = () => {
     name: yup.string().required('Nome é obrigatório'),
     lastName: yup.string().required('Sobrenome é obrigatório'),
     email: yup.string().email('E-mail inválido').required('E-mail é obrigatório'),
-    phoneNumber: yup.string().required('Número de telefone é obrigatório'),
+    phoneNumber: yup.string().matches(/^\(\d{2}\) \d{5}-\d{4}$/, 'Número de telefone inválido').required('Número de telefone é obrigatório'),
     password: yup.string().min(8, 'A senha deve ter no mínimo 8 caracteres').required('Senha é obrigatória').max(20, 'A senha deve ter no máximo 20 caracteres'),
     confirmPassword: yup.string()
       .oneOf([yup.ref('password'), ""], 'As senhas devem coincidir')
@@ -43,14 +44,14 @@ const SignUp: React.FC = () => {
 
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View className="w-full h-full flex justify-center items-center p-4">
-        <View className="absolute top-4 left-4">
-          <Ionicons
-            name="chevron-back-outline"
-            size={32}
-            color="black"
-            onPress={() => router.push('/(auth)/sign-in')}
-          />
-        </View>
+          <View className="absolute top-4 left-4">
+            <Ionicons
+              name="chevron-back-outline"
+              size={32}
+              color="black"
+              onPress={() => router.push('/(auth)/sign-in')}
+            />
+          </View>
           <Formik
             initialValues={{ name: '', lastName: '', email: '', phoneNumber: '', password: '', confirmPassword: '' }}
             validationSchema={signUpSchema}
@@ -62,7 +63,7 @@ const SignUp: React.FC = () => {
             {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, isSubmitting }) => (
               <>
                 <Text className="text-2xl font-interMedium text-center">Cadastre-se</Text>
-                
+
                 <View className="my-5">
                   <FormField
                     label="Nome"
@@ -77,7 +78,7 @@ const SignUp: React.FC = () => {
                     label="Sobrenome"
                     icon="person-outline"
                     placeholder="Digite seu sobrenome"
-                    value={values.name}
+                    value={values.lastName}
                     onChangeText={handleChange('lastName')}
                     onBlur={handleBlur('lastName')}
                     error={touched.lastName && errors.lastName ? errors.lastName : ""}
@@ -94,10 +95,13 @@ const SignUp: React.FC = () => {
                   <FormField
                     label="Telefone"
                     icon="call-outline"
-                    keyboardType = 'numeric'
+                    keyboardType="numeric"
                     placeholder="Digite seu número de telefone"
-                    value={values.phoneNumber}
-                    onChangeText={handleChange('phoneNumber')}
+                    value={formatPhoneNumber(values.phoneNumber)}
+                    onChangeText={(text) => {
+                      const formattedText = formatPhoneNumber(text);
+                      handleChange('phoneNumber')(formattedText);
+                    }}
                     onBlur={handleBlur('phoneNumber')}
                     error={touched.phoneNumber && errors.phoneNumber ? errors.phoneNumber : ""}
                   />
@@ -132,7 +136,7 @@ const SignUp: React.FC = () => {
                   <Text>.</Text>
                 </Text>
 
-                <CustomButton title="Confirmar" isDisabled={!isValid || isSubmitting } isLoading={isSubmitting} onPressProps={handleSubmit} />
+                <CustomButton title="Confirmar" isDisabled={!isValid || isSubmitting} isLoading={isSubmitting} onPressProps={handleSubmit} />
 
                 {error ? (
                   <Text className="text-red-500 text-center mt-4">{error}</Text>

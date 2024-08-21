@@ -24,11 +24,11 @@ const FormField: React.FC<FormFieldProps> = ({ label, placeholder, icon, value, 
 
   return (
     <View className='space-y-1 my-1'>
-      <Text className="text-base font-interRegular">{label}</Text>
-      <View className={`w-80 h-14 px-3 bg-[#FFFFFF] rounded-2xl border border-[#E3E3E3] flex flex-row items-center focus:border-[#333333] ${error ? 'border-red-500' : 'border-[#E3E3E3]'}`}>
+      <Text className="text-sm font-interRegular">{label}</Text>
+      <View className={`w-80 h-12 px-3 bg-[#FFFFFF] rounded-2xl border border-[#E3E3E3] flex flex-row items-center focus:border-[#333333] ${error ? 'border-red-500' : 'border-[#E3E3E3]'}`}>
       {icon && <Ionicons name={icon} size={25} color="#C4C4C4"/>} 
         <TextInput
-          className="flex-1 ml-2 text-[#A4A4A4] font-interRegular text-base"
+          className="flex-1 ml-2 text-[000000] font-interRegular text-base"
           placeholder={placeholder}
           value={value}
           onChangeText={onChangeText}
