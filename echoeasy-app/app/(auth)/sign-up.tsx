@@ -145,9 +145,9 @@ const SignUp: React.FC = () => {
 
                 <Text className="text-center font-interRegular mb-4 mx-4">
                   <Text>Ao se cadastrar, você concorda com os nossos </Text>
-                  <Link href="/#" className="text-[#209B85]">Termos</Link>
+                  <Link href="+not-found" className="text-[#209B85]">Termos</Link>
                   <Text> e </Text>
-                  <Link href="/#" className="text-[#209B85]">Política de Privacidade</Link>
+                  <Link href="+not-found" className="text-[#209B85]">Política de Privacidade</Link>
                   <Text>.</Text>
                 </Text>
 

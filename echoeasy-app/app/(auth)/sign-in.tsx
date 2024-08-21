@@ -1,11 +1,16 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import FormField from '../../components/FormField';
 import CustomButton from '../../components/CustomButton';
 
 const SignIn: React.FC = () => {
+
+  const handleSignIn =  () => {
+    router.replace('+not-found');
+  };
+
   return (
     <SafeAreaView className="bg-[#F6F6F6] h-full">
       <ScrollView contentContainerStyle={{ height: '100%' }}>
@@ -20,21 +25,23 @@ const SignIn: React.FC = () => {
             label="E-mail"
             icon="mail-outline"
             placeholder="Insira o seu e-mail"
+            // value={}
+            // onChangeText={}
+            // onBlur={}
           />
           <FormField
             label="Senha"
             icon="lock-closed-outline"
             placeholder="Insira sua senha"
             secureTextEntry
+            // value={}
+            // onChangeText={}
+            // onBlur={}
           />
 
-          <View className="w-full flex items-end">
-            <TouchableOpacity onPress={() => { }} className="my-3 mr-5">
-              <Text className="text-base text-[#209B85] font-interRegular">Esqueceu a senha?</Text>
-            </TouchableOpacity>
-          </View>
+          <Link href="+not-found" className="self-end text-base text-[#209B85] font-interRegular my-2 mr-6">Esqueceu a senha?</Link>
 
-          <CustomButton title="Entrar" active={false} isLoading={false} />
+          <CustomButton title="Entrar" isDisabled={true} isLoading={false} onPressProps={handleSignIn}/>
 
           <View className="flex-row justify-center mt-4">
             <Text className='font-interRegular text-base'>Não possui uma conta? </Text>
