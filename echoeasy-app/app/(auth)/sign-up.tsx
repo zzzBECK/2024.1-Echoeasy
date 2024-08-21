@@ -8,6 +8,7 @@ import FormField from "../../components/FormField";
 import CustomButton from '../../components/CustomButton';
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import { Ionicons } from '@expo/vector-icons';
 
 const SignUp: React.FC = () => {
   const [error, setError] = useState("");
@@ -41,6 +42,14 @@ const SignUp: React.FC = () => {
 
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View className="w-full h-full flex justify-center items-center p-4">
+        <View className="absolute top-4 left-4">
+          <Ionicons
+            name="chevron-back-outline"
+            size={32}
+            color="black"
+            onPress={() => router.push('/(auth)/sign-in')}
+          />
+        </View>
           <Formik
             initialValues={{ name: '', email: '', phoneNumber: '', password: '', confirmPassword: '' }}
             validationSchema={signUpSchema}
