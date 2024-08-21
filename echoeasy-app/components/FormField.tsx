@@ -3,8 +3,8 @@ import { View, TextInput, Text, TextInputProps } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 interface FormFieldProps extends TextInputProps {
-  label: string;
-  placeholder: string;
+  label?: string;
+  placeholder?: string;
   icon?: React.ComponentProps<typeof Ionicons>['name'];
   error?: string;
 }
@@ -18,6 +18,7 @@ const FormField: React.FC<FormFieldProps> = ({ label, placeholder, icon, error }
         <TextInput
           className="flex-1 ml-2 text-[#A4A4A4] font-interRegular text-base"
           placeholder={placeholder}
+          
         />
       </View>
       {error ? <Text className="text-red-500 mt-1">{error}</Text> : null}
