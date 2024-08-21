@@ -21,7 +21,22 @@ const SignUp: React.FC = () => {
     lastName: yup.string().required('Sobrenome é obrigatório'),
     email: yup.string().email('E-mail inválido').required('E-mail é obrigatório'),
     phoneNumber: yup.string().matches(/^\(\d{2}\) \d{5}-\d{4}$/, 'Número de telefone inválido').required('Número de telefone é obrigatório'),
-    password: yup.string().min(8, 'A senha deve ter no mínimo 8 caracteres').required('Senha é obrigatória').max(20, 'A senha deve ter no máximo 20 caracteres'),
+    password: yup.string()
+      .required('Senha é obrigatória')
+      .test(
+        'password-requirements',
+        function(value) {
+          const errors = [];
+  
+          if (!value || value.length < 8) errors.push('A senha deve ter no mínimo 8 caracteres');
+          if (value && value.length > 20) errors.push('A senha deve ter no máximo 20 caracteres');
+          if (value && !/[A-Z]/.test(value)) errors.push('A senha deve conter pelo menos uma letra maiúscula');
+          if (value && !/\d/.test(value)) errors.push('A senha deve conter pelo menos um número');
+          if (value && !/[!@#$%^&*(),.?":{}|<>]/.test(value)) errors.push('A senha deve conter pelo menos um símbolo');
+  
+          return errors.length > 0 ? this.createError({ message: errors.join('\n') }) : true;
+        }
+      ),
     confirmPassword: yup.string()
       .oneOf([yup.ref('password'), ""], 'As senhas devem coincidir')
       .required('Confirmação de senha é obrigatória'),
