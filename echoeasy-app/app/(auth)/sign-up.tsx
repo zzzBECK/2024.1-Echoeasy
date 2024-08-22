@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ScrollView, Text, View } from "react-native";
 import { UsuarioService } from "../service/UsuarioService";
-import { UserPayload } from "../types/User";
+import { SignUpPayload } from "../types/User";
 import FormField from "../../components/FormField";
 import CustomButton from '../../components/CustomButton';
 import { Formik } from 'formik';
@@ -11,39 +11,42 @@ import * as yup from 'yup';
 import { Ionicons } from '@expo/vector-icons';
 import { formatPhoneNumber } from '../../src/utils/formatPhoneNumber';
 
+const signUpSchema = yup.object().shape({
+  name: yup.string().required('Nome é obrigatório'),
+  lastName: yup.string().required('Sobrenome é obrigatório'),
+  email: yup.string().email('E-mail inválido').required('E-mail é obrigatório'),
+  phoneNumber: yup.string().matches(/^\(\d{2}\) \d{5}-\d{4}$/, 'Número de telefone inválido').required('Número de telefone é obrigatório'),
+  password: yup.string()
+    .required('Senha é obrigatória')
+    .test(
+      'password-requirements',
+      function(value) {
+        const errors = [];
+
+        if (!value || value.length < 8) errors.push('A senha deve ter no mínimo 8 caracteres');
+        if (value && value.length > 20) errors.push('A senha deve ter no máximo 20 caracteres');
+        if (value && !/[A-Z]/.test(value)) errors.push('A senha deve conter pelo menos uma letra maiúscula');
+        if (value && !/\d/.test(value)) errors.push('A senha deve conter pelo menos um número');
+        if (value && !/[!@#$%^&*(),.?":{}|<>]/.test(value)) errors.push('A senha deve conter pelo menos um símbolo');
+
+        return errors.length > 0 ? this.createError({ message: errors.join('\n') }) : true;
+      }
+    ),
+  confirmPassword: yup.string()
+    .required('Confirmação de senha é obrigatória')
+    .oneOf([yup.ref('password'), ""], 'As senhas devem coincidir'),
+});
+
 const SignUp: React.FC = () => {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const usuarioService = new UsuarioService();
 
-  const signUpSchema = yup.object().shape({
-    name: yup.string().required('Nome é obrigatório'),
-    lastName: yup.string().required('Sobrenome é obrigatório'),
-    email: yup.string().email('E-mail inválido').required('E-mail é obrigatório'),
-    phoneNumber: yup.string().matches(/^\(\d{2}\) \d{5}-\d{4}$/, 'Número de telefone inválido').required('Número de telefone é obrigatório'),
-    password: yup.string()
-      .required('Senha é obrigatória')
-      .test(
-        'password-requirements',
-        function(value) {
-          const errors = [];
-  
-          if (!value || value.length < 8) errors.push('A senha deve ter no mínimo 8 caracteres');
-          if (value && value.length > 20) errors.push('A senha deve ter no máximo 20 caracteres');
-          if (value && !/[A-Z]/.test(value)) errors.push('A senha deve conter pelo menos uma letra maiúscula');
-          if (value && !/\d/.test(value)) errors.push('A senha deve conter pelo menos um número');
-          if (value && !/[!@#$%^&*(),.?":{}|<>]/.test(value)) errors.push('A senha deve conter pelo menos um símbolo');
-  
-          return errors.length > 0 ? this.createError({ message: errors.join('\n') }) : true;
-        }
-      ),
-    confirmPassword: yup.string()
-      .required('Confirmação de senha é obrigatória')
-      .oneOf([yup.ref('password'), ""], 'As senhas devem coincidir'),
-  });
 
-  const handleSignUp = async (values: UserPayload) => {
+  const handleSignUp = async (values: SignUpPayload) => {
+    console.log("clicou")
     try {
+      console.log(values);
       const usuario = await usuarioService.create(values);
       console.log(usuario);
       setMessage("Usuário criado com sucesso");
@@ -53,6 +56,8 @@ const SignUp: React.FC = () => {
       setError("Erro ao criar usuário");
     }
   };
+
+  console.log("rodou");
 
   return (
     <SafeAreaView className="bg-[#F6F6F6] h-full">
@@ -64,11 +69,11 @@ const SignUp: React.FC = () => {
               name="chevron-back-outline"
               size={32}
               color="black"
-              onPress={() => router.push('/(auth)/sign-in')}
+              onPress={() => router.push('/sign-in')}
             />
           </View>
           <Formik
-            initialValues={{ name: '', lastName: '', email: '', phoneNumber: '', password: '', confirmPassword: '' }}
+            initialValues={{ name: '', lastname: '', email: '', cellphone: '', password: '', confirmPassword: '' }}
             validationSchema={signUpSchema}
             validateOnMount={true}
             onSubmit={(values) => {
@@ -93,10 +98,10 @@ const SignUp: React.FC = () => {
                     label="Sobrenome"
                     icon="person-outline"
                     placeholder="Digite seu sobrenome"
-                    value={values.lastName}
-                    onChangeText={handleChange('lastName')}
-                    onBlur={handleBlur('lastName')}
-                    error={touched.lastName && errors.lastName ? errors.lastName : ""}
+                    value={values.lastname}
+                    onChangeText={handleChange('lastname')}
+                    onBlur={handleBlur('lastname')}
+                    error={touched.lastname && errors.lastname ? errors.lastname : ""}
                   />
                   <FormField
                     label="E-mail"
@@ -112,13 +117,13 @@ const SignUp: React.FC = () => {
                     icon="call-outline"
                     keyboardType="numeric"
                     placeholder="Digite seu número de telefone"
-                    value={formatPhoneNumber(values.phoneNumber)}
+                    value={formatPhoneNumber(values.cellphone)}
                     onChangeText={(text) => {
                       const formattedText = formatPhoneNumber(text);
-                      handleChange('phoneNumber')(formattedText);
+                      handleChange('cellphone')(formattedText);
                     }}
-                    onBlur={handleBlur('phoneNumber')}
-                    error={touched.phoneNumber && errors.phoneNumber ? errors.phoneNumber : ""}
+                    onBlur={handleBlur('cellphone')}
+                    error={touched.cellphone && errors.cellphone ? errors.cellphone : ""}
                   />
                   <FormField
                     label="Senha"
@@ -151,7 +156,7 @@ const SignUp: React.FC = () => {
                   <Text>.</Text>
                 </Text>
 
-                <CustomButton title="Confirmar" isDisabled={!isValid || isSubmitting} isLoading={isSubmitting} onPressProps={handleSubmit} />
+                <CustomButton title="Confirmar" isDisabled={false} isLoading={isSubmitting} onPressProps={handleSubmit} />
 
                 {error ? (
                   <Text className="text-red-500 text-center mt-4">{error}</Text>

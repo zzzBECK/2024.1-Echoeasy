@@ -6,29 +6,27 @@ import FormField from '../../components/FormField';
 import CustomButton from '../../components/CustomButton';
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import { SignInPayload } from '../types/User';
+import { UsuarioService } from '../service/UsuarioService';
+
+const signInSchema = yup.object().shape({
+  email: yup.string().email('E-mail inválido').required('E-mail é obrigatório'),
+  password: yup.string().required('Senha é obrigatório'),
+});
 
 const SignIn: React.FC = () => {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
-
-  const signInSchema = yup.object().shape({
-    email: yup.string().email('E-mail inválido').required('E-mail é obrigatório'),
-    password: yup.string().required('Senha é obrigatório'),
-  });
-
-  type SignInPayload = {
-    email: string;
-    password: string;
-  };
+  const usuarioService = new UsuarioService();
 
   const handleSignIn = async (values: SignInPayload) => {
     try {
-      //Inserir método para signIn
+      const usuario = await usuarioService.login(values);
       setMessage("Usuário logado com sucesso");
       router.replace('+not-found');
     } catch (error) {
       console.log(error);
-      setError("Erro ao criar usuário");
+      setError("Credenciais inválidas");
     }
   };
 

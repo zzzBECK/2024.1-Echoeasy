@@ -1,7 +1,12 @@
-export type UserPayload = {
+export type SignUpPayload = {
   name: string;
-  lastName: string;
+  lastname: string;
   email: string;
-  phoneNumber: string;
+  cellphone: string;
+  password: string;
+};
+
+export type SignInPayload = {
+  email: string;
   password: string;
 };
