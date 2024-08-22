@@ -33,6 +33,7 @@ export class AuthService {
         lastname,
         name,
         cellphone,
+        image: '',
       };
 
       await this.usuarioService.create(usuarioData);

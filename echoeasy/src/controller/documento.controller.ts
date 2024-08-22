@@ -42,7 +42,7 @@ export class DocumentoController {
   async findDocumentoById(
     @Query('_id') _id: string,
   ): Promise<Documento | null> {
-    return this.documentoService.findOne(_id);
+    return this.documentoService.findOneById(_id);
   }
 
   @Put('update')

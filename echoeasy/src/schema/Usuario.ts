@@ -22,6 +22,9 @@ export class Usuario extends Document {
   @Prop({ required: true })
   firebaseId: string;
 
+  @Prop({ required: false })
+  image: string;
+
   @Prop({ default: Date.now })
   createdAt: Date;
 

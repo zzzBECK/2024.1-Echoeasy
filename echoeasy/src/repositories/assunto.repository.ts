@@ -2,50 +2,48 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { adminStorage } from 'src/config/firebase-admin';
+import { AssuntoDto } from 'src/dto/AssuntoDto';
+import { Assunto } from 'src/schema/Assunto';
 import { MulterFile } from 'src/types/File';
-import { DocumentoDto } from '../dto/DocumentoDto';
-import { Documento } from '../schema/Documento';
 
 @Injectable()
-export class DocumentoRepository {
+export class AssuntoRepository {
   constructor(
-    @InjectModel(Documento.name)
-    private readonly documentoModel: Model<Documento>,
+    @InjectModel(Assunto.name)
+    private readonly assuntoModel: Model<Assunto>,
   ) {}
 
-  async create(
-    documentoData: DocumentoDto,
-    file: MulterFile,
-  ): Promise<Documento> {
-    const imageUrl = await this.uploadImage64(file);
-    documentoData.image = imageUrl;
-    const documento = new this.documentoModel(documentoData);
+  async create(assuntoData: AssuntoDto, file: MulterFile): Promise<Assunto> {
+    // Fix the function signature
+    const imageUrl = await this.uploadImage64(file); // Use the 'file' parameter instead of 'File'
+    assuntoData.image = imageUrl;
+    const assunto = new this.assuntoModel(assuntoData); // Use 'assuntoData' instead of 'AssuntoDto'
 
-    return documento.save();
+    return assunto.save();
   }
 
-  async findAll(): Promise<Documento[]> {
-    return this.documentoModel.find().exec();
+  async findAll(): Promise<Assunto[]> {
+    return this.assuntoModel.find().exec();
   }
 
-  async findOne(title: string): Promise<Documento | null> {
-    return this.documentoModel.findOne({ title }).exec();
+  async findOne(title: string): Promise<Assunto | null> {
+    return this.assuntoModel.findOne({ title }).exec();
   }
 
-  async findOneById(_id: string): Promise<Documento | null> {
-    return this.documentoModel.findOne({ _id }).exec();
+  async findOneById(_id: string): Promise<Assunto | null> {
+    return this.assuntoModel.findOne({ _id }).exec();
   }
 
   async updateOne(
     _id: string,
-    documentoData: DocumentoDto,
-  ): Promise<Documento | null> {
-    return this.documentoModel
+    assuntoData: AssuntoDto,
+  ): Promise<Assunto | null> {
+    return this.assuntoModel
       .findOneAndUpdate(
         {
           _id,
         },
-        documentoData,
+        assuntoData,
         {
           new: true,
         },
@@ -53,8 +51,8 @@ export class DocumentoRepository {
       .exec();
   }
 
-  async deleteOne(_id: string): Promise<Documento | null> {
-    return this.documentoModel.findOneAndDelete({ _id }).exec();
+  async deleteOne(_id: string): Promise<Assunto | null> {
+    return this.assuntoModel.findOneAndDelete({ _id }).exec();
   }
 
   async uploadImage64(file: MulterFile): Promise<string> {
