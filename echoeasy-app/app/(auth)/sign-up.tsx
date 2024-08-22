@@ -1,40 +1,49 @@
+import { Ionicons } from "@expo/vector-icons";
 import { Link, router } from "expo-router";
+import { Formik } from "formik";
 import React, { useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { ScrollView, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import * as yup from "yup";
+import CustomButton from "../../components/CustomButton";
+import FormField from "../../components/FormField";
+import { formatPhoneNumber } from "../../src/utils/formatPhoneNumber";
 import { UsuarioService } from "../service/UsuarioService";
 import { SignUpPayload } from "../types/User";
-import FormField from "../../components/FormField";
-import CustomButton from '../../components/CustomButton';
-import { Formik } from 'formik';
-import * as yup from 'yup';
-import { Ionicons } from '@expo/vector-icons';
-import { formatPhoneNumber } from '../../src/utils/formatPhoneNumber';
 
 const signUpSchema = yup.object().shape({
-  name: yup.string().required('Nome é obrigatório'),
-  lastname: yup.string().required('Sobrenome é obrigatório'),
-  email: yup.string().email('E-mail inválido').required('E-mail é obrigatório'),
-  cellphone: yup.string().matches(/^\(\d{2}\) \d{5}-\d{4}$/, 'Número de telefone inválido').required('Número de telefone é obrigatório'),
-  password: yup.string()
-    .required('Senha é obrigatória')
-    .test(
-      'password-requirements',
-      function (value) {
-        const errors = [];
+  name: yup.string().required("Nome é obrigatório"),
+  lastname: yup.string().required("Sobrenome é obrigatório"),
+  email: yup.string().email("E-mail inválido").required("E-mail é obrigatório"),
+  cellphone: yup
+    .string()
+    .matches(/^\(\d{2}\) \d{5}-\d{4}$/, "Número de telefone inválido")
+    .required("Número de telefone é obrigatório"),
+  password: yup
+    .string()
+    .required("Senha é obrigatória")
+    .test("password-requirements", function (value) {
+      const errors = [];
 
-        if (!value || value.length < 8) errors.push('A senha deve ter no mínimo 8 caracteres');
-        if (value && value.length > 20) errors.push('A senha deve ter no máximo 20 caracteres');
-        if (value && !/[A-Z]/.test(value)) errors.push('A senha deve conter pelo menos uma letra maiúscula');
-        if (value && !/\d/.test(value)) errors.push('A senha deve conter pelo menos um número');
-        if (value && !/[!@#$%^&*(),.?":{}|<>]/.test(value)) errors.push('A senha deve conter pelo menos um símbolo');
+      if (!value || value.length < 8)
+        errors.push("A senha deve ter no mínimo 8 caracteres");
+      if (value && value.length > 20)
+        errors.push("A senha deve ter no máximo 20 caracteres");
+      if (value && !/[A-Z]/.test(value))
+        errors.push("A senha deve conter pelo menos uma letra maiúscula");
+      if (value && !/\d/.test(value))
+        errors.push("A senha deve conter pelo menos um número");
+      if (value && !/[!@#$%^&*(),.?":{}|<>]/.test(value))
+        errors.push("A senha deve conter pelo menos um símbolo");
 
-        return errors.length > 0 ? this.createError({ message: errors.join('\n') }) : true;
-      }
-    ),
-  confirmPassword: yup.string()
-    .required('Confirmação de senha é obrigatória')
-    .oneOf([yup.ref('password'), ""], 'As senhas devem coincidir'),
+      return errors.length > 0
+        ? this.createError({ message: errors.join("\n") })
+        : true;
+    }),
+  confirmPassword: yup
+    .string()
+    .required("Confirmação de senha é obrigatória")
+    .oneOf([yup.ref("password"), ""], "As senhas devem coincidir"),
 });
 
 const SignUp: React.FC = () => {
@@ -42,26 +51,35 @@ const SignUp: React.FC = () => {
   const [message, setMessage] = useState("");
   const usuarioService = new UsuarioService();
 
-
-  const handleSignUp = async (values: SignUpPayload) => {
-    console.log("clicou")
+  const handleSignUp = async (
+    values: SignUpPayload,
+    setSubmitting: (isSubmitting: boolean) => void
+  ) => {
     try {
-      console.log(values);
-      const usuario = await usuarioService.create(values);
-      console.log(usuario);
+      const payload: SignUpPayload = {
+        name: values.name,
+        lastname: values.lastname,
+        email: values.email,
+        cellphone: values.cellphone,
+        password: values.password,
+      };
+
+      const response = await usuarioService.create(payload);
+
+      console.log(response.data);
+
       setMessage("Usuário criado com sucesso");
-      router.replace('/sign-in');
-    } catch (error) {
+      router.replace("/sign-in");
+    } catch (error: any) {
       console.log(error);
-      setError("Erro ao criar usuário");
+      setError(error.response.data.message);
+    } finally {
+      setSubmitting(false);
     }
   };
 
-  console.log("rodou");
-
   return (
     <SafeAreaView className="bg-[#F6F6F6] h-full">
-
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View className="w-full h-full flex justify-center items-center p-4">
           <View className="absolute top-4 left-4">
@@ -69,22 +87,38 @@ const SignUp: React.FC = () => {
               name="chevron-back-outline"
               size={32}
               color="black"
-              onPress={() => router.push('/sign-in')}
+              onPress={() => router.push("/sign-in")}
             />
           </View>
           <Formik
-            initialValues={{ name: '', lastname: '', email: '', cellphone: '', password: '', confirmPassword: '' }}
+            initialValues={{
+              name: "",
+              lastname: "",
+              email: "",
+              cellphone: "",
+              password: "",
+              confirmPassword: "",
+            }}
             validationSchema={signUpSchema}
             validateOnMount={true}
-            onSubmit={(values) => {
-              console.log("clicou1")
-              console.log(values)
-              handleSignUp(values);
+            onSubmit={async (values, { setSubmitting }) => {
+              await handleSignUp(values, setSubmitting);
             }}
           >
-            {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, isSubmitting }) => (
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              errors,
+              touched,
+              isValid,
+              isSubmitting,
+            }) => (
               <>
-                <Text className="text-2xl font-interMedium text-center">Cadastre-se</Text>
+                <Text className="text-2xl font-interMedium text-center">
+                  Cadastre-se
+                </Text>
 
                 <View className="my-5">
                   <FormField
@@ -92,8 +126,8 @@ const SignUp: React.FC = () => {
                     icon="person-outline"
                     placeholder="Digite seu nome"
                     value={values.name}
-                    onChangeText={handleChange('name')}
-                    onBlur={handleBlur('name')}
+                    onChangeText={handleChange("name")}
+                    onBlur={handleBlur("name")}
                     error={touched.name && errors.name ? errors.name : ""}
                   />
                   <FormField
@@ -101,17 +135,19 @@ const SignUp: React.FC = () => {
                     icon="person-outline"
                     placeholder="Digite seu sobrenome"
                     value={values.lastname}
-                    onChangeText={handleChange('lastname')}
-                    onBlur={handleBlur('lastname')}
-                    error={touched.lastname && errors.lastname ? errors.lastname : ""}
+                    onChangeText={handleChange("lastname")}
+                    onBlur={handleBlur("lastname")}
+                    error={
+                      touched.lastname && errors.lastname ? errors.lastname : ""
+                    }
                   />
                   <FormField
                     label="E-mail"
                     icon="mail-outline"
                     placeholder="Digite seu e-mail"
                     value={values.email}
-                    onChangeText={handleChange('email')}
-                    onBlur={handleBlur('email')}
+                    onChangeText={handleChange("email")}
+                    onBlur={handleBlur("email")}
                     error={touched.email && errors.email ? errors.email : ""}
                   />
                   <FormField
@@ -122,10 +158,14 @@ const SignUp: React.FC = () => {
                     value={formatPhoneNumber(values.cellphone)}
                     onChangeText={(text) => {
                       const formattedText = formatPhoneNumber(text);
-                      handleChange('cellphone')(formattedText);
+                      handleChange("cellphone")(formattedText);
                     }}
-                    onBlur={handleBlur('cellphone')}
-                    error={touched.cellphone && errors.cellphone ? errors.cellphone : ""}
+                    onBlur={handleBlur("cellphone")}
+                    error={
+                      touched.cellphone && errors.cellphone
+                        ? errors.cellphone
+                        : ""
+                    }
                   />
                   <FormField
                     label="Senha"
@@ -133,9 +173,11 @@ const SignUp: React.FC = () => {
                     placeholder="Crie uma senha segura"
                     secureTextEntry
                     value={values.password}
-                    onChangeText={handleChange('password')}
-                    onBlur={handleBlur('password')}
-                    error={touched.password && errors.password ? errors.password : ""}
+                    onChangeText={handleChange("password")}
+                    onBlur={handleBlur("password")}
+                    error={
+                      touched.password && errors.password ? errors.password : ""
+                    }
                     maxLength={20}
                   />
                   <FormField
@@ -144,17 +186,25 @@ const SignUp: React.FC = () => {
                     placeholder="Confirme sua senha"
                     secureTextEntry
                     value={values.confirmPassword}
-                    onChangeText={handleChange('confirmPassword')}
-                    onBlur={handleBlur('confirmPassword')}
-                    error={touched.confirmPassword && errors.confirmPassword ? errors.confirmPassword : ""}
+                    onChangeText={handleChange("confirmPassword")}
+                    onBlur={handleBlur("confirmPassword")}
+                    error={
+                      touched.confirmPassword && errors.confirmPassword
+                        ? errors.confirmPassword
+                        : ""
+                    }
                   />
                 </View>
 
                 <Text className="text-center font-interRegular mb-4 mx-4">
                   <Text>Ao se cadastrar, você concorda com os nossos </Text>
-                  <Link href="+not-found" className="text-[#209B85]">Termos</Link>
+                  <Link href="+not-found" className="text-[#209B85]">
+                    Termos
+                  </Link>
                   <Text> e </Text>
-                  <Link href="+not-found" className="text-[#209B85]">Política de Privacidade</Link>
+                  <Link href="+not-found" className="text-[#209B85]">
+                    Política de Privacidade
+                  </Link>
                   <Text>.</Text>
                 </Text>
 
@@ -165,14 +215,18 @@ const SignUp: React.FC = () => {
                   onPressProps={handleSubmit}
                 />
 
-
                 {error ? (
                   <Text className="text-red-500 text-center mt-4">{error}</Text>
                 ) : null}
 
                 <View className="flex-row justify-center mt-4">
-                  <Text className='font-interRegular text-base'>Já tem uma conta? </Text>
-                  <Link href="/sign-in" className="font-interBold text-base text-[#209B85]">
+                  <Text className="font-interRegular text-base">
+                    Já tem uma conta?{" "}
+                  </Text>
+                  <Link
+                    href="/sign-in"
+                    className="font-interBold text-base text-[#209B85]"
+                  >
                     Conecte-se
                   </Link>
                 </View>
@@ -181,7 +235,6 @@ const SignUp: React.FC = () => {
           </Formik>
         </View>
       </ScrollView>
-
     </SafeAreaView>
   );
 };

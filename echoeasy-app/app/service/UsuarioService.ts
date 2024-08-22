@@ -1,14 +1,9 @@
 import { ApiService } from "../api/apiService";
-import { SignUpPayload, SignInPayload } from "../types/User";
+import { SignInPayload, SignUpPayload } from "../types/User";
 
 export class UsuarioService extends ApiService {
   async create(usuarioData: SignUpPayload) {
-    try{
-
-      return this.post("/auth/signup/email", usuarioData);
-    }catch(error){
-      console.log(error);
-    }
+    return this.post("/auth/signup/email", usuarioData);
   }
 
   async login(usuarioData: SignInPayload) {
