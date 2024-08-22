@@ -2,6 +2,8 @@ import {
   Body,
   Controller,
   Get,
+  HttpException,
+  HttpStatus,
   Post,
   Put,
   Query,
@@ -32,14 +34,22 @@ export class UsuarioController {
   @Get()
   @Roles(RolesEnum.ADMIN)
   async getUsuarios(): Promise<Usuario[]> {
-    return this.usuarioService.findAll();
+    try {
+      return this.usuarioService.findAll();
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Get('search')
   async findUsuarioByEmail(
     @Query('email') email: string,
   ): Promise<Usuario | null> {
-    return this.usuarioService.findOne(email);
+    try {
+      return this.usuarioService.findOne(email);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Put()
@@ -47,7 +57,11 @@ export class UsuarioController {
     @Req() req: any,
     @Body() body: UpdateUsuarioDto,
   ): Promise<Usuario> {
-    return this.authService.updateUsuario(req.headers.authorization, body);
+    try {
+      return this.authService.updateUsuario(req.headers.authorization, body);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Post('update_photo')
@@ -56,6 +70,10 @@ export class UsuarioController {
     @Query('_id') _id: string,
     @UploadedFile() file: MulterFile,
   ): Promise<Usuario> {
-    return this.usuarioService.updatePhoto(_id, file);
+    try {
+      return this.usuarioService.updatePhoto(_id, file);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 }

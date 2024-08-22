@@ -4,9 +4,9 @@ import { Document } from 'mongoose';
 @Schema()
 export class Assunto extends Document {
   @Prop({ required: true })
-  document_title: string;
+  document_id: string;
 
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true })
   title: string;
 
   @Prop({ required: true })

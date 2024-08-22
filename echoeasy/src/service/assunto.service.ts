@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { HttpException, Injectable, Logger } from '@nestjs/common';
 import { AssuntoRepository } from '../repositories/assunto.repository';
 import { MulterFile } from 'src/types/File';
 import { AssuntoDto } from '../dto/AssuntoDto';
@@ -14,42 +14,48 @@ export class AssuntoService {
   ) {}
 
   async create(assuntoData: AssuntoDto, file: MulterFile): Promise<Assunto> {
-    this.logger.log('Inicializando criação de assunto...');
-    const verificaDocumento = await this.documentoRepository.findOne(
-      assuntoData.document_title,
-    );
-    if (!verificaDocumento) {
-      this.logger.error('Documento não encontrado!');
-      throw new Error('Documento não encontrado!');
+    try {
+      this.logger.log('Inicializando criação de assunto...');
+      const assunto = await this.assuntoRepository.create(assuntoData, file);
+      this.logger.log('Finalizando criação de assunto...');
+      return assunto;
+    } catch (error) {
+      throw new HttpException(error.message, 400);
     }
-    const verificaAssunto = await this.assuntoRepository.findOne(
-      assuntoData.title,
-    );
-    if (verificaAssunto) {
-      this.logger.error('Insira um novo nome de assunto!');
-      throw new Error('Assunto já existe!');
-    }
-    const assunto = await this.assuntoRepository.create(assuntoData, file);
-    this.logger.log('Finalizando criação de assunto...');
-    return assunto;
   }
 
   async findAll(): Promise<Assunto[]> {
-    return this.assuntoRepository.findAll();
+    try {
+      return this.assuntoRepository.findAll();
+    } catch (error) {
+      throw new HttpException(error.message, 400);
+    }
   }
 
   async findOne(_id: string): Promise<Assunto | null> {
-    return this.assuntoRepository.findOneById(_id);
+    try {
+      return this.assuntoRepository.findOne(_id);
+    } catch (error) {
+      throw new HttpException(error.message, 400);
+    }
   }
 
   async updateOne(
     _id: string,
     assuntoData: AssuntoDto,
   ): Promise<Assunto | null> {
-    return this.assuntoRepository.updateOne(_id, assuntoData);
+    try {
+      return this.assuntoRepository.updateOne(_id, assuntoData);
+    } catch (error) {
+      throw new HttpException(error.message, 400);
+    }
   }
 
   async deleteOne(_id: string): Promise<Assunto | null> {
-    return this.assuntoRepository.deleteOne(_id);
+    try {
+      return this.assuntoRepository.deleteOne(_id);
+    } catch (error) {
+      throw new HttpException(error.message, 400);
+    }
   }
 }

@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpException,
+  HttpStatus,
   Post,
   Put,
   Query,
@@ -28,13 +30,21 @@ export class DocumentoController {
     @Body() documentoData: DocumentoDto,
     @UploadedFile() file: MulterFile,
   ): Promise<Documento> {
-    return this.documentoService.create(documentoData, file);
+    try {
+      return this.documentoService.create(documentoData, file);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Get('all')
   @UseGuards(AuthGuard)
   async getDocumentos(): Promise<Documento[]> {
-    return this.documentoService.findAll();
+    try {
+      return this.documentoService.findAll();
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Get('search')
@@ -42,7 +52,11 @@ export class DocumentoController {
   async findDocumentoById(
     @Query('_id') _id: string,
   ): Promise<Documento | null> {
-    return this.documentoService.findOneById(_id);
+    try {
+      return this.documentoService.findOne(_id);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Put('update')
@@ -51,7 +65,11 @@ export class DocumentoController {
     @Query('_id') _id: string,
     @Body() documentoData: DocumentoDto,
   ): Promise<Documento | null> {
-    return this.documentoService.updateOne(_id, documentoData);
+    try {
+      return this.documentoService.updateOne(_id, documentoData);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Delete('delete')
@@ -59,6 +77,10 @@ export class DocumentoController {
   async deleteDocumentoById(
     @Query('_id') _id: string,
   ): Promise<Documento | null> {
-    return this.documentoService.deleteOne(_id);
+    try {
+      return this.documentoService.deleteOne(_id);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 }
