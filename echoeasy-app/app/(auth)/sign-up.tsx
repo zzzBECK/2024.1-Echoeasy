@@ -8,8 +8,8 @@ import * as yup from "yup";
 import CustomButton from "../../components/CustomButton";
 import FormField from "../../components/FormField";
 import { formatPhoneNumber } from "../../src/utils/formatPhoneNumber";
-import { UsuarioService } from "../service/UsuarioService";
-import { SignUpPayload } from "../types/User";
+import { UsuarioService } from "../../src/service/UsuarioService";
+import { SignUpPayload } from "../../src/types/User";
 
 const signUpSchema = yup.object().shape({
   name: yup.string().required("Nome é obrigatório"),
@@ -216,7 +216,7 @@ const SignUp: React.FC = () => {
                 />
 
                 {error ? (
-                  <Text className="text-red-500 text-center mt-4">{error}</Text>
+                  <Text className="font-interRegular px-4 text-red-500 text-center mt-4">{error}</Text>
                 ) : null}
 
                 <View className="flex-row justify-center mt-4">

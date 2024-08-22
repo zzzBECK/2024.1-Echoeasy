@@ -6,8 +6,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import * as yup from "yup";
 import CustomButton from "../../components/CustomButton";
 import FormField from "../../components/FormField";
-import { UsuarioService } from "../service/UsuarioService";
-import { SignInPayload } from "../types/User";
+import { UsuarioService } from "../../src/service/UsuarioService";
+import { SignInPayload } from "../../src/types/User";
 
 const signInSchema = yup.object().shape({
   email: yup.string().email("E-mail inválido").required("E-mail é obrigatório"),
@@ -29,7 +29,7 @@ const SignIn: React.FC = () => {
       console.log(response.data);
 
       setMessage("Usuário logado com sucesso");
-      router.replace("+not-found");
+      router.replace("/algorithms");
     } catch (error: any) {
       console.log(error);
       setError(error.response.data.message);
@@ -105,7 +105,7 @@ const SignIn: React.FC = () => {
                 />
 
                 {error ? (
-                  <Text className="text-red-500 text-center mt-4">{error}</Text>
+                  <Text className="font-interRegular px-4 text-red-500 text-center mt-4">{error}</Text>
                 ) : null}
               </>
             )}
@@ -113,7 +113,7 @@ const SignIn: React.FC = () => {
 
           <View className="flex-row justify-center mt-4">
             <Text className="font-interRegular text-base">
-              Não possui uma conta?
+              Não possui uma conta?{" "}
             </Text>
             <Link
               href="/sign-up"
