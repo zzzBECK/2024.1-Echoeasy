@@ -1,4 +1,4 @@
-import { IsEmail, IsString } from 'class-validator';
+import { IsEmail, IsOptional, IsString } from 'class-validator';
 
 export class UsuarioDto {
   @IsString({ message: 'Nome inválido' })
@@ -15,4 +15,8 @@ export class UsuarioDto {
 
   @IsString({ message: 'ID do Firebase inválido' })
   firebaseId: string;
+
+  @IsString({ message: 'Imagem inválida' })
+  @IsOptional()
+  image: string;
 }
