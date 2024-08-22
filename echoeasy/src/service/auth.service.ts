@@ -7,7 +7,7 @@ import {
 } from 'firebase/auth';
 import { auth } from 'src/config/firebase';
 import { adminAuth } from 'src/config/firebase-admin';
-import { GetUsuarioDto } from 'src/dto/getUsuarioDto';
+import { GetUsuarioDto } from 'src/dto/GetUsuarioDto';
 import { SignUpEmailDto } from 'src/dto/signup-email.dto';
 import { UpdateUsuarioDto } from 'src/dto/update-usuario.dto';
 import { UsuarioDto } from 'src/dto/UsuarioDto';
