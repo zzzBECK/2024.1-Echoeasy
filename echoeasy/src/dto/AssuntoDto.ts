@@ -2,7 +2,7 @@ import { IsOptional, IsString } from 'class-validator';
 
 export class AssuntoDto {
   @IsString({ message: 'ID inválido' })
-  document_title: string;
+  document_id: string;
   @IsString({ message: 'Título inválido' })
   title: string;
   @IsString({ message: 'Descrição inválida' })
