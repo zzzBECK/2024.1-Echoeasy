@@ -19,6 +19,7 @@ export class FirebaseAdminConfig {
         privateKey: privateKey.replace(/\\n/g, '\n'),
       }),
       databaseURL: `https://${this.configService.get<string>('FIREBASE_PROJECT_ID')}.firebaseio.com`,
+      storageBucket: `${this.configService.get<string>('FIREBASE_BUCKET_ID')}.appspot.com`,
     };
 
     const app = admin.initializeApp(adminConfig);
@@ -29,5 +30,5 @@ export class FirebaseAdminConfig {
 const firebaseAdminConfig = new FirebaseAdminConfig(new ConfigService());
 const adminApp = firebaseAdminConfig.initializeFirebaseAdminApp();
 const adminAuth = adminApp.auth();
-
-export { adminApp, adminAuth };
+const adminStorage = adminApp.storage().bucket();
+export { adminApp, adminAuth, adminStorage };
