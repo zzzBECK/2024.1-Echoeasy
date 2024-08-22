@@ -18,8 +18,11 @@ export class DocumentoRepository {
     file: MulterFile,
   ): Promise<Documento> {
     try {
-      if (this.findOne(documentoData.title)) {
-        throw new Error('Documento já existe');
+      if (!documentoData) {
+        throw new Error('Dados inválidos');
+      }
+      if (!file) {
+        throw new Error('Arquivo inválido');
       }
       const imageUrl = await this.uploadImage64(file);
       documentoData.image = imageUrl;

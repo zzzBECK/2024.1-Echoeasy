@@ -15,9 +15,6 @@ export class DocumentoService {
     file: MulterFile,
   ): Promise<Documento> {
     try {
-      if (this.documentoRepository.findOne(documentoData.title)) {
-        throw new Error('Documento já existe');
-      }
       this.logger.log('Inicializando criação de documento...');
       const documento = await this.documentoRepository.create(
         documentoData,
