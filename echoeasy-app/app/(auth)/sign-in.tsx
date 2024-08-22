@@ -1,14 +1,35 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, ScrollView } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Link, router } from "expo-router";
 import FormField from '../../components/FormField';
 import CustomButton from '../../components/CustomButton';
+import { Formik } from 'formik';
+import * as yup from 'yup';
 
 const SignIn: React.FC = () => {
+  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
 
-  const handleSignIn =  () => {
-    router.replace('+not-found');
+  const signInSchema = yup.object().shape({
+    email: yup.string().email('E-mail inválido').required('E-mail é obrigatório'),
+    password: yup.string().required('Senha é obrigatório'),
+  });
+
+  type SignInPayload = {
+    email: string;
+    password: string;
+  };
+
+  const handleSignIn = async (values: SignInPayload) => {
+    try {
+      //Inserir método para signIn
+      setMessage("Usuário logado com sucesso");
+      router.replace('+not-found');
+    } catch (error) {
+      console.log(error);
+      setError("Erro ao criar usuário");
+    }
   };
 
   return (
@@ -21,27 +42,46 @@ const SignIn: React.FC = () => {
             <Text className="text-3xl font-interMedium">Echo</Text><Text className="text-[#3CC1A9] text-3xl font-interMedium ">easy</Text>
           </View>
 
-          <FormField
-            label="E-mail"
-            icon="mail-outline"
-            placeholder="Insira o seu e-mail"
-            // value={}
-            // onChangeText={}
-            // onBlur={}
-          />
-          <FormField
-            label="Senha"
-            icon="lock-closed-outline"
-            placeholder="Insira sua senha"
-            secureTextEntry
-            // value={}
-            // onChangeText={}
-            // onBlur={}
-          />
+          <Formik
+            initialValues={{ email: '', password: '' }}
+            validationSchema={signInSchema}
+            onSubmit={(values) => {
+              handleSignIn(values);
+            }}
+            validateOnMount={true}
+          >
+            {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, isSubmitting }) => (
+              <>
+                <FormField
+                  label="E-mail"
+                  icon="mail-outline"
+                  placeholder="Insira o seu e-mail"
+                  value={values.email}
+                  onChangeText={handleChange('email')}
+                  onBlur={handleBlur('email')}
+                  error={touched.email && errors.email ? errors.email : ""}
+                />
+                <FormField
+                  label="Senha"
+                  icon="lock-closed-outline"
+                  placeholder="Insira sua senha"
+                  secureTextEntry
+                  value={values.password}
+                  onChangeText={handleChange('password')}
+                  onBlur={handleBlur('password')}
+                  error={touched.password && errors.password ? errors.password : ""}
+                />
 
-          <Link href="+not-found" className="self-end text-base text-[#209B85] font-interRegular my-2 mr-6">Esqueceu a senha?</Link>
+                <Link href="+not-found" className="self-end text-base text-[#209B85] font-interRegular my-2 mr-6">Esqueceu a senha?</Link>
 
-          <CustomButton title="Entrar" isDisabled={true} isLoading={false} onPressProps={handleSignIn}/>
+                <CustomButton title="Entrar" isDisabled={!isValid || isSubmitting} isLoading={isSubmitting} onPressProps={handleSubmit} />
+
+                {error ? (
+                  <Text className="text-red-500 text-center mt-4">{error}</Text>
+                ) : null}
+              </>
+            )}
+          </Formik>
 
           <View className="flex-row justify-center mt-4">
             <Text className='font-interRegular text-base'>Não possui uma conta? </Text>
