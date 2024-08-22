@@ -32,6 +32,10 @@ export class DocumentoRepository {
     return this.documentoModel.findOne({ title }).exec();
   }
 
+  async findOneById(_id: string): Promise<Documento | null> {
+    return this.documentoModel.findOne({ _id }).exec();
+  }
+
   async updateOne(
     _id: string,
     documentoData: DocumentoDto,

@@ -38,14 +38,18 @@ export class DocumentoService {
     return this.documentoRepository.findOne(title);
   }
 
-  async updateOne(
-    title: string,
-    documentoData: DocumentoDto,
-  ): Promise<Documento | null> {
-    return this.documentoRepository.updateOne(title, documentoData);
+  async findOneById(_id: string): Promise<Documento | null> {
+    return this.documentoRepository.findOneById(_id);
   }
 
-  async deleteOne(title: string): Promise<Documento | null> {
-    return this.documentoRepository.deleteOne(title);
+  async updateOne(
+    _id: string,
+    documentoData: DocumentoDto,
+  ): Promise<Documento | null> {
+    return this.documentoRepository.updateOne(_id, documentoData);
+  }
+
+  async deleteOne(_id: string): Promise<Documento | null> {
+    return this.documentoRepository.deleteOne(_id);
   }
 }

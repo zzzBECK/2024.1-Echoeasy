@@ -39,7 +39,7 @@ export class AssuntoService {
   }
 
   async findOne(_id: string): Promise<Assunto | null> {
-    return this.assuntoRepository.findOne(_id);
+    return this.assuntoRepository.findOneById(_id);
   }
 
   async updateOne(

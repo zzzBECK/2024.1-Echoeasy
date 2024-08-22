@@ -30,6 +30,10 @@ export class AssuntoRepository {
     return this.assuntoModel.findOne({ title }).exec();
   }
 
+  async findOneById(_id: string): Promise<Assunto | null> {
+    return this.assuntoModel.findOne({ _id }).exec();
+  }
+
   async updateOne(
     _id: string,
     assuntoData: AssuntoDto,
