@@ -7,20 +7,28 @@ import {
   Delete,
   Put,
   UseGuards,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { Assunto } from '../schema/Assunto';
 import { AssuntoService } from '../service/assunto.service';
 import { AssuntoDto } from '../dto/AssuntoDto';
 import { AuthGuard } from 'src/guards/auth.guard';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { MulterFile } from 'src/types/File';
 
 @Controller('assuntos')
 export class AssuntoController {
   constructor(private assuntoService: AssuntoService) {}
 
   @Post()
+  @UseInterceptors(FileInterceptor('image'))
   @UseGuards(AuthGuard)
-  async criarAssunto(@Body() assuntoData: AssuntoDto): Promise<Assunto> {
-    return this.assuntoService.create(assuntoData);
+  async criarAssunto(
+    @Body() assuntoData: AssuntoDto,
+    @UploadedFile() file: MulterFile,
+  ): Promise<Assunto> {
+    return this.assuntoService.create(assuntoData, file);
   }
 
   @Get('all')

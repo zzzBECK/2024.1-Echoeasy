@@ -1,55 +1,55 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { Assunto } from '../schema/Assunto';
+import { AssuntoRepository } from '../repositories/assunto.repository';
+import { MulterFile } from 'src/types/File';
 import { AssuntoDto } from '../dto/AssuntoDto';
+import { Assunto } from '../schema/Assunto';
+import { DocumentoRepository } from 'src/repositories/documento.repository';
 
 @Injectable()
 export class AssuntoService {
   private readonly logger = new Logger(AssuntoService.name);
   constructor(
-    @InjectModel(Assunto.name) private assuntoModel: Model<Assunto>,
+    private readonly assuntoRepository: AssuntoRepository,
+    private readonly documentoRepository: DocumentoRepository,
   ) {}
 
-  async create(assuntoData: AssuntoDto): Promise<Assunto> {
+  async create(assuntoData: AssuntoDto, file: MulterFile): Promise<Assunto> {
     this.logger.log('Inicializando criação de assunto...');
-    const verificaAssunto = await this.assuntoModel
-      .findOne({ title: assuntoData.title })
-      .exec();
+    const verificaDocumento = await this.documentoRepository.findOne(
+      assuntoData.document_title,
+    );
+    if (!verificaDocumento) {
+      this.logger.error('Documento não encontrado!');
+      throw new Error('Documento não encontrado!');
+    }
+    const verificaAssunto = await this.assuntoRepository.findOne(
+      assuntoData.title,
+    );
     if (verificaAssunto) {
       this.logger.error('Insira um novo nome de assunto!');
       throw new Error('Assunto já existe!');
     }
-
-    return this.assuntoModel.create(assuntoData);
+    const assunto = await this.assuntoRepository.create(assuntoData, file);
+    this.logger.log('Finalizando criação de assunto...');
+    return assunto;
   }
 
   async findAll(): Promise<Assunto[]> {
-    return this.assuntoModel.find().exec();
+    return this.assuntoRepository.findAll();
   }
 
   async findOne(_id: string): Promise<Assunto | null> {
-    return this.assuntoModel.findOne({ _id }).exec();
+    return this.assuntoRepository.findOne(_id);
   }
 
   async updateOne(
     _id: string,
     assuntoData: AssuntoDto,
   ): Promise<Assunto | null> {
-    return this.assuntoModel
-      .findOneAndUpdate(
-        {
-          _id,
-        },
-        assuntoData,
-        {
-          new: true,
-        },
-      )
-      .exec();
+    return this.assuntoRepository.updateOne(_id, assuntoData);
   }
 
   async deleteOne(_id: string): Promise<Assunto | null> {
-    return this.assuntoModel.findOneAndDelete({ _id }).exec();
+    return this.assuntoRepository.deleteOne(_id);
   }
 }
