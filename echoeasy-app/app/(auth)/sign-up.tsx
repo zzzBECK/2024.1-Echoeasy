@@ -13,14 +13,14 @@ import { formatPhoneNumber } from '../../src/utils/formatPhoneNumber';
 
 const signUpSchema = yup.object().shape({
   name: yup.string().required('Nome é obrigatório'),
-  lastName: yup.string().required('Sobrenome é obrigatório'),
+  lastname: yup.string().required('Sobrenome é obrigatório'),
   email: yup.string().email('E-mail inválido').required('E-mail é obrigatório'),
-  phoneNumber: yup.string().matches(/^\(\d{2}\) \d{5}-\d{4}$/, 'Número de telefone inválido').required('Número de telefone é obrigatório'),
+  cellphone: yup.string().matches(/^\(\d{2}\) \d{5}-\d{4}$/, 'Número de telefone inválido').required('Número de telefone é obrigatório'),
   password: yup.string()
     .required('Senha é obrigatória')
     .test(
       'password-requirements',
-      function(value) {
+      function (value) {
         const errors = [];
 
         if (!value || value.length < 8) errors.push('A senha deve ter no mínimo 8 caracteres');
@@ -50,7 +50,7 @@ const SignUp: React.FC = () => {
       const usuario = await usuarioService.create(values);
       console.log(usuario);
       setMessage("Usuário criado com sucesso");
-      router.replace('/sign-up');
+      router.replace('/sign-in');
     } catch (error) {
       console.log(error);
       setError("Erro ao criar usuário");
@@ -77,6 +77,8 @@ const SignUp: React.FC = () => {
             validationSchema={signUpSchema}
             validateOnMount={true}
             onSubmit={(values) => {
+              console.log("clicou1")
+              console.log(values)
               handleSignUp(values);
             }}
           >
@@ -156,7 +158,13 @@ const SignUp: React.FC = () => {
                   <Text>.</Text>
                 </Text>
 
-                <CustomButton title="Confirmar" isDisabled={false} isLoading={isSubmitting} onPressProps={handleSubmit} />
+                <CustomButton
+                  title="Confirmar"
+                  isDisabled={!isValid || isSubmitting}
+                  isLoading={isSubmitting}
+                  onPressProps={handleSubmit}
+                />
+
 
                 {error ? (
                   <Text className="text-red-500 text-center mt-4">{error}</Text>

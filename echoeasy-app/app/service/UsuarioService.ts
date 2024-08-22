@@ -3,7 +3,12 @@ import { SignUpPayload, SignInPayload } from "../types/User";
 
 export class UsuarioService extends ApiService {
   async create(usuarioData: SignUpPayload) {
-    return this.post("/auth/signup/email", usuarioData);
+    try{
+
+      return this.post("/auth/signup/email", usuarioData);
+    }catch(error){
+      console.log(error);
+    }
   }
 
   async login(usuarioData: SignInPayload) {
