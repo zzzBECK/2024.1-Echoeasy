@@ -40,4 +40,6 @@
     - [Entrega Final Missão 1](./entregas/missao_01/entrega_final_video.md)
   - [Missão 2](#)
     - [Entrega Final Missão 2](./entregas/missao_02/entrega_final_video.md)
+  - [Missão 3](#)
+    - [Entrega Final Missão 3](./entregas/missao_03/entrega_final.md)
 - [Referências Bibliográficas](./referencias.md)
