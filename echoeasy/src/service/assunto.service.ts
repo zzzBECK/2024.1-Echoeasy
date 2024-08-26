@@ -4,6 +4,7 @@ import { MulterFile } from 'src/types/File';
 import { AssuntoDto } from '../dto/AssuntoDto';
 import { Assunto } from '../schema/Assunto';
 import { DocumentoRepository } from 'src/repositories/documento.repository';
+import { Documento } from '../schema/Documento';
 
 @Injectable()
 export class AssuntoService {
@@ -19,6 +20,22 @@ export class AssuntoService {
       const assunto = await this.assuntoRepository.create(assuntoData, file);
       this.logger.log('Finalizando criação de assunto...');
       return assunto;
+    } catch (error) {
+      throw new HttpException(error.message, 400);
+    }
+  }
+
+  async findAllByCategory(category: string): Promise<Documento[]> {
+    try {
+      return this.assuntoRepository.findByAssuntoCategory(category);
+    } catch (error) {
+      throw new HttpException(error.message, 400);
+    }
+  }
+
+  async findAllByTitle(title: string): Promise<Documento[]> {
+    try {
+      return this.assuntoRepository.findByAssuntoTitle(title);
     } catch (error) {
       throw new HttpException(error.message, 400);
     }

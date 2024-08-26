@@ -34,6 +34,40 @@ export class DocumentoRepository {
     }
   }
 
+  async findByDocumentCategory(category: string): Promise<Documento[]> {
+    try {
+      if (!category) {
+        throw new Error('Título inválido');
+      }
+      return this.documentoModel
+        .find({ category: { $regex: category, $options: 'i' } })
+        .exec();
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
+  }
+
+  async findByDocumentTitle(title: string): Promise<Documento[]> {
+    try {
+      if (!title) {
+        throw new Error('Título inválido');
+      }
+      return this.documentoModel
+        .find({ title: { $regex: title, $options: 'i' } })
+        .exec();
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
+  }
+
+  async save(documento: Documento): Promise<Documento> {
+    return documento.save();
+  }
+
+  async findById(_id: string): Promise<Documento> {
+    return this.documentoModel.findOne({ _id }).exec();
+  }
+
   async findAll(): Promise<Documento[]> {
     try {
       return this.documentoModel.find().exec();

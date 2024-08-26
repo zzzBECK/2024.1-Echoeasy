@@ -79,4 +79,24 @@ export class AssuntoController {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
+
+  @Get('category/search')
+  @UseGuards(AuthGuard)
+  async findAssuntoByCategory(@Query('category') category): Promise<Assunto[]> {
+    try {
+      return this.assuntoService.findAllByCategory(category);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  @Get('title/search')
+  @UseGuards(AuthGuard)
+  async findAssuntoByTitle(@Query('title') title): Promise<Assunto[]> {
+    try {
+      return this.assuntoService.findAllByTitle(title);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
 }

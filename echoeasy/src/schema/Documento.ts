@@ -12,6 +12,8 @@ export class Documento extends Document {
   @Prop({ required: false })
   image: string;
 
+  @Prop({ required: true })
+  category: string[];
   @Prop({ default: Date.now })
   createdAt: Date;
 

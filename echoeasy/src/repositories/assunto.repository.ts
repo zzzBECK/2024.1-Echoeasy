@@ -142,4 +142,30 @@ export class AssuntoRepository {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
+
+  async findByAssuntoCategory(category: string): Promise<Documento[]> {
+    try {
+      if (!category) {
+        throw new Error('Título inválido');
+      }
+      return this.assuntoModel
+        .find({ category: { $regex: category, $options: 'i' } })
+        .exec();
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
+  }
+
+  async findByAssuntoTitle(title: string): Promise<Documento[]> {
+    try {
+      if (!title) {
+        throw new Error('Título inválido');
+      }
+      return this.assuntoModel
+        .find({ title: { $regex: title, $options: 'i' } })
+        .exec();
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
+  }
 }

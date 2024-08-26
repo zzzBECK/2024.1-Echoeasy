@@ -83,4 +83,37 @@ export class DocumentoController {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
+
+  @Put('category')
+  @UseGuards(AuthGuard)
+  async updateCategory(
+    @Query('documentoId') documentoId: string,
+    @Body('newCategory') newCategory: string,
+  ): Promise<Documento> {
+    return this.documentoService.updateCategory(documentoId, newCategory);
+  }
+
+  @Get('category/search')
+  @UseGuards(AuthGuard)
+  async findDocumentoByTitle(
+    @Query('category') category: string,
+  ): Promise<Documento[]> {
+    try {
+      return this.documentoService.findAllByCategory(category);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  @Get('title/search')
+  @UseGuards(AuthGuard)
+  async findDocumentoByTitle(
+    @Query('title') title: string,
+  ): Promise<Documento[]> {
+    try {
+      return this.documentoService.findAllByTitle(title);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
 }

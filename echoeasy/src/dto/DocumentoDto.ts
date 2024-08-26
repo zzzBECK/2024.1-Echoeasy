@@ -7,5 +7,7 @@ export class DocumentoDto {
   description: string;
   @IsString({ message: 'Imagem inválida' })
   @IsOptional()
+  category: string[];
+  @IsOptional()
   image: string;
 }
