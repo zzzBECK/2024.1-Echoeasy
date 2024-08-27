@@ -10,6 +10,8 @@ export class AssuntoDto {
   @IsString({ message: 'Imagem inválida' })
   @IsOptional()
   image: string;
+  @IsOptional()
+  category: string[];
   @IsString({ message: 'Link do algoritmo inválido' })
   algorithm_link: string;
   @IsString({ message: 'Ordem inválida' })

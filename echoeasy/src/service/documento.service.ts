@@ -27,6 +27,22 @@ export class DocumentoService {
     }
   }
 
+  async findAllByCategory(category: string): Promise<Documento[]> {
+    try {
+      return this.documentoRepository.findByDocumentCategory(category);
+    } catch (error) {
+      throw new HttpException(error.message, 400);
+    }
+  }
+
+  async findAllByTitle(title: string): Promise<Documento[]> {
+    try {
+      return this.documentoRepository.findByDocumentTitle(title);
+    } catch (error) {
+      throw new HttpException(error.message, 400);
+    }
+  }
+
   async findAll(): Promise<Documento[]> {
     try {
       return this.documentoRepository.findAll();
@@ -60,5 +76,26 @@ export class DocumentoService {
     } catch (error) {
       throw new HttpException(error.message, 400);
     }
+  }
+
+  async updateCategory(
+    documentoId: string,
+    newCategory: string,
+  ): Promise<Documento> {
+    const updatedDocumento =
+      await this.documentoRepository.findById(documentoId);
+    const categoryExists = updatedDocumento.category.includes(newCategory);
+
+    if (categoryExists) {
+      throw new Error('Category already exists');
+    }
+    if (!updatedDocumento) {
+      throw new Error('Documento not found');
+    }
+    updatedDocumento.category.push(newCategory);
+
+    await this.documentoRepository.save(updatedDocumento);
+
+    return updatedDocumento;
   }
 }
