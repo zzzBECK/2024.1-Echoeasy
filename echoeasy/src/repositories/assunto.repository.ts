@@ -146,7 +146,7 @@ export class AssuntoRepository {
   async findByAssuntoCategory(category: string): Promise<Documento[]> {
     try {
       if (!category) {
-        throw new Error('Título inválido');
+        throw new Error('Category inválido');
       }
       return this.assuntoModel
         .find({ category: { $regex: category, $options: 'i' } })
