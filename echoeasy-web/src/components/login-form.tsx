@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
+import { api } from "@/services/api";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -43,23 +44,12 @@ export function LoginForm() {
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     try {
       setIsLoading(true);
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/signin/email`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
+      const response = await api.post("/auth/signin/email", data);
+
+      sessionStorage.setItem(
+        "authToken",
+        response.data.stsTokenManager.accessToken
       );
-
-      if (!response.ok) {
-        throw new Error("Login failed");
-      }
-
-      const result = await response.json();
-      sessionStorage.setItem("authToken", result.stsTokenManager.accessToken);
 
       toast({
         title: "Login confirmado!",
@@ -69,10 +59,11 @@ export function LoginForm() {
       router.push("/");
       setIsLoading(false);
     } catch (error: any) {
+      console.log(error);
       setIsLoading(false);
       toast({
-        title: "Login failed",
-        description: error.message,
+        title: "Falha no Login",
+        description: error.response.data.message,
         variant: "destructive",
       });
     }
