@@ -95,7 +95,7 @@ export class DocumentoController {
 
   @Get('category/search')
   @UseGuards(AuthGuard)
-  async findDocumentoByTitle(
+  async findDocumentoByCategory(
     @Query('category') category: string,
   ): Promise<Documento[]> {
     try {

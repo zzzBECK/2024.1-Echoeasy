@@ -1,10 +1,9 @@
 import { HttpException, Injectable, Logger } from '@nestjs/common';
-import { AssuntoRepository } from '../repositories/assunto.repository';
+import { DocumentoRepository } from 'src/repositories/documento.repository';
 import { MulterFile } from 'src/types/File';
 import { AssuntoDto } from '../dto/AssuntoDto';
+import { AssuntoRepository } from '../repositories/assunto.repository';
 import { Assunto } from '../schema/Assunto';
-import { DocumentoRepository } from 'src/repositories/documento.repository';
-import { Documento } from '../schema/Documento';
 
 @Injectable()
 export class AssuntoService {
@@ -25,7 +24,7 @@ export class AssuntoService {
     }
   }
 
-  async findAllByCategory(category: string): Promise<Documento[]> {
+  async findAllByCategory(category: string): Promise<Assunto[]> {
     try {
       return this.assuntoRepository.findByAssuntoCategory(category);
     } catch (error) {
@@ -33,7 +32,7 @@ export class AssuntoService {
     }
   }
 
-  async findAllByTitle(title: string): Promise<Documento[]> {
+  async findAllByTitle(title: string): Promise<Assunto[]> {
     try {
       return this.assuntoRepository.findByAssuntoTitle(title);
     } catch (error) {

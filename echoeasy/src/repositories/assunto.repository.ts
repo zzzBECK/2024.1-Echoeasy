@@ -143,7 +143,7 @@ export class AssuntoRepository {
     }
   }
 
-  async findByAssuntoCategory(category: string): Promise<Documento[]> {
+  async findByAssuntoCategory(category: string): Promise<Assunto[]> {
     try {
       if (!category) {
         throw new Error('Category inválido');
@@ -156,7 +156,7 @@ export class AssuntoRepository {
     }
   }
 
-  async findByAssuntoTitle(title: string): Promise<Documento[]> {
+  async findByAssuntoTitle(title: string): Promise<Assunto[]> {
     try {
       if (!title) {
         throw new Error('Título inválido');
