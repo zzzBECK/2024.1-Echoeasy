@@ -137,14 +137,7 @@ export class AuthService {
         );
       }
 
-      return {
-        email: user.email,
-        name: user.name,
-        role: user.role,
-        lastname: user.lastname,
-        cellphone: user.cellphone,
-        firebaseId: user.firebaseId,
-      };
+      return user;
     } catch (error) {
       throw new HttpException(
         `Erro ao buscar dados do usuário: ${error.message}`,
