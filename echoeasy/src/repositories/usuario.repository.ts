@@ -147,4 +147,49 @@ export class UsuarioRepository {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
+
+  async findOneById(_id: string): Promise<Usuario | null> {
+    try {
+      if (!Types.ObjectId.isValid(_id)) {
+        throw new HttpException('ID inválido', HttpStatus.BAD_REQUEST);
+      }
+      return this.usuarioModel.findOne({ _id }).exec();
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  async deleteImage(imagePath: string): Promise<boolean> {
+    try {
+      if (!imagePath) {
+        throw new HttpException('Link Inválido', HttpStatus.BAD_REQUEST);
+      }
+
+      const parsedUrl = new URL(imagePath);
+      const relativePath = parsedUrl.pathname.replace(
+        '/echoeasy-539dc.appspot.com/',
+        '',
+      );
+
+      await adminStorage.file(relativePath).delete();
+
+      return true;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+  async delete(_id: string): Promise<Usuario> {
+    try {
+      if (!Types.ObjectId.isValid(_id)) {
+        throw new HttpException('ID inválido', HttpStatus.BAD_REQUEST);
+      }
+      const usuario = await this.usuarioModel.findOneAndDelete({ _id }).exec();
+      if (!usuario) {
+        throw new HttpException('Usuário não encontrado', HttpStatus.NOT_FOUND);
+      }
+      return usuario;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
 }

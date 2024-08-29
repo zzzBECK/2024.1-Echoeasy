@@ -56,7 +56,33 @@ export class UsuarioService {
 
   async updatePhoto(_id: string, file: any): Promise<Usuario> {
     try {
+      const user = await this.usuarioRepository.findOneById(_id);
+      if (!user) {
+        throw new Error('Usuário não encontrado');
+      }
+      if (user.image) {
+        await this.usuarioRepository.deleteImage(user.image);
+      }
+
       return this.usuarioRepository.updatePhoto(_id, file);
+    } catch (error) {
+      throw new HttpException(error.message, 400);
+    }
+  }
+
+  async delete(_id: string): Promise<Usuario> {
+    try {
+      const user = await this.usuarioRepository.findOneById(_id);
+      if (!user) {
+        throw new Error('Usuário não encontrado');
+      }
+
+      const image_path = user.image;
+      if (image_path) {
+        await this.usuarioRepository.deleteImage(image_path);
+      }
+
+      return this.usuarioRepository.delete(_id);
     } catch (error) {
       throw new HttpException(error.message, 400);
     }
