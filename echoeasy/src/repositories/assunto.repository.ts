@@ -143,19 +143,6 @@ export class AssuntoRepository {
     }
   }
 
-  async findByAssuntoCategory(category: string): Promise<Assunto[]> {
-    try {
-      if (!category) {
-        throw new Error('Category inválido');
-      }
-      return this.assuntoModel
-        .find({ category: { $regex: category, $options: 'i' } })
-        .exec();
-    } catch (error) {
-      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
-    }
-  }
-
   async findByAssuntoTitle(title: string): Promise<Assunto[]> {
     try {
       if (!title) {

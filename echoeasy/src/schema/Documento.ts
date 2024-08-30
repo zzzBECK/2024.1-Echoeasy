@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 
 @Schema()
 export class Documento extends Document {
@@ -12,8 +12,9 @@ export class Documento extends Document {
   @Prop({ required: false })
   image: string;
 
-  @Prop({ required: true })
-  category: string[];
+  @Prop({ type: [{ type: Types.ObjectId, ref: 'Categoria' }], default: [] })
+  categorias: Types.ObjectId[];
+
   @Prop({ default: Date.now })
   createdAt: Date;
 

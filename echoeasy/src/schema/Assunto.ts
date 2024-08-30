@@ -11,8 +11,7 @@ export class Assunto extends Document {
 
   @Prop({ required: true })
   description: string;
-  @Prop({ required: true })
-  category: string[];
+
   @Prop({ required: true })
   image: string;
 

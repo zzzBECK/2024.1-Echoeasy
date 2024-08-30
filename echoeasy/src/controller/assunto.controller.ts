@@ -1,23 +1,23 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Query,
+  Controller,
   Delete,
-  Put,
-  UseGuards,
-  UseInterceptors,
-  UploadedFile,
+  Get,
   HttpException,
   HttpStatus,
+  Post,
+  Put,
+  Query,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { AuthGuard } from 'src/guards/auth.guard';
+import { MulterFile } from 'src/types/File';
+import { AssuntoDto } from '../dto/AssuntoDto';
 import { Assunto } from '../schema/Assunto';
 import { AssuntoService } from '../service/assunto.service';
-import { AssuntoDto } from '../dto/AssuntoDto';
-import { AuthGuard } from 'src/guards/auth.guard';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { MulterFile } from 'src/types/File';
 
 @Controller('assuntos')
 export class AssuntoController {
@@ -75,26 +75,6 @@ export class AssuntoController {
   async deleteAssuntoById(@Query('_id') _id: string): Promise<Assunto | null> {
     try {
       return this.assuntoService.deleteOne(_id);
-    } catch (error) {
-      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
-    }
-  }
-
-  @Get('category/search')
-  @UseGuards(AuthGuard)
-  async findAssuntoByCategory(@Query('category') category): Promise<Assunto[]> {
-    try {
-      return this.assuntoService.findAllByCategory(category);
-    } catch (error) {
-      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
-    }
-  }
-
-  @Get('title/search')
-  @UseGuards(AuthGuard)
-  async findAssuntoByTitle(@Query('title') title): Promise<Assunto[]> {
-    try {
-      return this.assuntoService.findAllByTitle(title);
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }

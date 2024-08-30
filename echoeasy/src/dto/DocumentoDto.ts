@@ -1,13 +1,16 @@
-import { IsOptional, IsString } from 'class-validator';
+import { IsArray, IsOptional, IsString } from 'class-validator';
 
 export class DocumentoDto {
   @IsString({ message: 'Título inválido' })
   title: string;
+
   @IsString({ message: 'Descrição inválida' })
   description: string;
-  @IsString({ message: 'Imagem inválida' })
-  @IsOptional()
-  category: string[];
+
   @IsOptional()
   image: string;
+
+  @IsOptional()
+  @IsArray()
+  categorias: string[];
 }

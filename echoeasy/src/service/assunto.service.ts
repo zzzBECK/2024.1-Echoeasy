@@ -24,14 +24,6 @@ export class AssuntoService {
     }
   }
 
-  async findAllByCategory(category: string): Promise<Assunto[]> {
-    try {
-      return this.assuntoRepository.findByAssuntoCategory(category);
-    } catch (error) {
-      throw new HttpException(error.message, 400);
-    }
-  }
-
   async findAllByTitle(title: string): Promise<Assunto[]> {
     try {
       return this.assuntoRepository.findByAssuntoTitle(title);

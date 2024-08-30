@@ -1,4 +1,5 @@
 import { HttpException, Injectable, Logger } from '@nestjs/common';
+import { Types } from 'mongoose';
 import { DocumentoRepository } from 'src/repositories/documento.repository';
 import { MulterFile } from 'src/types/File';
 import { DocumentoDto } from '../dto/DocumentoDto';
@@ -22,14 +23,6 @@ export class DocumentoService {
       );
       this.logger.log('Finalizando criação de documento...');
       return documento;
-    } catch (error) {
-      throw new HttpException(error.message, 400);
-    }
-  }
-
-  async findAllByCategory(category: string): Promise<Documento[]> {
-    try {
-      return this.documentoRepository.findByDocumentCategory(category);
     } catch (error) {
       throw new HttpException(error.message, 400);
     }
@@ -78,24 +71,25 @@ export class DocumentoService {
     }
   }
 
-  async updateCategory(
-    documentoId: string,
-    newCategory: string,
-  ): Promise<Documento> {
-    const updatedDocumento =
-      await this.documentoRepository.findById(documentoId);
-    const categoryExists = updatedDocumento.category.includes(newCategory);
-
-    if (categoryExists) {
-      throw new Error('Category already exists');
+  async addCategoria(_id: string, categoriaId: string): Promise<Documento> {
+    try {
+      if (!Types.ObjectId.isValid(categoriaId)) {
+        throw new Error('ID de categoria inválido');
+      }
+      return await this.documentoRepository.addCategoria(_id, categoriaId);
+    } catch (error) {
+      throw new HttpException(error.message, 400);
     }
-    if (!updatedDocumento) {
-      throw new Error('Documento not found');
+  }
+
+  async removeCategoria(_id: string, categoriaId: string): Promise<Documento> {
+    try {
+      if (!Types.ObjectId.isValid(categoriaId)) {
+        throw new Error('ID de categoria inválido');
+      }
+      return await this.documentoRepository.removeCategoria(_id, categoriaId);
+    } catch (error) {
+      throw new HttpException(error.message, 400);
     }
-    updatedDocumento.category.push(newCategory);
-
-    await this.documentoRepository.save(updatedDocumento);
-
-    return updatedDocumento;
   }
 }

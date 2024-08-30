@@ -5,6 +5,7 @@ import {
   Get,
   HttpException,
   HttpStatus,
+  Param,
   Post,
   Put,
   Query,
@@ -84,34 +85,27 @@ export class DocumentoController {
     }
   }
 
-  @Put('category')
+  @Put(':id/add-categoria')
   @UseGuards(AuthGuard)
-  async updateCategory(
-    @Query('documentoId') documentoId: string,
-    @Body('newCategory') newCategory: string,
+  async addCategoria(
+    @Param('id') id: string,
+    @Query('categoriaId') categoriaId: string,
   ): Promise<Documento> {
-    return this.documentoService.updateCategory(documentoId, newCategory);
-  }
-
-  @Get('category/search')
-  @UseGuards(AuthGuard)
-  async findDocumentoByCategory(
-    @Query('category') category: string,
-  ): Promise<Documento[]> {
     try {
-      return this.documentoService.findAllByCategory(category);
+      return await this.documentoService.addCategoria(id, categoriaId);
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
 
-  @Get('title/search')
+  @Put(':id/remove-categoria')
   @UseGuards(AuthGuard)
-  async findDocumentoByTitle(
-    @Query('title') title: string,
-  ): Promise<Documento[]> {
+  async removeCategoria(
+    @Param('id') id: string,
+    @Query('categoriaId') categoriaId: string,
+  ): Promise<Documento> {
     try {
-      return this.documentoService.findAllByTitle(title);
+      return await this.documentoService.removeCategoria(id, categoriaId);
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
