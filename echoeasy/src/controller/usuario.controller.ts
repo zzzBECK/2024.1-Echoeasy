@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpException,
   HttpStatus,
@@ -72,6 +73,15 @@ export class UsuarioController {
   ): Promise<Usuario> {
     try {
       return this.usuarioService.updatePhoto(_id, file);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  @Delete('delete')
+  async deleteUsuario(@Query('_id') _id: string): Promise<Usuario> {
+    try {
+      return this.usuarioService.delete(_id);
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
