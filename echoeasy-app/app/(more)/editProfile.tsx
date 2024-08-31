@@ -1,16 +1,13 @@
 import React from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const Manuals: React.FC = () => {
-  
+const editProfile: React.FC = () => {
   return (
     <SafeAreaView className="bg-[#F6F6F6] h-full">
       <ScrollView contentContainerStyle={{ height: '100%' }}>
-        <View className="w-full h-full flex justify-center items-center p-4">
-
-
-          <Text>Manuais</Text>
+        <View className="w-full h-full p-6">
+          
 
 
         </View>
@@ -19,4 +16,4 @@ const Manuals: React.FC = () => {
   );
 };
 
-export default Manuals;
+export default editProfile;

@@ -1,4 +1,3 @@
-import { Ionicons } from "@expo/vector-icons";
 import { Link, router } from "expo-router";
 import { Formik } from "formik";
 import React, { useState } from "react";
@@ -7,9 +6,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import * as yup from "yup";
 import CustomButton from "../../components/CustomButton";
 import FormField from "../../components/FormField";
-import { formatPhoneNumber } from "../../src/utils/formatPhoneNumber";
 import { UsuarioService } from "../../src/service/UsuarioService";
 import { SignUpPayload } from "../../src/types/User";
+import { formatPhoneNumber } from "../../src/utils/formatPhoneNumber";
 
 const signUpSchema = yup.object().shape({
   name: yup.string().required("Nome é obrigatório"),
@@ -59,7 +58,7 @@ const SignUp: React.FC = () => {
       const payload: SignUpPayload = {
         name: values.name,
         lastname: values.lastname,
-        email: values.email,
+        email: values.email.toLocaleLowerCase(),
         cellphone: values.cellphone,
         password: values.password,
       };
@@ -81,15 +80,7 @@ const SignUp: React.FC = () => {
   return (
     <SafeAreaView className="bg-[#F6F6F6] h-full">
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <View className="w-full h-full flex justify-center items-center p-4">
-          <View className="absolute top-4 left-4">
-            <Ionicons
-              name="chevron-back-outline"
-              size={32}
-              color="black"
-              onPress={() => router.push("/sign-in")}
-            />
-          </View>
+        <View className="w-full h-full flex justify-center items-center p-6">
           <Formik
             initialValues={{
               name: "",
@@ -120,7 +111,7 @@ const SignUp: React.FC = () => {
                   Cadastre-se
                 </Text>
 
-                <View className="my-5">
+                <View className="my-3 w-full">
                   <FormField
                     label="Nome"
                     icon="person-outline"
@@ -196,7 +187,7 @@ const SignUp: React.FC = () => {
                   />
                 </View>
 
-                <Text className="text-center font-interRegular mb-4 mx-4">
+                <Text className="text-center font-interRegular mb-4">
                   <Text>Ao se cadastrar, você concorda com os nossos </Text>
                   <Link href="+not-found" className="text-[#209B85]">
                     Termos
@@ -212,11 +203,13 @@ const SignUp: React.FC = () => {
                   title="Confirmar"
                   isDisabled={!isValid || isSubmitting}
                   isLoading={isSubmitting}
-                  onPressProps={handleSubmit}
+                  handlePress={handleSubmit}
                 />
 
                 {error ? (
-                  <Text className="font-interRegular px-4 text-red-500 text-center mt-4">{error}</Text>
+                  <Text className="font-interRegular px-4 text-red-500 text-center mt-4">
+                    {error}
+                  </Text>
                 ) : null}
 
                 <View className="flex-row justify-center mt-4">

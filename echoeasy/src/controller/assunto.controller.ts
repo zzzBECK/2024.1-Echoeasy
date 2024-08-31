@@ -39,9 +39,14 @@ export class AssuntoController {
 
   @Get('all')
   @UseGuards(AuthGuard)
-  async getAssuntos(): Promise<Assunto[]> {
+  async getAssuntos(
+    @Query('document_id') documentId?: string,
+  ): Promise<Assunto[]> {
     try {
-      return this.assuntoService.findAll();
+      if (documentId) {
+        return await this.assuntoService.findAllByDocumentId(documentId);
+      }
+      return await this.assuntoService.findAll();
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }

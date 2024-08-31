@@ -1,14 +1,12 @@
 import { Stack } from "expo-router";
 
-const AuthLayout = () => {
+const SubjectLayout = () => {
   return (
     <Stack>
-      <Stack.Screen name="sign-in" options={{ headerShown: false }} />
       <Stack.Screen
-        name="sign-up"
+        name="[subjectId]"
         options={{
-          title: "",
-          headerTransparent: true,
+          title: "Conteúdo",
           headerTitleAlign: "center",
           headerShadowVisible: false,
           headerStyle: {
@@ -20,4 +18,4 @@ const AuthLayout = () => {
   );
 };
 
-export default AuthLayout;
+export default SubjectLayout;

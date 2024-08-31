@@ -32,6 +32,14 @@ export class AssuntoService {
     }
   }
 
+  async findAllByDocumentId(documentId: string): Promise<Assunto[]> {
+    try {
+      return this.assuntoRepository.findByDocumentId(documentId);
+    } catch (error) {
+      throw new HttpException(error.message, 400);
+    }
+  }
+
   async findAll(): Promise<Assunto[]> {
     try {
       return this.assuntoRepository.findAll();

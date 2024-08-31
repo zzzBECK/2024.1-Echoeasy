@@ -21,8 +21,10 @@ export class AssuntoRepository {
       if (!(await this.validateDocumento(assuntoData.document_id))) {
         throw new Error('Documento não encontrado.');
       }
-      const imageUrl = await this.uploadImage64(file);
-      assuntoData.image = imageUrl;
+      if (file) {
+        const imageUrl = await this.uploadImage64(file);
+        assuntoData.image = imageUrl;
+      }
       const assunto = new this.assuntoModel(assuntoData);
 
       return assunto.save();
@@ -52,6 +54,14 @@ export class AssuntoRepository {
       return this.assuntoModel.find().exec();
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
+  }
+
+  async findByDocumentId(documentId: string): Promise<Assunto[]> {
+    try {
+      return this.assuntoModel.find({ document_id: documentId }).exec();
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
 

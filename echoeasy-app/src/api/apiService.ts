@@ -1,15 +1,34 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
 const httpClient = axios.create({
   baseURL: `http://${process.env.EXPO_PUBLIC_LOCAL_IP}:3000`,
 });
 
+httpClient.interceptors.request.use(
+  async (config) => {
+    try {
+      const token = await AsyncStorage.getItem("authToken");
+      if (token) {
+        config.headers["Authorization"] = `Bearer ${token}`;
+      }
+    } catch (error) {
+      console.error("Error fetching token from AsyncStorage", error);
+    }
+    return config;
+  },
+  (error) => {
+    // Handle request error
+    return Promise.reject(error);
+  }
+);
+
 export class ApiService {
   post(url: string, data: any) {
     return httpClient.post(url, data);
   }
 
-  get(url: string) {
+  get(url: string,) {
     return httpClient.get(url);
   }
 
