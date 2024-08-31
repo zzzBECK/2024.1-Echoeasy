@@ -1,10 +1,10 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { Usuario } from '../schema/Usuario';
+import { adminApp, adminStorage } from 'src/config/firebase-admin';
 import { UsuarioDto } from 'src/dto/UsuarioDto';
 import { MulterFile } from 'src/types/File';
-import { adminApp, adminStorage } from 'src/config/firebase-admin';
+import { Usuario } from '../schema/Usuario';
 
 @Injectable()
 export class UsuarioRepository {
@@ -115,7 +115,7 @@ export class UsuarioRepository {
           HttpStatus.BAD_REQUEST,
         );
       }
-      const fileName = `${Date.now().toString()}_${file.originalname}`;
+      const fileName = `${Date.now().toString()}`;
       const fileUpload = adminStorage.file(fileName);
 
       const stream = fileUpload.createWriteStream({
