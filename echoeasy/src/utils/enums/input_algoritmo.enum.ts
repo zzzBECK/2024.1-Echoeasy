@@ -1,5 +1,5 @@
-export class InputAlgoritmoEnum {
-  NUMERO = 'numero';
-  BOOLEANO = 'booleano';
-  PORCENTAGEM = 'porcentagem';
+export enum InputAlgoritmoEnum {
+  NUMERO = 'numero',
+  BOOLEANO = 'booleano',
+  PORCENTAGEM = 'porcentagem',
 }

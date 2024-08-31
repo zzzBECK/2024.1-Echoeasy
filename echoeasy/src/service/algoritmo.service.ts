@@ -36,18 +36,4 @@ export class AlgoritmoService {
       throw new HttpException(error.message, 400);
     }
   }
-
-  async create_algoritmo_filho(algoritmoDataFilho: any): Promise<any> {
-    try {
-      this.logger.log('Inicializando criação de algoritmo filho...');
-      const algoritmoFilho =
-        await this.algoritmoRepository.create_algoritmo_filho(
-          algoritmoDataFilho,
-        );
-      this.logger.log('Finalizando criação de algoritmo filho...');
-      return algoritmoFilho;
-    } catch (error) {
-      throw new HttpException(error.message, 400);
-    }
-  }
 }
