@@ -82,6 +82,11 @@ export class UsuarioService {
         await this.usuarioRepository.deleteImage(image_path);
       }
 
+      const userFirebaseId = user.firebaseId;
+      if (userFirebaseId) {
+        await this.usuarioRepository.deleteUserFirebase(userFirebaseId);
+      }
+
       return this.usuarioRepository.delete(_id);
     } catch (error) {
       throw new HttpException(error.message, 400);

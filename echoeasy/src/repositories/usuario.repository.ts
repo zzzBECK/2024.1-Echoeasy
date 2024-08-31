@@ -4,7 +4,7 @@ import { Model, Types } from 'mongoose';
 import { Usuario } from '../schema/Usuario';
 import { UsuarioDto } from 'src/dto/UsuarioDto';
 import { MulterFile } from 'src/types/File';
-import { adminStorage } from 'src/config/firebase-admin';
+import { adminApp, adminStorage } from 'src/config/firebase-admin';
 
 @Injectable()
 export class UsuarioRepository {
@@ -178,6 +178,21 @@ export class UsuarioRepository {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
+
+  async deleteUserFirebase(firebase_id: string): Promise<boolean> {
+    try {
+      if (!firebase_id) {
+        throw new HttpException('ID inválido', HttpStatus.BAD_REQUEST);
+      }
+
+      await adminApp.auth().deleteUser(firebase_id);
+
+      return true;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
   async delete(_id: string): Promise<Usuario> {
     try {
       if (!Types.ObjectId.isValid(_id)) {
