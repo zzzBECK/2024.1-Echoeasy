@@ -14,7 +14,7 @@ export class UserService extends ApiService {
     return this.get("/auth/me");
   }
 
-  async findAll() {
-    return this.get("");
+  async findUser(email: string) {
+   return this.get(`/usuarios/search?email=${email}`);
   }
 }

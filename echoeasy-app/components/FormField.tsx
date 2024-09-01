@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
-import { View, TextInput, Text, TextInputProps, TouchableOpacity } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { NativeSyntheticEvent, TextInputFocusEventData } from 'react-native';
+import React, { useState } from 'react';
+import { NativeSyntheticEvent, Text, TextInput, TextInputFocusEventData, TextInputProps, TouchableOpacity, View } from 'react-native';
 
 interface FormFieldProps extends TextInputProps {
   label?: string;
   placeholder?: string;
   icon?: React.ComponentProps<typeof Ionicons>['name'];
-  value: string,
+  value?: string,
   secureTextEntry?: boolean;
   error?: string;
-  onChangeText: (text: string) => void;
-  onBlur: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
+  onChangeText?: (text: string) => void;
+  onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
 }
 
 const FormField: React.FC<FormFieldProps> = ({ label, placeholder, icon, value, secureTextEntry, error, onChangeText, onBlur, ...rest }) => {

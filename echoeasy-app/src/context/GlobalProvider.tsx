@@ -7,6 +7,7 @@ interface User {
   lastname: string;
   email: string;
   cellphone: string;
+  image: string;
   role: string;
   firebaseId: string;
 }
