@@ -8,7 +8,7 @@ import * as yup from "yup";
 import CustomButton from "../../components/CustomButton";
 import FormField from "../../components/FormField";
 import { useGlobalContext } from "../../src/context/GlobalProvider";
-import { UsuarioService } from "../../src/service/UsuarioService";
+import { UserService } from "../../src/service/UserService";
 import { SignInPayload } from "../../src/types/User";
 
 const signInSchema = yup.object().shape({
@@ -19,7 +19,7 @@ const signInSchema = yup.object().shape({
 const SignIn: React.FC = () => {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
-  const usuarioService = new UsuarioService();
+  const userService = new UserService();
   const { setToken, setIsLogged, token } = useGlobalContext();
 
   const handleSignIn = async (
@@ -27,7 +27,7 @@ const SignIn: React.FC = () => {
     setSubmitting: (isSubmitting: boolean) => void
   ) => {
     try {
-      const response = await usuarioService.login(values);
+      const response = await userService.login(values);
       const token = response.data?.stsTokenManager?.accessToken;
 
       if (!token) {

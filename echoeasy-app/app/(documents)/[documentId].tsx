@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FlatList, RefreshControl, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SubItemCard from "../../components/SubItemCard";
-import { DocService } from "../../src/service/DocService";
+import { DocumentService } from "../../src/service/DocumentService";
 import { SubjectService } from "../../src/service/SubjectService";
 
 type Item = {
@@ -27,8 +27,8 @@ const DocumentId: React.FC = () => {
 
   const fetchDocument = async () => {
     try {
-      const docService = new DocService();
-      const response = await docService.readDocument(documentId as string);
+      const documentService = new DocumentService();
+      const response = await documentService.readDocument(documentId as string);
       setDocument(response.data as Item);
 
     } catch (error: any){

@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { ReactNode, createContext, useContext, useEffect, useState } from "react";
-import { UsuarioService } from "../service/UsuarioService";
+import { UserService } from "../service/UserService";
 
 interface User {
   name: string;
@@ -72,8 +72,8 @@ const GlobalProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const fetchUser = async () => {
 
       try {
-        const usuarioService = new UsuarioService();
-        const response = await usuarioService.getMe();
+        const userService = new UserService();
+        const response = await userService.getMe();
         setUser(response.data);
         setIsLogged(true);
       } catch (error) {

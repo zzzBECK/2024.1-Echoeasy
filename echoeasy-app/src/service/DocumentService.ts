@@ -1,6 +1,6 @@
 import { ApiService } from "../api/apiService";
 
-export class DocService extends ApiService {
+export class DocumentService extends ApiService {
     async getAllDocuments() {
         return this.get("/documentos/all");
     }

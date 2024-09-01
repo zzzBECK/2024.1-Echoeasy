@@ -4,7 +4,7 @@ import { FlatList, RefreshControl, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ItemCard from "../../components/ItemCard";
 import SearchInput from "../../components/SearchInput";
-import { DocService } from "../../src/service/DocService";
+import { DocumentService } from "../../src/service/DocumentService";
 
 type Item = {
   _id: string;
@@ -25,8 +25,8 @@ const Documents: React.FC = () => {
 
   const fetchDocuments = async () => {
     try {
-      const docService = new DocService();
-      const response = await docService.getAllDocuments();
+      const documentService = new DocumentService();
+      const response = await documentService.getAllDocuments();
       setDocs(response.data as Item[]);
     } catch (error: any) {
       console.error("Error fetching documents:", error.message || error);

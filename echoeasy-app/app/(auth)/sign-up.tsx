@@ -6,7 +6,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import * as yup from "yup";
 import CustomButton from "../../components/CustomButton";
 import FormField from "../../components/FormField";
-import { UsuarioService } from "../../src/service/UsuarioService";
+import { UserService } from "../../src/service/UserService";
 import { SignUpPayload } from "../../src/types/User";
 import { formatPhoneNumber } from "../../src/utils/formatPhoneNumber";
 
@@ -48,7 +48,7 @@ const signUpSchema = yup.object().shape({
 const SignUp: React.FC = () => {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
-  const usuarioService = new UsuarioService();
+  const userService = new UserService();
 
   const handleSignUp = async (
     values: SignUpPayload,
@@ -63,7 +63,7 @@ const SignUp: React.FC = () => {
         password: values.password,
       };
 
-      const response = await usuarioService.create(payload);
+      const response = await userService.create(payload);
 
       console.log(response.data);
 
