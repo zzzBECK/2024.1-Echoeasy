@@ -1,29 +1,36 @@
 "use client";
-
+import { useTokenContext } from "@/contexts/TokenContext";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-
-import { useToken } from "@/hooks/useToken";
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { toast } from "./ui/use-toast";
 
 export default function AuthChecker({ children }: { children: ReactNode }) {
   const router = useRouter();
-
-  const [isLoading, setIsLoading] = useState(true);
-  const { token, setUser } = useToken();
+  const [isLoading, setIsLoading] = useState(false);
+  const { token, setUser } = useTokenContext();
 
   useEffect(() => {
-    const token = sessionStorage.getItem("authToken");
+    const tokenFromSession = sessionStorage.getItem("authToken");
+
+    if (!tokenFromSession) {
+      router.push("/login");
+      toast({
+        title: "Sessão expirada",
+        description: "Por favor, faça login novamente.",
+        variant: "destructive",
+      });
+      return;
+    }
 
     const checkAuth = async () => {
+      setIsLoading(true);
       try {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/auth/me`,
           {
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${tokenFromSession}`,
             },
           }
         );
@@ -53,7 +60,7 @@ export default function AuthChecker({ children }: { children: ReactNode }) {
     };
 
     checkAuth();
-  }, [router, setUser, token]);
+  }, [router, setUser]);
 
   if (isLoading) {
     return (
@@ -62,19 +69,6 @@ export default function AuthChecker({ children }: { children: ReactNode }) {
       </div>
     );
   }
-
-  // if (user?.role.toLocaleLowerCase() !== "admin") {
-  //   return (
-  //     <Card>
-  //       <CardHeader>
-  //         <CardTitle>Acesso negado</CardTitle>
-  //         <CardDescription>
-  //           Você não tem permissão para acessar esta página.
-  //         </CardDescription>
-  //       </CardHeader>
-  //     </Card>
-  //   );
-  // }
 
   return children;
 }

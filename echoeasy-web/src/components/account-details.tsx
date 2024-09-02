@@ -1,52 +1,149 @@
 "use client";
-import { useToken } from "@/hooks/useToken";
-import { User } from "@/types/user";
-import { useEffect, useState } from "react";
+import { useTokenContext } from "@/contexts/TokenContext";
+import { api } from "@/services/api";
+import { Loader2 } from "lucide-react";
+import Image from "next/image";
+import { ChangeEvent, useState } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "./ui/card";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
+import { toast } from "./ui/use-toast";
 
 export default function AccountDetails() {
-  const { token, logout } = useToken();
-  const [user, setUser] = useState<User>();
+  const { user, setUser } = useTokenContext();
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (token) {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/auth/me`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+  const getUserAvatarLetters = () => {
+    if (user?.name && user?.lastname) {
+      return `${user.name[0]}${user.lastname[0]}`.toUpperCase();
+    }
 
-        if (response.ok) {
-          const data: User = await response.json();
-          setUser(data);
+    return "N/A";
+  };
+
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      setSelectedFile(file);
+      setPreviewImage(URL.createObjectURL(file));
+      setIsEditing(true);
+    }
+  };
+
+  const handleSave = async () => {
+    if (!selectedFile) return;
+    setIsUploading(true);
+    const formData = new FormData();
+    formData.append("image", selectedFile);
+
+    try {
+      const userResponse = await api.post(
+        `/usuarios/update_photo?_id=${user?._id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
-      }
-    };
+      );
 
-    fetchData();
-  }, [token]);
+      setIsEditing(false);
+      setPreviewImage(null);
+      setUser(userResponse.data);
+      toast({
+        title: "Foto atualizada com sucesso!",
+        description: "Sua foto de perfil foi atualizada com sucesso.",
+      });
+    } catch (error) {
+      console.error("Erro ao atualizar a foto:", error);
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const renderImageOrAvatar = () => {
+    if (previewImage || user?.image) {
+      return (
+        <Image
+          src={(previewImage || user?.image) ?? ""}
+          alt="Avatar"
+          className="rounded-sm self-center"
+          width={200}
+          height={200}
+        />
+      );
+    } else {
+      return (
+        <Avatar className="h-[200px] w-[200px] self-center">
+          <AvatarImage src="#" alt="Avatar" />
+          <AvatarFallback className="text-4xl">
+            {getUserAvatarLetters()}
+          </AvatarFallback>
+        </Avatar>
+      );
+    }
+  };
+
+  const renderActionButton = () => {
+    if (isEditing) {
+      return (
+        <>
+          {isUploading ? (
+            <Button disabled className="w-fit self-center text-xs p-2 h-fit">
+              <Loader2 className="w-4 h-fit animate-spin" />
+              Salvando...
+            </Button>
+          ) : (
+            <Button
+              className="w-fit self-center text-xs p-2 h-fit"
+              onClick={handleSave}
+            >
+              Salvar
+            </Button>
+          )}
+        </>
+      );
+    } else {
+      return (
+        <>
+          <Button className="w-fit self-center text-xs p-2 h-fit">
+            <label htmlFor="upload-photo" className="cursor-pointer">
+              Alterar foto
+            </label>
+          </Button>
+          <input
+            type="file"
+            id="upload-photo"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="hidden"
+          />
+        </>
+      );
+    }
+  };
 
   return (
-    <Card>
+    <Card className="w-full h-fit">
       <CardHeader>
-        <CardTitle>Sua Conta </CardTitle>
+        <CardTitle>Sua Conta</CardTitle>
         <CardDescription>Informações sobre a sua conta.</CardDescription>
+        <div className="flex flex-col gap-4">
+          {renderImageOrAvatar()}
+          {renderActionButton()}
+        </div>
       </CardHeader>
       <CardContent className="space-y-2">
         <Label htmlFor="email">Email</Label>
@@ -96,11 +193,6 @@ export default function AccountDetails() {
           disabled
         />
       </CardContent>
-      <CardFooter>
-        <Button className="w-full" onClick={logout}>
-          Sair
-        </Button>
-      </CardFooter>
     </Card>
   );
 }

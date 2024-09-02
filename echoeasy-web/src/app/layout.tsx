@@ -1,6 +1,7 @@
 import AuthChecker from "@/components/login-checker";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
+import { TokenProvider } from "@/contexts/TokenContext";
 import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
@@ -32,17 +33,19 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <AuthChecker>
-            <main>{children}</main>
-          </AuthChecker>
-          <Toaster />
-        </ThemeProvider>
+        <TokenProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <AuthChecker>
+              <main>{children}</main>
+            </AuthChecker>
+            <Toaster />
+          </ThemeProvider>
+        </TokenProvider>
       </body>
     </html>
   );

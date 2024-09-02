@@ -8,12 +8,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useToken } from "@/hooks/useToken";
+import { useTokenContext } from "@/contexts/TokenContext";
 import { User } from "@/types/user";
 import { useEffect, useState } from "react";
 
 export default function UsersTable() {
-  const { token } = useToken();
+  const { token } = useTokenContext();
   const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {

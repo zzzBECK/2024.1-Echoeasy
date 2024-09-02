@@ -6,5 +6,8 @@ export type User = {
   cellphone: string;
   role: string;
   firebaseId: string;
+  image: string;
+  createdAt: string;
+  updatedAt: string;
   _id: string;
 };

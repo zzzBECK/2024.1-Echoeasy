@@ -21,11 +21,12 @@ export class DocumentoRepository {
       if (!documentoData) {
         throw new Error('Dados inválidos');
       }
-      if (!file) {
-        throw new Error('Arquivo inválido');
+
+      if (file) {
+        const imageUrl = await this.uploadImage64(file);
+        documentoData.image = imageUrl;
       }
-      const imageUrl = await this.uploadImage64(file);
-      documentoData.image = imageUrl;
+
       const documento = new this.documentoModel(documentoData);
 
       return documento.save();
