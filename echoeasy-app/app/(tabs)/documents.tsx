@@ -1,3 +1,4 @@
+import { useDebounce } from "@uidotdev/usehooks";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { FlatList, RefreshControl, Text, View } from "react-native";
@@ -16,6 +17,9 @@ type Item = {
 const Documents: React.FC = () => {
   const [docs, setDocs] = useState<Item[]>([]);
   const [refreshing, setRefreshing] = useState(false);
+  const [searchTitle, setSearchTitle] = useState("");
+  const [searchCategories, setSearchCategories] = useState([]);
+  const debouncedSearchTitle = useDebounce(searchTitle, 50);
 
   const onRefresh = async () => {
     setRefreshing(true);
@@ -26,7 +30,7 @@ const Documents: React.FC = () => {
   const fetchDocuments = async () => {
     try {
       const docService = new DocService();
-      const response = await docService.getAllDocuments();
+      const response = await docService.getAllDocuments(debouncedSearchTitle, searchCategories);
       setDocs(response.data as Item[]);
     } catch (error: any) {
       console.error("Error fetching documents:", error.message || error);
@@ -35,7 +39,7 @@ const Documents: React.FC = () => {
 
   useEffect(() => {
     fetchDocuments();
-  }, [refreshing]);
+  }, [refreshing, debouncedSearchTitle, searchCategories]);
 
   return (
     <SafeAreaView className="bg-[#F6F6F6] h-full p-6 py-10">
@@ -44,6 +48,7 @@ const Documents: React.FC = () => {
         <SearchInput
           placeholder="Pesquise por um documento"
           icon="search-outline"
+          onChangeText={(text) => setSearchTitle(text)}
         />
         <FlatList
           data={docs}
