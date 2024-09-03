@@ -64,6 +64,38 @@ export class DocumentoRepository {
     }
   }
 
+  async findWithFilters(
+    title?: string,
+    categorias?: string[],
+  ): Promise<Documento[]> {
+    try {
+      const filter: any = {};
+
+      if (title) {
+        filter.title = { $regex: title, $options: 'i' };
+      }
+
+      if (categorias && Array.isArray(categorias) && categorias.length > 0) {
+        filter.categorias = {
+          $in: categorias.map((id) => id),
+        };
+      }
+
+      return this.documentoModel.find(filter).exec();
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  async findByCategory(categoryId: string): Promise<Documento[]> {
+    try {
+      const categoryObjectId = new Types.ObjectId(categoryId);
+      return this.documentoModel.find({ categorias: categoryObjectId }).exec();
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
   async findOne(title: string): Promise<Documento | null> {
     try {
       if (!title) {

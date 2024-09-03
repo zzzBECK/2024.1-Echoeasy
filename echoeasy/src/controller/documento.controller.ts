@@ -40,8 +40,18 @@ export class DocumentoController {
 
   @Get('all')
   @UseGuards(AuthGuard)
-  async getDocumentos(): Promise<Documento[]> {
+  async getDocumentos(
+    @Query('title') title?: string,
+    @Query('categorias') categorias?: string | string[],
+  ): Promise<Documento[]> {
     try {
+      if (categorias || title) {
+        const categoriesArray =
+          typeof categorias === 'string' ? categorias.split(',') : categorias;
+
+        return this.documentoService.findWithFilters(title, categoriesArray);
+      }
+
       return this.documentoService.findAll();
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);

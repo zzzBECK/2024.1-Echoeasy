@@ -44,6 +44,17 @@ export class DocumentoService {
     }
   }
 
+  async findWithFilters(
+    title?: string,
+    categorias?: string[],
+  ): Promise<Documento[]> {
+    try {
+      return this.documentoRepository.findWithFilters(title, categorias);
+    } catch (error) {
+      throw new HttpException(error.message, 400);
+    }
+  }
+
   async findOne(_id: string): Promise<Documento | null> {
     try {
       return this.documentoRepository.findOneById(_id);
