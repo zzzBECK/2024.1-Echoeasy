@@ -18,7 +18,6 @@ const data: Item[] = [
 ];
 
 const Algorithms: React.FC = () => {
-
   const onRefresh = async () => {
     setRefreshing(true);
     setRefreshing(false);
@@ -30,11 +29,12 @@ const Algorithms: React.FC = () => {
     <SafeAreaView className="bg-[#F6F6F6] h-full p-6 py-10">
       <Text className="font-interMedium text-2xl">Algoritmos</Text>
       <View className="w-full h-full flex items-center">
-        <SearchInput
-          placeholder="Pesquise por um algoritmo"
-          icon="search-outline"
-        />
-
+        <View className="flex-row">
+          <SearchInput
+            placeholder="Pesquise por um algoritmo"
+            icon="search-outline"
+          />
+        </View>
         <FlatList
           data={data}
           keyExtractor={(item, index) => index.toString()}
@@ -47,7 +47,9 @@ const Algorithms: React.FC = () => {
           )}
           ListEmptyComponent={() => (
             <View className="flex justify-center items-center px-4">
-              <Text className="p-6 font-interLight text-base">Ainda não há algoritmos.</Text>
+              <Text className="p-6 font-interLight text-base">
+                Ainda não há algoritmos.
+              </Text>
             </View>
           )}
           refreshControl={
