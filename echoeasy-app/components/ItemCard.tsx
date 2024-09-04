@@ -53,7 +53,6 @@ const ItemCard: React.FC<ItemCardProps> = ({
               {description}
             </Text>
           )}
-          {/* Renderizar categorias */}
           <View className="flex flex-row flex-wrap mt-1">
             {categories.map((category, index) => (
               <Text
