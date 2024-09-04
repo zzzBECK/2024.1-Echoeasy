@@ -140,23 +140,25 @@ const Documents: React.FC = () => {
         </View>
 
         {localSelectedCategories.length > 0 && (
-        <View className="self-start">
-          <Text className="font-interLight text-xs ml-2 mb-1">Filtrado por:</Text>
-          <View className="flex-row self-start">
-            {searchByCategories.map((category) => (
-              <CategoryTag
-                key={category._id}
-                isDisabled={true}
-                category={category.title}
-                isSelected={true}
-                onPress={() => handleCategoryToggle(category._id)}
-              />
-            ))}
+          <View className="self-start">
+            <Text className="font-interLight text-xs ml-2 mb-1">
+              Filtrado por:
+            </Text>
+            <View className="flex-row self-start">
+              {searchByCategories.map((category) => (
+                <CategoryTag
+                  key={category._id}
+                  isDisabled={true}
+                  category={category.title}
+                  isSelected={true}
+                  onPress={() => handleCategoryToggle(category._id)}
+                />
+              ))}
+            </View>
           </View>
-        </View>
         )}
 
-        <View className="p-1">
+        <View className="px-1 mb-20">
           <FlatList
             data={docs}
             keyExtractor={(item) => item._id}
