@@ -1,7 +1,12 @@
 import { useDebounce } from "@uidotdev/usehooks";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { FlatList, RefreshControl, Text, View } from "react-native";
+import {
+  FlatList,
+  RefreshControl,
+  Text,
+  View
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ItemCard from "../../components/ItemCard";
 import SearchInput from "../../components/SearchInput";
@@ -12,6 +17,7 @@ type Item = {
   title: string;
   description: string;
   image: string;
+  categorias: string[];
 };
 
 const Documents: React.FC = () => {
@@ -30,7 +36,10 @@ const Documents: React.FC = () => {
   const fetchDocuments = async () => {
     try {
       const docService = new DocService();
-      const response = await docService.getAllDocuments(debouncedSearchTitle, searchCategories);
+      const response = await docService.getAllDocuments(
+        debouncedSearchTitle,
+        searchCategories
+      );
       setDocs(response.data as Item[]);
     } catch (error: any) {
       console.error("Error fetching documents:", error.message || error);
@@ -45,11 +54,11 @@ const Documents: React.FC = () => {
     <SafeAreaView className="bg-[#F6F6F6] h-full p-6 py-10">
       <Text className="font-interMedium text-2xl">Documentos</Text>
       <View className="w-full h-full flex items-center">
-        <SearchInput
-          placeholder="Pesquise por um documento"
-          icon="search-outline"
-          onChangeText={(text) => setSearchTitle(text)}
-        />
+          <SearchInput
+            placeholder="Pesquise por um documento"
+            icon="search-outline"
+            onChangeText={(text) => setSearchTitle(text)}
+          />
         <FlatList
           data={docs}
           keyExtractor={(item) => item._id}
@@ -58,6 +67,7 @@ const Documents: React.FC = () => {
               title={item.title}
               description={item.description}
               image={item.image}
+              categories={item.categorias}
               handlePress={() => router.push(`(documents)/${item._id}`)}
             />
           )}

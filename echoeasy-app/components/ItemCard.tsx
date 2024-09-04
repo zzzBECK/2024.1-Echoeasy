@@ -8,6 +8,7 @@ interface ItemCardProps {
   image?: string;
   isDisabled?: boolean;
   handlePress?: () => void;
+  categories?: string[];
 }
 
 const ItemCard: React.FC<ItemCardProps> = ({
@@ -16,6 +17,7 @@ const ItemCard: React.FC<ItemCardProps> = ({
   image,
   isDisabled,
   handlePress,
+  categories = [],
 }) => {
   return (
     <TouchableOpacity
@@ -51,6 +53,17 @@ const ItemCard: React.FC<ItemCardProps> = ({
               {description}
             </Text>
           )}
+          {/* Renderizar categorias */}
+          <View className="flex flex-row flex-wrap mt-1">
+            {categories.map((category, index) => (
+              <Text
+                key={index}
+                className="font-interLight text-xs text-[#FFFFFF] bg-[#2A9D8F] rounded-full px-2 py-1 mr-1 mb-1"
+              >
+                {category}
+              </Text>
+            ))}
+          </View>
         </View>
       </View>
       <Ionicons name="chevron-forward-outline" size={25} color="#FFFFFF" />
