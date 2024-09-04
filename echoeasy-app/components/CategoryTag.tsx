@@ -1,25 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 import { Text, TouchableOpacity } from "react-native";
 
 interface CategoryTagProps {
   category: string;
   onPress?: () => void;
   isDisabled: boolean;
+  isSelected?: boolean;
 }
 
 const CategoryTag: React.FC<CategoryTagProps> = ({
   category,
   isDisabled,
   onPress,
+  isSelected,
 }) => {
-  const [isSelected, setIsSelected] = useState(false);
-
   const handlePress = () => {
-    if (!isDisabled) {
-      setIsSelected(!isSelected);
-      if (onPress) onPress();
+    if (!isDisabled && onPress) {
+      onPress();
     }
   };
+
   return (
     <TouchableOpacity
       disabled={isDisabled}

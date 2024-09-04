@@ -16,7 +16,6 @@ const More: React.FC = () => {
               <TouchableOpacity onPress={() => router.navigate("/editProfile")}>
                 <Text className="font-interMedium text-lg">Editar perfil</Text>
               </TouchableOpacity>
-            <Text className="font-interMedium text-lg">Alterar senha</Text>
             <TouchableOpacity onPress={logout}>
               <Text className="font-interMedium text-lg">Sair</Text>
             </TouchableOpacity>
