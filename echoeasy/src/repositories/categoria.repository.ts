@@ -2,12 +2,16 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Categoria } from 'src/schema/Categoria';
+import { Documento } from 'src/schema/Documento';
 
 @Injectable()
 export class CategoriaRepository {
   constructor(
     @InjectModel(Categoria.name)
     private readonly categoriaModel: Model<Categoria>,
+
+    @InjectModel(Documento.name)
+    private readonly documentoModel: Model<Documento>,
   ) {}
 
   async create(createCategoriaDto: Partial<Categoria>): Promise<Categoria> {
@@ -37,6 +41,12 @@ export class CategoriaRepository {
   }
 
   async delete(id: string): Promise<Categoria> {
+    // Remover o ID da categoria de todos os documentos antes de deletar a categoria
+    await this.documentoModel.updateMany(
+      { categorias: id },
+      { $pull: { categorias: id } },
+    );
+
     return this.categoriaModel.findByIdAndDelete(id).exec();
   }
 }

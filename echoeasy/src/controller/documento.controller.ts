@@ -46,8 +46,12 @@ export class DocumentoController {
   ): Promise<Documento[]> {
     try {
       if (categorias || title) {
-        const categoriesArray =
-          typeof categorias === 'string' ? categorias.split(',') : categorias;
+        let categoriesArray = [];
+
+        if (categorias) {
+          categoriesArray =
+            typeof categorias === 'string' ? categorias.split(',') : categorias;
+        }
 
         return this.documentoService.findWithFilters(title, categoriesArray);
       }

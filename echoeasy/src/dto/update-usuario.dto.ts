@@ -1,4 +1,4 @@
-import { IsEmail, IsNumberString, IsOptional, IsString } from 'class-validator';
+import { IsEmail, IsOptional, IsString } from 'class-validator';
 
 export class UpdateUsuarioDto {
   @IsEmail({}, { message: 'Email inválido' })
@@ -13,7 +13,7 @@ export class UpdateUsuarioDto {
   @IsOptional()
   lastname: string;
 
-  @IsNumberString({}, { message: 'Telefone inválido' })
+  @IsString()
   @IsOptional()
   cellphone: string;
 }
