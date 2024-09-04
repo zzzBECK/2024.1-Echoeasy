@@ -1,6 +1,7 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
+import CategoryTag from "./CategoryTag";
 
 interface ItemCardProps {
   title: string;
@@ -24,7 +25,7 @@ const ItemCard: React.FC<ItemCardProps> = ({
       disabled={isDisabled}
       onPress={handlePress}
       activeOpacity={isDisabled ? 1 : 0.7}
-      className={`w-full mt-1 mb-1 flex flex-row h-40 items-center justify-between rounded-xl pr-1 ${
+      className={`w-full mt-1 mb-1 flex flex-row h-40 items-center justify-between rounded-2xl pr-1 ${
         isDisabled ? "bg-[#99dcd0]" : "bg-[#3CC1A9]"}
       }`}
     >
@@ -57,12 +58,7 @@ const ItemCard: React.FC<ItemCardProps> = ({
           )}
           <View className="flex flex-row flex-wrap mt-1">
             {categories.map((category, index) => (
-              <Text
-                key={index}
-                className="font-interLight text-xs text-[#FFFFFF] bg-[#2A9D8F] rounded-full px-2 py-1 mr-1 mb-1"
-              >
-                {category}
-              </Text>
+              <CategoryTag key={index} isDisabled={true} category={category}/>
             ))}
           </View>
         </View>
