@@ -1,5 +1,5 @@
 import { ApiService } from "../api/apiService";
-import { SignInPayload, SignUpPayload } from "../types/User";
+import {SignInPayload, SignUpPayload, User} from "../types/User";
 
 export class UsuarioService extends ApiService {
   async create(usuarioData: SignUpPayload) {
@@ -10,8 +10,12 @@ export class UsuarioService extends ApiService {
     return this.post("/auth/signin/email", usuarioData);
   }
 
-  async getMe() {
+  async getMe()  {
     return this.get("/auth/me");
+  }
+
+  async editProfile(usuarioData: any) {
+    return this.put(`/usuarios`, usuarioData);
   }
 
   async findAll() {
