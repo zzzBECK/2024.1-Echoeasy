@@ -145,7 +145,10 @@ export default function Usuarios() {
                     Email: <b className="text-primary">{row.original.email}</b>
                   </p>
                   <p>
-                    Nome: <b className="text-primary">{row.original.name}</b>
+                    Nome:{" "}
+                    <b className="text-primary">
+                      {row.original.name} {row.original.lastname}
+                    </b>
                   </p>
                 </div>
               </DialogDescription>

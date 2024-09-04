@@ -1,4 +1,4 @@
-import { Check, ChevronsUpDown } from "lucide-react";
+import { Check, ChevronsUpDown, PlusCircle } from "lucide-react";
 import * as React from "react";
 
 import { Button } from "@/components/ui/button";
@@ -16,6 +16,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 interface ComboboxDemoProps {
   options: { _id: string; title: string }[];
@@ -81,6 +82,14 @@ export function MultiCombobox({
                     </CommandItem>
                   );
                 })}
+                <CommandItem>
+                  <Link
+                    className="flex items-center gap-2 w-full"
+                    href="/categorias"
+                  >
+                    <PlusCircle /> Criar nova categoria
+                  </Link>
+                </CommandItem>
               </CommandGroup>
             )}
           </CommandList>

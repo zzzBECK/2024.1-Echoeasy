@@ -9,6 +9,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useTokenContext } from "@/contexts/TokenContext";
+import { getRole } from "@/lib/roles";
 import { api } from "@/services/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
@@ -267,7 +268,7 @@ export default function AccountDetails() {
               <Label htmlFor="role">Função</Label>
               <Input
                 type="text"
-                value={user?.role.toUpperCase()}
+                value={getRole(user?.role ?? "")}
                 className="input"
                 disabled
               />

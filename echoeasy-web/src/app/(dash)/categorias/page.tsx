@@ -29,7 +29,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { toast } from "@/components/ui/use-toast";
-import { useGetAllCategories } from "@/hooks/useGetAllCategories"; // Hook para buscar categorias
+import { useGetAllCategories } from "@/hooks/useGetAllCategories";
 import { formatStringToDate } from "@/lib/utils";
 import { api } from "@/services/api";
 import {
@@ -44,11 +44,11 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, Loader2 } from "lucide-react";
+import { ArrowUpDown, ChevronDown, Loader2, PlusCircle } from "lucide-react";
 import * as React from "react";
 
 export default function Categorias() {
-  const { data: categories, isLoading, mutate } = useGetAllCategories(); // Obtendo as categorias
+  const { data: categories, isLoading, mutate } = useGetAllCategories();
   const [categoryToDelete, setCategoryToDelete] = React.useState<string>("");
   const [newCategoryTitle, setNewCategoryTitle] = React.useState<string>("");
   const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -219,7 +219,10 @@ export default function Categorias() {
           <div className="flex flex-col lg:flex-row lg:items-center py-4 gap-4">
             <Dialog>
               <DialogTrigger asChild>
-                <Button>Adicionar Nova Categoria</Button>
+                <Button>
+                  <PlusCircle className="mr-2" />
+                  Adicionar Nova Categoria
+                </Button>
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>

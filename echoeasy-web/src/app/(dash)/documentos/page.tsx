@@ -111,7 +111,7 @@ export default function Documentos() {
             onClick={() => router.push("/documentos/criar")}
           >
             <PlusCircle className="mr-2" />
-            Criar Novo Documento
+            Adicionar Novo Documento
           </Button>
           <Table>
             <TableCaption>Lista de documentos cadastrados</TableCaption>

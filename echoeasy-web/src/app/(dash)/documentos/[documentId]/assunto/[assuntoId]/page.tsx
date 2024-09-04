@@ -2,13 +2,7 @@
 
 import { ContentLayout } from "@/components/content-layout";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -18,22 +12,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/use-toast";
-import { useGetAllAssuntosByDocumentId } from "@/hooks/useGetAllAssuntosByDocumentId";
-import { useGetDocumentById } from "@/hooks/useGetDocumentById";
+import { useGetAssuntoById } from "@/hooks/useGetAssuntoById";
 import { api } from "@/services/api";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowLeft, Loader2, PlusCircle } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
@@ -43,67 +26,68 @@ import { z } from "zod";
 const FormSchema = z.object({
   title: z.string().min(1, { message: "Título é obrigatório" }),
   description: z.string().min(1, { message: "Descrição é obrigatória" }),
+  algorithm_link: z
+    .string()
+    .min(1, { message: "Link do Algoritmo é obrigatório" }),
 });
 
-export default function EditarDocumento({
+export default function EditarAssunto({
   params,
 }: {
-  params: { documentId: string };
+  params: { documentId: string; assuntoId: string };
 }) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [isEditingImage, setIsEditingImage] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
-
   const router = useRouter();
-  const {
-    data: documentData,
-    isLoading: isLoadingDocument,
-    mutate: refetchDocument,
-  } = useGetDocumentById(params.documentId);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const { data: assuntosList } = useGetAllAssuntosByDocumentId(
-    params.documentId
-  );
+  const {
+    data: assunto,
+    isLoading: isLoadingAssunto,
+    mutate,
+  } = useGetAssuntoById(params.assuntoId);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      title: documentData?.title,
-      description: documentData?.description,
+      title: assunto?.title,
+      description: assunto?.description,
+      algorithm_link: assunto?.algorithm_link,
     },
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     try {
+      setIsLoading(true);
+
       const formData = new FormData();
       formData.append("title", data.title);
       formData.append("description", data.description);
+      formData.append("algorithm_link", data.algorithm_link);
+      formData.append("order", assunto.order.toString());
+      formData.append("document_id", assunto.document_id);
 
-      await api.put(`/documentos/update?_id=${params.documentId}`, formData);
+      await api.put(`/assuntos/update?_id=${params.assuntoId}`, formData);
 
       toast({
-        title: "Documento alterado!",
-        description: "Seu documento foi modificado com sucesso.",
+        title: "Assunto editado!",
+        description: `Assunto "${data.title}" editado com sucesso.`,
       });
 
-      refetchDocument();
+      router.push(`/documentos/${params.documentId}`);
+      setIsLoading(false);
     } catch (error: any) {
       console.error(error);
+      setIsLoading(false);
       toast({
-        title: "Erro ao criar documento",
+        title: "Erro ao criar assunto",
         description: error.response?.data.message || "Erro inesperado.",
         variant: "destructive",
       });
     }
   }
-
-  useEffect(() => {
-    if (!documentData) return;
-
-    form.setValue("title", documentData.title);
-    form.setValue("description", documentData.description);
-  }, [documentData, form]);
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -122,28 +106,25 @@ export default function EditarDocumento({
     formData.append("image", selectedFile);
 
     try {
-      await api.post(
-        `/documentos/update_photo?_id=${documentData?._id}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      await api.post(`/assuntos/update_photo?_id=${assunto?._id}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       setIsEditingImage(false);
       setPreviewImage(null);
       toast({
-        title: "Foto atualizada com sucesso!",
-        description: "Sua foto de perfil foi atualizada com sucesso.",
+        title: "Imagem atualizada com sucesso!",
+        description: "Imagem do assunto atualizada com sucesso.",
       });
-      refetchDocument();
-    } catch (error) {
+
+      mutate();
+    } catch (error: any) {
       console.error("Erro ao atualizar a foto:", error);
       toast({
         title: "Erro ao atualizar foto",
-        description: "Ocorreu um erro ao tentar atualizar sua foto.",
+        description: error.response?.data.message || "Erro inesperado.",
         variant: "destructive",
       });
     } finally {
@@ -164,7 +145,7 @@ export default function EditarDocumento({
             <Button
               className="w-fit self-center text-xs p-2 h-fit"
               onClick={handleSaveImage}
-              type="button" // Mudança aqui para evitar envio de formulário
+              type="button"
             >
               Salvar
             </Button>
@@ -191,11 +172,19 @@ export default function EditarDocumento({
     }
   };
 
-  if (isLoadingDocument) {
+  useEffect(() => {
+    if (!assunto) return;
+
+    form.setValue("title", assunto.title);
+    form.setValue("description", assunto.description);
+    form.setValue("algorithm_link", assunto.algorithm_link);
+  }, [assunto, form]);
+
+  if (isLoadingAssunto) {
     return (
       <ContentLayout
         className="flex justify-center items-center"
-        title="Editar Documento"
+        title="Editar Assunto"
       >
         <Loader2 className="h-10 w-10 animate-spin" />
       </ContentLayout>
@@ -203,18 +192,15 @@ export default function EditarDocumento({
   }
 
   return (
-    <ContentLayout className="flex flex-col gap-10" title="Editar Documento">
-      <div
-        onClick={() => router.push("/documentos")}
-        className="flex gap-2 cursor-pointer"
-      >
+    <ContentLayout className="flex flex-col gap-10" title="Editar Assunto">
+      <div onClick={() => router.back()} className="flex gap-2 cursor-pointer">
         <ArrowLeft />
         Voltar
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Editar Documento</CardTitle>
+          <CardTitle>Editar Assunto</CardTitle>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -236,6 +222,7 @@ export default function EditarDocumento({
                   </FormItem>
                 )}
               />
+
               <FormField
                 control={form.control}
                 name="description"
@@ -243,16 +230,39 @@ export default function EditarDocumento({
                   <FormItem>
                     <FormLabel>Descrição</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Digite a descrição" {...field} />
+                      <Input
+                        type="text"
+                        placeholder="Digite a descrição"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
+
+              <FormField
+                control={form.control}
+                name="algorithm_link"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Link do Algoritmo</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="text"
+                        placeholder="Digite o link do algoritmo"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
               <div className="flex flex-col w-fit items-center gap-4">
-                {documentData?.image ? (
+                {assunto?.image ? (
                   <Image
-                    src={previewImage ? previewImage : documentData.image}
+                    src={previewImage ? previewImage : assunto.image}
                     alt="Imagem do documento"
                     width={200}
                     height={200}
@@ -265,7 +275,7 @@ export default function EditarDocumento({
                 {renderActionButton()}
               </div>
 
-              {isLoadingDocument ? (
+              {isLoading ? (
                 <Button className="w-full" disabled>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Salvando...
@@ -278,65 +288,6 @@ export default function EditarDocumento({
             </form>
           </Form>
         </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Assuntos</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Table>
-            <TableCaption>Lista de documentos cadastrados</TableCaption>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Título</TableHead>
-                <TableHead>Descrição</TableHead>
-                <TableHead>Link Algoritmo</TableHead>
-                <TableHead>Ordem</TableHead>
-                <TableHead>Ações</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {assuntosList?.map((assunto: any) => (
-                <TableRow key={assunto._id}>
-                  <TableCell className="font-medium">{assunto.title}</TableCell>
-                  <TableCell>{assunto.description}</TableCell>
-                  <TableCell>{assunto.algorithm_link}</TableCell>
-                  <TableCell>{assunto.order}</TableCell>
-                  <TableCell>
-                    <div className="flex gap-2">
-                      <Button
-                        variant="outline"
-                        onClick={() =>
-                          router.push(
-                            `/documentos/${params.documentId}/assunto/${assunto._id}`
-                          )
-                        }
-                      >
-                        Editar
-                      </Button>
-                      <Button variant="destructive" onClick={() => {}}>
-                        Deletar
-                      </Button>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </CardContent>
-        <CardFooter>
-          <Button
-            onClick={() =>
-              router.push(`/documentos/${params.documentId}/assunto/criar`)
-            }
-            className="w-full"
-            type="button"
-          >
-            <PlusCircle className="mr-2" />
-            Adicionar Assunto
-          </Button>
-        </CardFooter>
       </Card>
     </ContentLayout>
   );
