@@ -49,10 +49,12 @@ const SubjectId: React.FC = () => {
 
   return (
     <SafeAreaView className="bg-[#F6F6F6] h-full">
-      <ScrollView contentContainerStyle={{ paddingVertical: 20 }}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }>
+      <ScrollView
+        contentContainerStyle={{ paddingVertical: 20 }}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         <View className="w-full px-6">
           <View key={content._id} className="mb-4">
             <Text className="font-interMedium text-2xl mb-2 text-center">
@@ -60,7 +62,11 @@ const SubjectId: React.FC = () => {
             </Text>
             <Text className="mb-2 text-center">{content.description}</Text>
             {content.image && (
-              <Image source={{ uri: content.image }} className="w-full h-96" />
+              <Image
+                source={{ uri: content.image }}
+                className="w-full h-96"
+                resizeMode="contain"
+              />
             )}
           </View>
         </View>

@@ -182,8 +182,33 @@ export default function Usuarios() {
     },
   ];
 
+  const [globalFilter, setGlobalFilter] = React.useState("");
+
+  const filteredData = React.useMemo(() => {
+    if (!globalFilter) return users || [];
+
+    const lowercasedFilter = globalFilter.toLowerCase();
+
+    return (users || []).filter((user: User) => {
+      return Object.entries(user).some(([key, value]) => {
+        if (key === "role") {
+          // Filtra por valores traduzidos e originais
+          return (
+            getRole(value).toLowerCase().includes(lowercasedFilter) ||
+            value.toLowerCase().includes(lowercasedFilter)
+          );
+        }
+
+        return (
+          typeof value === "string" &&
+          value.toLowerCase().includes(lowercasedFilter)
+        );
+      });
+    });
+  }, [globalFilter, users]);
+
   const table = useReactTable({
-    data: users || [],
+    data: filteredData,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -221,15 +246,12 @@ export default function Usuarios() {
         <CardContent className="flex flex-col">
           <div className="flex items-center py-4">
             <Input
-              placeholder="Filtrar emails..."
-              value={
-                (table.getColumn("email")?.getFilterValue() as string) ?? ""
-              }
-              onChange={(event) =>
-                table.getColumn("email")?.setFilterValue(event.target.value)
-              }
+              placeholder="Filtrar..."
+              value={globalFilter}
+              onChange={(event) => setGlobalFilter(event.target.value)}
               className="max-w-sm"
             />
+
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="ml-auto">
