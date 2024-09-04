@@ -36,7 +36,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -50,6 +50,11 @@ export default function EditarDocumento({
 }: {
   params: { documentId: string };
 }) {
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [isEditingImage, setIsEditingImage] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+
   const router = useRouter();
   const {
     data: documentData,
@@ -111,6 +116,92 @@ export default function EditarDocumento({
     );
   }
 
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      setSelectedFile(file);
+      setPreviewImage(URL.createObjectURL(file));
+      setIsEditingImage(true);
+    }
+  };
+
+  const handleSaveImage = async () => {
+    if (!selectedFile) return;
+    setIsUploading(true);
+    const formData = new FormData();
+    formData.append("image", selectedFile);
+
+    try {
+      await api.post(
+        `/documentos/update_photo?_id=${documentData?._id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      setIsEditingImage(false);
+      setPreviewImage(null);
+      toast({
+        title: "Foto atualizada com sucesso!",
+        description: "Sua foto de perfil foi atualizada com sucesso.",
+      });
+      refetchDocument();
+    } catch (error) {
+      console.error("Erro ao atualizar a foto:", error);
+      toast({
+        title: "Erro ao atualizar foto",
+        description: "Ocorreu um erro ao tentar atualizar sua foto.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const renderActionButton = () => {
+    if (isEditingImage) {
+      return (
+        <>
+          {isUploading ? (
+            <Button disabled className="w-fit self-center text-xs p-2 h-fit">
+              <Loader2 className="w-4 h-fit animate-spin" />
+              Salvando...
+            </Button>
+          ) : (
+            <Button
+              className="w-fit self-center text-xs p-2 h-fit"
+              onClick={handleSaveImage}
+              type="button" // Mudança aqui para evitar envio de formulário
+            >
+              Salvar
+            </Button>
+          )}
+        </>
+      );
+    } else {
+      return (
+        <>
+          <Button className="w-full" type="button">
+            <label htmlFor="upload-photo" className="cursor-pointer">
+              Alterar Imagem
+            </label>
+          </Button>
+          <input
+            type="file"
+            id="upload-photo"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="hidden"
+          />
+        </>
+      );
+    }
+  };
+
   return (
     <ContentLayout className="flex flex-col gap-10" title="Criar Documento">
       <div
@@ -145,7 +236,6 @@ export default function EditarDocumento({
                   </FormItem>
                 )}
               />
-
               <FormField
                 control={form.control}
                 name="description"
@@ -159,11 +249,10 @@ export default function EditarDocumento({
                   </FormItem>
                 )}
               />
-
               <div className="flex flex-col w-fit items-center gap-4">
                 {documentData?.image ? (
                   <Image
-                    src={documentData.image}
+                    src={previewImage ? previewImage : documentData.image}
                     alt="Imagem do documento"
                     width={200}
                     height={200}
@@ -173,9 +262,7 @@ export default function EditarDocumento({
                     Sem imagem disponível
                   </div>
                 )}
-                <Button className="w-full" type="button" variant="outline">
-                  Alterar Imagem
-                </Button>
+                {renderActionButton()}
               </div>
 
               {isLoadingDocument ? (

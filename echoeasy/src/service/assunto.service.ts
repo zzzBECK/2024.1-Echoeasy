@@ -67,6 +67,14 @@ export class AssuntoService {
     }
   }
 
+  async updatePhoto(_id: string, file: MulterFile): Promise<Assunto | null> {
+    try {
+      return this.assuntoRepository.updatePhoto(_id, file);
+    } catch (error) {
+      throw new HttpException(error.message, 400);
+    }
+  }
+
   async deleteOne(_id: string): Promise<Assunto | null> {
     try {
       return this.assuntoRepository.deleteOne(_id);

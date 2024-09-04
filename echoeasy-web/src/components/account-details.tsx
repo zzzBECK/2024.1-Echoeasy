@@ -1,28 +1,49 @@
 "use client";
+
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { useTokenContext } from "@/contexts/TokenContext";
 import { api } from "@/services/api";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
 import { ChangeEvent, useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "./ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { toast } from "./ui/use-toast";
+
+const FormSchema = z.object({
+  name: z.string().min(1, { message: "Nome é obrigatório" }),
+  lastname: z.string().min(1, { message: "Sobrenome é obrigatório" }),
+  cellphone: z.string().min(10, { message: "Celular inválido" }).optional(),
+});
 
 export default function AccountDetails() {
   const { user, setUser } = useTokenContext();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditingImage, setIsEditingImage] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      name: user?.name || "",
+      lastname: user?.lastname || "",
+      cellphone: user?.cellphone || "",
+    },
+  });
 
   const getUserAvatarLetters = () => {
     if (user?.name && user?.lastname) {
@@ -38,11 +59,11 @@ export default function AccountDetails() {
       const file = files[0];
       setSelectedFile(file);
       setPreviewImage(URL.createObjectURL(file));
-      setIsEditing(true);
+      setIsEditingImage(true);
     }
   };
 
-  const handleSave = async () => {
+  const handleSaveImage = async () => {
     if (!selectedFile) return;
     setIsUploading(true);
     const formData = new FormData();
@@ -59,7 +80,7 @@ export default function AccountDetails() {
         }
       );
 
-      setIsEditing(false);
+      setIsEditingImage(false);
       setPreviewImage(null);
       setUser(userResponse.data);
       toast({
@@ -68,6 +89,34 @@ export default function AccountDetails() {
       });
     } catch (error) {
       console.error("Erro ao atualizar a foto:", error);
+      toast({
+        title: "Erro ao atualizar foto",
+        description: "Ocorreu um erro ao tentar atualizar sua foto.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const handleSaveDetails = async (data: z.infer<typeof FormSchema>) => {
+    setIsUploading(true);
+
+    try {
+      const userResponse = await api.put(`/usuarios`, data);
+
+      setUser(userResponse.data);
+      toast({
+        title: "Dados atualizados com sucesso!",
+        description: "Suas informações foram atualizadas com sucesso.",
+      });
+    } catch (error) {
+      console.error("Erro ao atualizar dados:", error);
+      toast({
+        title: "Erro ao atualizar dados",
+        description: "Ocorreu um erro ao tentar atualizar seus dados.",
+        variant: "destructive",
+      });
     } finally {
       setIsUploading(false);
     }
@@ -97,7 +146,7 @@ export default function AccountDetails() {
   };
 
   const renderActionButton = () => {
-    if (isEditing) {
+    if (isEditingImage) {
       return (
         <>
           {isUploading ? (
@@ -108,7 +157,7 @@ export default function AccountDetails() {
           ) : (
             <Button
               className="w-fit self-center text-xs p-2 h-fit"
-              onClick={handleSave}
+              onClick={handleSaveImage}
             >
               Salvar
             </Button>
@@ -139,59 +188,103 @@ export default function AccountDetails() {
     <Card className="w-full h-fit">
       <CardHeader>
         <CardTitle>Sua Conta</CardTitle>
-        <CardDescription>Informações sobre a sua conta.</CardDescription>
         <div className="flex flex-col gap-4">
           {renderImageOrAvatar()}
           {renderActionButton()}
         </div>
       </CardHeader>
-      <CardContent className="space-y-2">
-        <Label htmlFor="email">Email</Label>
-        <Input
-          type="email"
-          id="email"
-          name="email"
-          value={user?.email}
-          className="input"
-          disabled
-        />
-        <Label htmlFor="name">Nome</Label>
-        <Input
-          type="text"
-          id="name"
-          name="name"
-          value={user?.name}
-          className="input"
-          disabled
-        />
-        <Label htmlFor="lastname">Sobrenome</Label>
-        <Input
-          type="text"
-          id="lastname"
-          name="lastname"
-          value={user?.lastname}
-          className="input"
-          disabled
-        />
+      <CardContent className="space-y-6">
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(handleSaveDetails)}
+            className="space-y-6"
+          >
+            <FormItem>
+              <Label htmlFor="role">Email</Label>
+              <Input
+                type="text"
+                value={user?.email}
+                className="input"
+                disabled
+              />
+            </FormItem>
 
-        <Label htmlFor="cellphone">Celular</Label>
-        <Input
-          type="text"
-          id="cellphone"
-          name="cellphone"
-          value={user?.cellphone}
-          className="input"
-          disabled
-        />
-        <Label htmlFor="role">Função</Label>
-        <Input
-          type="text"
-          id="role"
-          name="role"
-          value={user?.role}
-          className="input"
-          disabled
-        />
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Nome</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      placeholder="Digite seu nome"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="lastname"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Sobrenome</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      placeholder="Digite seu sobrenome"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="cellphone"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Celular</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      placeholder="Digite seu celular"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormItem>
+              <Label htmlFor="role">Função</Label>
+              <Input
+                type="text"
+                value={user?.role.toUpperCase()}
+                className="input"
+                disabled
+              />
+            </FormItem>
+
+            {isUploading ? (
+              <Button className="w-full" disabled>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Salvando...
+              </Button>
+            ) : (
+              <Button type="submit" className="w-full">
+                Salvar
+              </Button>
+            )}
+          </form>
+        </Form>
       </CardContent>
     </Card>
   );

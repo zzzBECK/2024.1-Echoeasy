@@ -75,6 +75,20 @@ export class AssuntoController {
     }
   }
 
+  @Post('update_photo')
+  @UseInterceptors(FileInterceptor('image'))
+  @UseGuards(AuthGuard)
+  async uploadPhoto(
+    @Query('_id') _id: string,
+    @UploadedFile() file: MulterFile,
+  ): Promise<Assunto> {
+    try {
+      return this.assuntoService.updatePhoto(_id, file);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
   @Delete('delete')
   @UseGuards(AuthGuard)
   async deleteAssuntoById(@Query('_id') _id: string): Promise<Assunto | null> {

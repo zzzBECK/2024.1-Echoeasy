@@ -6,9 +6,14 @@ interface User {
   name: string;
   lastname: string;
   email: string;
+  password: string;
   cellphone: string;
   role: string;
   firebaseId: string;
+  image: string;
+  createdAt: string;
+  updatedAt: string;
+  _id: string;
 }
 
 interface GlobalContextType {
@@ -16,7 +21,7 @@ interface GlobalContextType {
   setToken: React.Dispatch<React.SetStateAction<string | null>>;
   isLogged: boolean;
   setIsLogged: React.Dispatch<React.SetStateAction<boolean>>;
-  user: User | null;
+  user: User ;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
   loading: boolean;
   logout: () => void;

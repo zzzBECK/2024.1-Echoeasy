@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -28,11 +29,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { toast } from "@/components/ui/use-toast";
-import { useGetAllUsers } from "@/hooks/useGetAllUsers";
-import { getRole } from "@/lib/roles";
+import { useGetAllCategories } from "@/hooks/useGetAllCategories"; // Hook para buscar categorias
 import { formatStringToDate } from "@/lib/utils";
 import { api } from "@/services/api";
-import { User } from "@/types/user";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -48,9 +47,10 @@ import {
 import { ArrowUpDown, ChevronDown, Loader2 } from "lucide-react";
 import * as React from "react";
 
-export default function Usuarios() {
-  const { data: users, isLoading, mutate } = useGetAllUsers();
-  const [userToDelete, setUserToDelete] = React.useState("");
+export default function Categorias() {
+  const { data: categories, isLoading, mutate } = useGetAllCategories(); // Obtendo as categorias
+  const [categoryToDelete, setCategoryToDelete] = React.useState<string>("");
+  const [newCategoryTitle, setNewCategoryTitle] = React.useState<string>("");
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -59,51 +59,19 @@ export default function Usuarios() {
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
-  const columns: ColumnDef<User>[] = [
+  const columns: ColumnDef<any>[] = [
     {
-      accessorKey: "name",
+      accessorKey: "title",
       header: ({ column }) => (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Nome
+          Título
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       ),
-
-      cell: ({ row }) => <div>{row.getValue("name")}</div>,
-    },
-    {
-      accessorKey: "email",
-      header: ({ column }) => (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Email
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      ),
-      cell: ({ row }) => <div>{row.getValue("email")}</div>,
-    },
-    {
-      accessorKey: "cellphone",
-      header: "Número",
-      cell: ({ row }) => <div>{row.getValue("cellphone")}</div>,
-    },
-    {
-      accessorKey: "role",
-      header: ({ column }) => (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Função
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      ),
-      cell: ({ row }) => <div>{getRole(row.getValue("role"))}</div>,
+      cell: ({ row }) => <div>{row.getValue("title")}</div>,
     },
     {
       accessorKey: "createdAt",
@@ -116,7 +84,6 @@ export default function Usuarios() {
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       ),
-
       cell: ({ row }) => (
         <div>{formatStringToDate(row.getValue("createdAt"))}</div>
       ),
@@ -129,7 +96,7 @@ export default function Usuarios() {
           <DialogTrigger asChild>
             <Button
               variant="destructive"
-              onClick={() => setUserToDelete(row.original._id)}
+              onClick={() => setCategoryToDelete(row.original._id)}
             >
               Deletar
             </Button>
@@ -138,20 +105,20 @@ export default function Usuarios() {
             <DialogHeader>
               <DialogTitle>Confirmar Exclusão</DialogTitle>
               <DialogDescription className="flex flex-col gap-2">
-                Tem certeza de que deseja deletar o usuário? Esta ação não pode
-                ser desfeita.
+                Tem certeza de que deseja deletar a categoria? Esta ação não
+                pode ser desfeita.
                 <div>
                   <p>
-                    Email: <b className="text-primary">{row.original.email}</b>
-                  </p>
-                  <p>
-                    Nome: <b className="text-primary">{row.original.name}</b>
+                    Título: <b className="text-primary">{row.original.title}</b>
                   </p>
                 </div>
               </DialogDescription>
             </DialogHeader>
             <DialogFooter>
-              <Button variant="secondary" onClick={() => setUserToDelete("")}>
+              <Button
+                variant="secondary"
+                onClick={() => setCategoryToDelete("")}
+              >
                 Cancelar
               </Button>
               <Button variant="destructive" onClick={handleDelete}>
@@ -165,7 +132,7 @@ export default function Usuarios() {
   ];
 
   const table = useReactTable({
-    data: users || [],
+    data: categories || [],
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -184,26 +151,50 @@ export default function Usuarios() {
   });
 
   const handleDelete = async () => {
-    if (!userToDelete) return;
+    if (!categoryToDelete) return;
 
     try {
-      await api.delete(`/usuarios/delete?_id=${userToDelete}`);
+      await api.delete(`/categorias/${categoryToDelete}`);
 
       toast({
-        title: "Usuário deletado",
-        description: "Usuário deletado com sucesso.",
+        title: "Categoria deletada",
+        description: "Categoria deletada com sucesso.",
       });
 
       mutate();
     } catch (error) {
-      console.error("Erro ao atualizar dados:", error);
+      console.error("Erro ao deletar categoria:", error);
       toast({
-        title: "Erro ao deletar usuário",
-        description: "Ocorreu um erro ao tentar deletar o usuário.",
+        title: "Erro ao deletar categoria",
+        description: "Ocorreu um erro ao tentar deletar a categoria.",
         variant: "destructive",
       });
     } finally {
-      setUserToDelete("");
+      setCategoryToDelete("");
+    }
+  };
+
+  const handleCreate = async () => {
+    if (!newCategoryTitle) return;
+
+    try {
+      await api.post("/categorias", { title: newCategoryTitle });
+
+      toast({
+        title: "Categoria criada",
+        description: "Categoria criada com sucesso.",
+      });
+
+      mutate();
+    } catch (error: any) {
+      console.error("Erro ao criar categoria:", error);
+      toast({
+        title: "Erro ao criar categoria",
+        description: error.response?.data.message,
+        variant: "destructive",
+      });
+    } finally {
+      setNewCategoryTitle("");
     }
   };
 
@@ -211,7 +202,7 @@ export default function Usuarios() {
     return (
       <ContentLayout
         className="flex justify-center items-center"
-        title="Usuários"
+        title="Categorias"
       >
         <Loader2 className="h-10 w-10 animate-spin" />
       </ContentLayout>
@@ -219,20 +210,51 @@ export default function Usuarios() {
   }
 
   return (
-    <ContentLayout title="Usuarios">
+    <ContentLayout title="Categorias">
       <Card>
         <CardHeader>
-          <CardTitle>Usuarios</CardTitle>
+          <CardTitle>Categorias</CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col">
-          <div className="flex items-center py-4">
+          <div className="flex flex-col lg:flex-row lg:items-center py-4 gap-4">
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button>Adicionar Nova Categoria</Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Adicionar Nova Categoria</DialogTitle>
+                </DialogHeader>
+                <DialogDescription>
+                  <Input
+                    placeholder="Título da Categoria"
+                    value={newCategoryTitle}
+                    onChange={(e) => setNewCategoryTitle(e.target.value)}
+                    className="w-full"
+                  />
+                </DialogDescription>
+                <DialogFooter>
+                  <DialogClose asChild>
+                    <Button
+                      variant="secondary"
+                      onClick={() => setNewCategoryTitle("")}
+                    >
+                      Cancelar
+                    </Button>
+                  </DialogClose>
+                  <DialogClose asChild>
+                    <Button onClick={handleCreate}>Criar</Button>
+                  </DialogClose>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
             <Input
-              placeholder="Filtrar emails..."
+              placeholder="Filtrar títulos..."
               value={
-                (table.getColumn("email")?.getFilterValue() as string) ?? ""
+                (table.getColumn("title")?.getFilterValue() as string) ?? ""
               }
               onChange={(event) =>
-                table.getColumn("email")?.setFilterValue(event.target.value)
+                table.getColumn("title")?.setFilterValue(event.target.value)
               }
               className="max-w-sm"
             />
@@ -308,7 +330,7 @@ export default function Usuarios() {
           </Table>
         </CardContent>
       </Card>
-      <div className="flex items-center justify-end space-x-2 py-4">
+      <div className="flex items-center justify-end py-4">
         <div className="space-x-2">
           <Button
             variant="outline"

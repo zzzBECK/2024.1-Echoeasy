@@ -1,4 +1,11 @@
-import { FileText, LayoutGrid, LucideIcon, UserCog, Users } from "lucide-react";
+import {
+  FileText,
+  LayoutGrid,
+  Library,
+  LucideIcon,
+  UserCog,
+  Users,
+} from "lucide-react";
 
 type Submenu = {
   href: string;
@@ -48,6 +55,13 @@ export function getMenuList(pathname: string): Group[] {
               active: pathname === "/documentos/criar",
             },
           ],
+        },
+        {
+          href: "/categorias",
+          label: "Categorias",
+          active: pathname.includes("/categorias"),
+          icon: Library,
+          submenus: [],
         },
         {
           href: "/usuarios",

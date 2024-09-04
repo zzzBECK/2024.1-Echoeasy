@@ -46,7 +46,8 @@ export class DocumentoController {
   ): Promise<Documento[]> {
     try {
       if (categorias || title) {
-        let categoriesArray: string[] = [];
+        let categoriesArray = [];
+
         if (categorias) {
           categoriesArray =
             typeof categorias === 'string' ? categorias.split(',') : categorias;
@@ -81,6 +82,20 @@ export class DocumentoController {
   ): Promise<Documento | null> {
     try {
       return this.documentoService.updateOne(_id, documentoData);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  @Post('update_photo')
+  @UseInterceptors(FileInterceptor('image'))
+  @UseGuards(AuthGuard)
+  async updatePhoto(
+    @Query('_id') _id: string,
+    @UploadedFile() file: MulterFile,
+  ): Promise<Documento> {
+    try {
+      return this.documentoService.updatePhoto(_id, file);
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
