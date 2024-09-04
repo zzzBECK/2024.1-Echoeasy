@@ -98,7 +98,6 @@ const Documents: React.FC = () => {
     fetchCategories();
   }, [refreshing, debouncedSearchTitle, searchByCategories]);
 
-  // Sincronizar `localSelectedCategories` quando o modal for aberto
   useEffect(() => {
     if (modalVisible) {
       setLocalSelectedCategories(searchByCategories);
@@ -140,17 +139,22 @@ const Documents: React.FC = () => {
           </TouchableOpacity>
         </View>
 
-        <View className="flex-row self-start mt-2">
-          {searchByCategories.map((category) => (
-            <CategoryTag
-              key={category._id}
-              isDisabled={false}
-              category={category.title}
-              isSelected={true}
-              onPress={() => handleCategoryToggle(category._id)}
-            />
-          ))}
+        {localSelectedCategories.length > 0 && (
+        <View className="self-start">
+          <Text className="font-interLight text-xs ml-2 mb-1">Filtrado por:</Text>
+          <View className="flex-row self-start">
+            {searchByCategories.map((category) => (
+              <CategoryTag
+                key={category._id}
+                isDisabled={true}
+                category={category.title}
+                isSelected={true}
+                onPress={() => handleCategoryToggle(category._id)}
+              />
+            ))}
+          </View>
         </View>
+        )}
 
         <View className="p-1">
           <FlatList
