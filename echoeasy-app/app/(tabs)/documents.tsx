@@ -1,7 +1,7 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useDebounce } from "@uidotdev/usehooks";
 import { router } from "expo-router";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FlatList,
   Modal,
@@ -24,7 +24,7 @@ type Item = {
   description: string;
   image: string;
   categorias: string[];
-  categoriesTitles: string[]
+  categoriesTitles: string[];
 };
 
 type Category = {
@@ -36,26 +36,33 @@ const Documents: React.FC = () => {
   const [docs, setDocs] = useState<Item[]>([]);
   const [refreshing, setRefreshing] = useState(false);
   const [searchByTitle, setSearchByTitle] = useState("");
-  const [searchByCategories, setSearchByCategories] = useState<string[]>([]);
+  const [searchByCategories, setSearchByCategories] = useState<Category[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
   const debouncedSearchTitle = useDebounce(searchByTitle, 50);
   const [localSelectedCategories, setLocalSelectedCategories] =
-    useState<string[]>(searchByCategories);
+    useState<Category[]>(searchByCategories);
 
-  const docService = useMemo(() => new DocService(), []);
-  const categoryService = useMemo(() => new CategoryService(), []);
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await fetchDocuments();
+    await fetchCategories();
+    setRefreshing(false);
+  };
 
-  const fetchDocuments = useCallback(async () => {
+  const fetchDocuments = async () => {
     try {
+      const docService = new DocService();
       const response = await docService.getAllDocuments(
         debouncedSearchTitle,
-        searchByCategories
+        searchByCategories.map((cat) => cat._id) // IDs das categorias
       );
       const docsWithCategories = await Promise.all(
         response.data.map(async (doc: Item) => {
           const categoriesTitles = await Promise.all(
-            doc.categorias.map(findCategoryTitleById)
+            doc.categorias.map((categoryId) =>
+              findCategoryTitleById(categoryId)
+            )
           );
           return { ...doc, categoriesTitles };
         })
@@ -64,57 +71,56 @@ const Documents: React.FC = () => {
     } catch (error: any) {
       console.error("Error fetching documents:", error.message || error);
     }
-  }, [debouncedSearchTitle, searchByCategories, docService]);
+  };
 
-  const fetchCategories = useCallback(async () => {
+  const fetchCategories = async () => {
     try {
+      const categoryService = new CategoryService();
       const response = await categoryService.getAllCategories();
       setCategories(response.data);
     } catch (error: any) {
       console.error("Error fetching categories:", error.message || error);
     }
-  }, [categoryService]);
+  };
 
-  const findCategoryTitleById = useCallback(
-    async (id: string) => {
-      try {
-        const category = await categoryService.findCategoryById(id);
-        return category.data.title;
-      } catch (error: any) {
-        console.error("Error fetching title category:", error.message || error);
-      }
-    },
-    [categoryService]
-  );
+  const findCategoryTitleById = async (id: string) => {
+    try {
+      const categoryService = new CategoryService();
+      const category = await categoryService.findCategoryById(id);
+      return category.data.title;
+    } catch (error: any) {
+      console.error("Error fetching title category:", error.message || error);
+    }
+  };
 
   useEffect(() => {
     fetchDocuments();
     fetchCategories();
-  }, [fetchDocuments, fetchCategories]);
+  }, [refreshing, debouncedSearchTitle, searchByCategories]);
 
-  const onRefresh = useCallback(async () => {
-    setRefreshing(true);
-    await fetchDocuments();
-    await fetchCategories();
-    setRefreshing(false);
-  }, [fetchDocuments, fetchCategories]);
+  // Sincronizar `localSelectedCategories` quando o modal for aberto
+  useEffect(() => {
+    if (modalVisible) {
+      setLocalSelectedCategories(searchByCategories);
+    }
+  }, [modalVisible, searchByCategories]);
 
-  const toggleModal = useCallback(() => {
-    setModalVisible((prev) => !prev);
-  }, []);
+  const toggleModal = () => {
+    setModalVisible(!modalVisible);
+  };
 
-  const handleCategoryToggle = useCallback((categoryId: string) => {
+  const handleCategoryToggle = (categoryId: string) => {
     setLocalSelectedCategories((prevSelected) =>
-      prevSelected.includes(categoryId)
-        ? prevSelected.filter((id) => id !== categoryId)
-        : [...prevSelected, categoryId]
+      prevSelected.some((cat) => cat._id === categoryId)
+        ? prevSelected.filter((cat) => cat._id !== categoryId)
+        : [...prevSelected, categories.find((cat) => cat._id === categoryId)!]
     );
-  }, []);
+  };
 
-  const handleConfirm = useCallback(() => {
+  const handleConfirm = () => {
     setSearchByCategories(localSelectedCategories);
     toggleModal();
-  }, [localSelectedCategories, toggleModal]);
+  };
 
   return (
     <SafeAreaView className="bg-[#F6F6F6] h-full p-6 py-10">
@@ -133,6 +139,19 @@ const Documents: React.FC = () => {
             <Ionicons name="filter-outline" size={25} color="#C4C4C4" />
           </TouchableOpacity>
         </View>
+
+        <View className="flex-row self-start mt-2">
+          {searchByCategories.map((category) => (
+            <CategoryTag
+              key={category._id}
+              isDisabled={false}
+              category={category.title}
+              isSelected={true}
+              onPress={() => handleCategoryToggle(category._id)}
+            />
+          ))}
+        </View>
+
         <View className="p-1">
           <FlatList
             data={docs}
@@ -142,7 +161,7 @@ const Documents: React.FC = () => {
                 title={item.title}
                 description={item.description}
                 image={item.image}
-                categories={item.categoriesTitles} // categorias agora são títulos já resolvidos
+                categories={item.categoriesTitles}
                 handlePress={() => router.push(`(documents)/${item._id}`)}
               />
             )}
@@ -166,15 +185,22 @@ const Documents: React.FC = () => {
           onRequestClose={toggleModal}
         >
           <View className="flex-1 justify-center items-center bg-[#000]/60">
-            <View className="bg-white p-3 rounded-lg w-4/5">
-              <Text className="font-interMedium text-lg">Categorias</Text>
-              <View className="flex-row flex-wrap">
+            <View className="bg-white p-4 py-3 rounded-lg w-4/5">
+              <View className="flex-row justify-between items-center">
+                <Text className="font-interMedium text-lg">Categorias</Text>
+                <TouchableOpacity onPress={toggleModal}>
+                  <Ionicons name="close-outline" size={25} />
+                </TouchableOpacity>
+              </View>
+              <View className="flex-row flex-wrap justify-center p-2 pt-3">
                 {categories.map((category) => (
                   <CategoryTag
                     key={category._id}
                     isDisabled={false}
                     category={category.title}
-                    isSelected={localSelectedCategories.includes(category._id)}
+                    isSelected={localSelectedCategories.some(
+                      (cat) => cat._id === category._id
+                    )}
                     onPress={() => handleCategoryToggle(category._id)}
                   />
                 ))}
