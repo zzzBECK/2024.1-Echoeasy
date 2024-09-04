@@ -50,7 +50,6 @@ import * as React from "react";
 
 export default function Usuarios() {
   const { data: users, isLoading, mutate } = useGetAllUsers();
-  const [userToDelete, setUserToDelete] = React.useState("");
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -58,6 +57,26 @@ export default function Usuarios() {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+
+  const handleDelete = async (userId: string) => {
+    try {
+      await api.delete(`/usuarios/delete?_id=${userId}`);
+
+      toast({
+        title: "Usuário deletado",
+        description: "Usuário deletado com sucesso.",
+      });
+
+      mutate();
+    } catch (error) {
+      console.error("Erro ao deletar usuário:", error);
+      toast({
+        title: "Erro ao deletar usuário",
+        description: "Ocorreu um erro ao tentar deletar o usuário.",
+        variant: "destructive",
+      });
+    }
+  };
 
   const columns: ColumnDef<User>[] = [
     {
@@ -71,7 +90,6 @@ export default function Usuarios() {
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       ),
-
       cell: ({ row }) => <div>{row.getValue("name")}</div>,
     },
     {
@@ -116,7 +134,6 @@ export default function Usuarios() {
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       ),
-
       cell: ({ row }) => (
         <div>{formatStringToDate(row.getValue("createdAt"))}</div>
       ),
@@ -127,12 +144,7 @@ export default function Usuarios() {
       cell: ({ row }) => (
         <Dialog>
           <DialogTrigger asChild>
-            <Button
-              variant="destructive"
-              onClick={() => setUserToDelete(row.original._id)}
-            >
-              Deletar
-            </Button>
+            <Button variant="destructive">Deletar</Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
@@ -154,10 +166,13 @@ export default function Usuarios() {
               </DialogDescription>
             </DialogHeader>
             <DialogFooter>
-              <Button variant="secondary" onClick={() => setUserToDelete("")}>
-                Cancelar
-              </Button>
-              <Button variant="destructive" onClick={handleDelete}>
+              <Button variant="secondary">Cancelar</Button>
+              <Button
+                variant="destructive"
+                onClick={async () => {
+                  await handleDelete(row.original._id);
+                }}
+              >
                 Confirmar
               </Button>
             </DialogFooter>
@@ -185,30 +200,6 @@ export default function Usuarios() {
       rowSelection,
     },
   });
-
-  const handleDelete = async () => {
-    if (!userToDelete) return;
-
-    try {
-      await api.delete(`/usuarios/delete?_id=${userToDelete}`);
-
-      toast({
-        title: "Usuário deletado",
-        description: "Usuário deletado com sucesso.",
-      });
-
-      mutate();
-    } catch (error) {
-      console.error("Erro ao atualizar dados:", error);
-      toast({
-        title: "Erro ao deletar usuário",
-        description: "Ocorreu um erro ao tentar deletar o usuário.",
-        variant: "destructive",
-      });
-    } finally {
-      setUserToDelete("");
-    }
-  };
 
   if (isLoading) {
     return (

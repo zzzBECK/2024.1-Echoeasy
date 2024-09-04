@@ -49,7 +49,6 @@ import * as React from "react";
 
 export default function Categorias() {
   const { data: categories, isLoading, mutate } = useGetAllCategories();
-  const [categoryToDelete, setCategoryToDelete] = React.useState<string>("");
   const [newCategoryTitle, setNewCategoryTitle] = React.useState<string>("");
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -58,6 +57,49 @@ export default function Categorias() {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+
+  const handleDelete = async (categoryId: string) => {
+    try {
+      await api.delete(`/categorias/${categoryId}`);
+      toast({
+        title: "Categoria deletada",
+        description: "Categoria deletada com sucesso.",
+      });
+
+      mutate();
+    } catch (error) {
+      console.error("Erro ao deletar categoria:", error);
+      toast({
+        title: "Erro ao deletar categoria",
+        description: "Ocorreu um erro ao tentar deletar a categoria.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleCreate = async () => {
+    if (!newCategoryTitle) return;
+
+    try {
+      await api.post("/categorias", { title: newCategoryTitle });
+
+      toast({
+        title: "Categoria criada",
+        description: "Categoria criada com sucesso.",
+      });
+
+      mutate();
+    } catch (error: any) {
+      console.error("Erro ao criar categoria:", error);
+      toast({
+        title: "Erro ao criar categoria",
+        description: error.response?.data.message,
+        variant: "destructive",
+      });
+    } finally {
+      setNewCategoryTitle("");
+    }
+  };
 
   const columns: ColumnDef<any>[] = [
     {
@@ -94,12 +136,7 @@ export default function Categorias() {
       cell: ({ row }) => (
         <Dialog>
           <DialogTrigger asChild>
-            <Button
-              variant="destructive"
-              onClick={() => setCategoryToDelete(row.original._id)}
-            >
-              Deletar
-            </Button>
+            <Button variant="destructive">Deletar</Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
@@ -115,13 +152,13 @@ export default function Categorias() {
               </DialogDescription>
             </DialogHeader>
             <DialogFooter>
+              <Button variant="secondary">Cancelar</Button>
               <Button
-                variant="secondary"
-                onClick={() => setCategoryToDelete("")}
+                variant="destructive"
+                onClick={async () => {
+                  await handleDelete(row.original._id);
+                }}
               >
-                Cancelar
-              </Button>
-              <Button variant="destructive" onClick={handleDelete}>
                 Confirmar
               </Button>
             </DialogFooter>
@@ -149,54 +186,6 @@ export default function Categorias() {
       rowSelection,
     },
   });
-
-  const handleDelete = async () => {
-    if (!categoryToDelete) return;
-
-    try {
-      await api.delete(`/categorias/${categoryToDelete}`);
-
-      toast({
-        title: "Categoria deletada",
-        description: "Categoria deletada com sucesso.",
-      });
-
-      mutate();
-    } catch (error) {
-      console.error("Erro ao deletar categoria:", error);
-      toast({
-        title: "Erro ao deletar categoria",
-        description: "Ocorreu um erro ao tentar deletar a categoria.",
-        variant: "destructive",
-      });
-    } finally {
-      setCategoryToDelete("");
-    }
-  };
-
-  const handleCreate = async () => {
-    if (!newCategoryTitle) return;
-
-    try {
-      await api.post("/categorias", { title: newCategoryTitle });
-
-      toast({
-        title: "Categoria criada",
-        description: "Categoria criada com sucesso.",
-      });
-
-      mutate();
-    } catch (error: any) {
-      console.error("Erro ao criar categoria:", error);
-      toast({
-        title: "Erro ao criar categoria",
-        description: error.response?.data.message,
-        variant: "destructive",
-      });
-    } finally {
-      setNewCategoryTitle("");
-    }
-  };
 
   if (isLoading) {
     return (
