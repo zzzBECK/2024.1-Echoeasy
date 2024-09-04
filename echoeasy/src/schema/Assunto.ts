@@ -15,6 +15,7 @@ export class Assunto extends Document {
   category: string[];
 
   @Prop({ required: false })
+  @Prop({ required: false })
   image: string;
 
   @Prop({ required: false })

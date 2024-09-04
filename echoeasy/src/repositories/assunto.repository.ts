@@ -103,6 +103,34 @@ export class AssuntoRepository {
     }
   }
 
+  async updatePhoto(_id: string, file: MulterFile): Promise<Assunto> {
+    try {
+      if (!file) {
+        throw new Error('Arquivo inválido');
+      }
+
+      if (!Types.ObjectId.isValid(_id)) {
+        throw new Error('ID inválido');
+      }
+
+      const imageUrl = await this.uploadImage64(file);
+
+      return this.assuntoModel
+        .findOneAndUpdate(
+          {
+            _id,
+          },
+          { image: imageUrl },
+          {
+            new: true,
+          },
+        )
+        .exec();
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
   async deleteOne(_id: string): Promise<Assunto | null> {
     try {
       if (!Types.ObjectId.isValid(_id)) {
@@ -120,7 +148,7 @@ export class AssuntoRepository {
         throw new Error('Arquivo inválido');
       }
 
-      const fileName = `${Date.now().toString()}_${file.originalname}`;
+      const fileName = `${Date.now().toString()}`;
       const fileUpload = adminStorage.file(fileName);
 
       const stream = fileUpload.createWriteStream({

@@ -74,6 +74,14 @@ export class DocumentoService {
     }
   }
 
+  async updatePhoto(_id: string, file: MulterFile): Promise<Documento> {
+    try {
+      return this.documentoRepository.updatePhoto(_id, file);
+    } catch (error) {
+      throw new HttpException(error.message, 400);
+    }
+  }
+
   async deleteOne(_id: string): Promise<Documento | null> {
     try {
       return this.documentoRepository.deleteOne(_id);
