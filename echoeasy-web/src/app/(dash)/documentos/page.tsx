@@ -3,7 +3,16 @@
 import { ContentLayout } from "@/components/content-layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { MultiCombobox } from "@/components/ui/combobox"; // Import the Combobox component
+import { MultiCombobox } from "@/components/ui/combobox";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import {
   Table,
@@ -61,11 +70,21 @@ export default function Documentos() {
   }, []);
 
   const handleDelete = async (documentId: string) => {
-    toast({
-      title: "Deleção não disponível",
-      description: "Documento Id: " + documentId,
-      variant: "destructive",
-    });
+    try {
+      await api.delete(`/documentos/delete?_id=${documentId}`);
+      toast({
+        title: "Documento deletado!",
+        description: "O documento foi deletado com sucesso.",
+      });
+      mutate();
+    } catch (error: any) {
+      console.error("Erro ao deletar documento", error);
+      toast({
+        title: "Erro ao deletar documento",
+        description: error.response?.data.message || "Erro inesperado.",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleCategoryToggle = async (
@@ -102,7 +121,6 @@ export default function Documentos() {
     }
   };
 
-  // Filtragem global
   const filteredData = React.useMemo(() => {
     if (!globalFilter) return documents || [];
 
@@ -168,12 +186,41 @@ export default function Documentos() {
           >
             Editar
           </Button>
-          <Button
-            variant="destructive"
-            onClick={() => handleDelete(row.original._id)}
-          >
-            Deletar
-          </Button>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="destructive">Deletar</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Confirmar Exclusão</DialogTitle>
+                <DialogDescription className="flex flex-col gap-2">
+                  Tem certeza de que deseja deletar o documento? Esta ação não
+                  pode ser desfeita.
+                  <div>
+                    <p>
+                      Título:{" "}
+                      <b className="text-primary">{row.original.title}</b>
+                    </p>
+                    <p>
+                      Descrição:{" "}
+                      <b className="text-primary">{row.original.description}</b>
+                    </p>
+                  </div>
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <Button variant="secondary">Cancelar</Button>
+                <Button
+                  variant="destructive"
+                  onClick={async () => {
+                    await handleDelete(row.original._id);
+                  }}
+                >
+                  Confirmar
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
       ),
     },

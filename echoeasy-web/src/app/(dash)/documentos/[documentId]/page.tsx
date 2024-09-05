@@ -10,6 +10,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
   Form,
   FormControl,
   FormField,
@@ -62,9 +72,8 @@ export default function EditarDocumento({
     mutate: refetchDocument,
   } = useGetDocumentById(params.documentId);
 
-  const { data: assuntosList } = useGetAllAssuntosByDocumentId(
-    params.documentId
-  );
+  const { data: assuntosList, mutate: refetchAssuntos } =
+    useGetAllAssuntosByDocumentId(params.documentId);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -148,6 +157,24 @@ export default function EditarDocumento({
       });
     } finally {
       setIsUploading(false);
+    }
+  };
+
+  const handleDeleteAssunto = async (assuntoId: string) => {
+    try {
+      await api.delete(`/assuntos/delete?_id=${assuntoId}`);
+      toast({
+        title: "Assunto deletado!",
+        description: "O assunto foi deletado com sucesso.",
+      });
+      refetchAssuntos();
+    } catch (error: any) {
+      console.error("Erro ao deletar assunto:", error);
+      toast({
+        title: "Erro ao deletar assunto",
+        description: error.response?.data.message || "Erro inesperado.",
+        variant: "destructive",
+      });
     }
   };
 
@@ -315,9 +342,49 @@ export default function EditarDocumento({
                       >
                         Editar
                       </Button>
-                      <Button variant="destructive" onClick={() => {}}>
-                        Deletar
-                      </Button>
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button variant="destructive">Deletar</Button>
+                        </DialogTrigger>
+                        <DialogContent>
+                          <DialogHeader>
+                            <DialogTitle>Confirmar Exclusão</DialogTitle>
+                            <DialogDescription>
+                              Tem certeza de que deseja deletar este assunto?
+                              Esta ação não pode ser desfeita.
+                              <div>
+                                <p>
+                                  Título:{" "}
+                                  <b className="text-primary">
+                                    {assunto.title}
+                                  </b>
+                                </p>
+                                <p>
+                                  Descrição:{" "}
+                                  <b className="text-primary">
+                                    {assunto.description}
+                                  </b>
+                                </p>
+                              </div>
+                            </DialogDescription>
+                          </DialogHeader>
+                          <DialogFooter>
+                            <DialogClose>
+                              <Button variant="secondary">Cancelar</Button>
+                            </DialogClose>
+                            <DialogClose>
+                              <Button
+                                variant="destructive"
+                                onClick={async () => {
+                                  await handleDeleteAssunto(assunto._id);
+                                }}
+                              >
+                                Confirmar
+                              </Button>
+                            </DialogClose>
+                          </DialogFooter>
+                        </DialogContent>
+                      </Dialog>
                     </div>
                   </TableCell>
                 </TableRow>
