@@ -59,6 +59,7 @@ const EditProfile: React.FC = () => {
                         icon="mail-outline"
                         value={formData.email}
                         onChangeText={(value) => handleChange('email', value)}
+                        editable={false}
                     />
                     <FormField
                         label="Telefone"
