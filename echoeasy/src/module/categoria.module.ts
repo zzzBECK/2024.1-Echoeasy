@@ -5,9 +5,11 @@ import { CategoriaRepository } from 'src/repositories/categoria.repository';
 import { Categoria, CategoriasSchema } from 'src/schema/Categoria';
 import { Documento, DocumentosSchema } from 'src/schema/Documento';
 import { CategoriaService } from 'src/service/categoria.service';
+import { AuthModule } from './auth.module';
 
 @Module({
   imports: [
+    AuthModule,
     MongooseModule.forFeature([
       { name: Categoria.name, schema: CategoriasSchema },
     ]),

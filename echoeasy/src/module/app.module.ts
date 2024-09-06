@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { AlgoritmoModule } from './algoritmo.module';
 import { AssuntoModule } from './assunto.module';
 import { AuthModule } from './auth.module';
 import { CategoriaModule } from './categoria.module';
 import { DocumentoModule } from './documento.module';
 import { UsuarioModule } from './usuario.module';
-import { AlgoritmoModule } from './algoritmo.module';
 
 @Module({
   imports: [
