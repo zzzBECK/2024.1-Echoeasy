@@ -1,4 +1,14 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpException,
+  HttpStatus,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
+import { ResetPasswordDto } from 'src/dto/reset-password.dto';
 import { SignInEmailDto } from 'src/dto/signin-email.dto';
 import { SignUpEmailDto } from 'src/dto/signup-email.dto';
 import { AuthGuard } from 'src/guards/auth.guard';
@@ -21,9 +31,18 @@ export class AuthController {
     );
   }
 
+  @Post('reset-password/email')
+  async resetPasswordWithEmail(@Body() signInEmailDto: ResetPasswordDto) {
+    return this.authService.resetPasswordWithEmail(signInEmailDto.email);
+  }
+
   @Get('me')
   @UseGuards(AuthGuard)
   async getMe(@Req() req: any) {
-    return this.authService.getMe(req.headers.authorization);
+    try {
+      return this.authService.getMe(req.headers.authorization);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 }
