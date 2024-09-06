@@ -32,6 +32,7 @@ export class AuthController {
   }
 
   @Post('reset-password/email')
+  @UseGuards(AuthGuard)
   async resetPasswordWithEmail(@Body() signInEmailDto: ResetPasswordDto) {
     return this.authService.resetPasswordWithEmail(signInEmailDto.email);
   }
