@@ -58,6 +58,7 @@ const DocumentId: React.FC = () => {
       
         <FlatList
           data={subjects}
+          showsVerticalScrollIndicator={false}
           keyExtractor={(item) => item._id}
           renderItem={({ item }) => (
             <SubItemCard

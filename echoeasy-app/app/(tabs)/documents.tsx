@@ -131,7 +131,7 @@ const Documents: React.FC = () => {
   };
 
   return (
-    <SafeAreaView className="bg-[#F6F6F6] h-full p-6 pt-10 pb-20">
+    <SafeAreaView className="bg-[#F6F6F6] h-full p-6 pt-10 pb-2 ">
       <Text className="font-interMedium text-2xl">Documentos</Text>
       <View className="w-full h-full flex-1 items-center">
         <View className="flex-row items-center">
@@ -149,27 +149,34 @@ const Documents: React.FC = () => {
         </View>
 
         {localSelectedCategories.length > 0 && (
-          <View className="self-start">
+          <View className="self-start h-14">
             <Text className="font-interLight text-xs ml-2 mb-1">
               Filtrado por:
             </Text>
-            <View className="flex-row self-start">
-              {searchByCategories.map((category) => (
-                <CategoryTag
-                  key={category._id}
-                  isDisabled={true}
-                  category={category.title}
-                  isSelected={true}
-                  onPress={() => handleCategoryToggle(category._id)}
-                />
-              ))}
-            </View>
+            <FlatList
+              data={searchByCategories}
+              keyExtractor={(item) => item._id}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              renderItem={({ item }) => (
+                <View>
+                  <CategoryTag
+                    key={item._id}
+                    isDisabled={true}
+                    category={item.title}
+                    isSelected={true}
+                    onPress={() => handleCategoryToggle(item._id)}
+                  />
+                </View>
+              )}
+              contentContainerStyle={{ paddingHorizontal: 8 }}
+            />
           </View>
         )}
 
-        <View className="px-1">
           <FlatList
             data={docs}
+            showsVerticalScrollIndicator={false}
             keyExtractor={(item) => item._id}
             renderItem={({ item }) => (
               <ItemCard
@@ -191,7 +198,7 @@ const Documents: React.FC = () => {
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }
           />
-        </View>
+        
 
         <Modal
           transparent={true}

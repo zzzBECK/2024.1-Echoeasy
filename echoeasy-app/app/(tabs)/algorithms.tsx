@@ -51,6 +51,7 @@ const Algorithms: React.FC = () => {
         </View>
         <FlatList
           data={filteredData}
+          showsVerticalScrollIndicator={false}
           keyExtractor={(item) => item._id}
           renderItem={({ item }) => (
             <ItemCard
