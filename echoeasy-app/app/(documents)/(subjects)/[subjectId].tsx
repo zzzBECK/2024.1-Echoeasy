@@ -1,7 +1,7 @@
 import { useLocalSearchParams } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { Image, RefreshControl, ScrollView, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import Loader from "../../../components/Loader";
 import { SubjectService } from "../../../src/service/SubjectService";
 
 type Item = {
@@ -40,38 +40,31 @@ const SubjectId: React.FC = () => {
   }, []);
 
   if (!content) {
-    return (
-      <View>
-        <Text>"Loading..."</Text>
-      </View>
-    );
+    return <Loader isLoading={true} />;
   }
 
   return (
-    <SafeAreaView className="bg-[#F6F6F6] h-full">
-      <ScrollView
-        contentContainerStyle={{ paddingVertical: 20 }}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-      >
-        <View className="w-full px-6">
-          <View key={content._id} className="mb-4">
-            <Text className="font-interMedium text-2xl mb-2 text-center">
-              {content.title}
-            </Text>
-            <Text className="mb-2 text-center">{content.description}</Text>
-            {content.image && (
-              <Image
-                source={{ uri: content.image }}
-                className="w-full h-96"
-                resizeMode="contain"
-              />
-            )}
-          </View>
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    >
+      <View className="bg-[#F6F6F6] h-full w-full px-6">
+        <View key={content._id} className="mb-4">
+          <Text className="font-interMedium text-2xl mb-2 text-center">
+            {content.title}
+          </Text>
+          <Text className="mb-2 text-justify">{content.description}</Text>
+          {content.image && (
+            <Image
+              source={{ uri: content.image }}
+              className="w-full h-96"
+              resizeMode="contain"
+            />
+          )}
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      </View>
+    </ScrollView>
   );
 };
 

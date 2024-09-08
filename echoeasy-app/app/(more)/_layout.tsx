@@ -9,7 +9,6 @@ const MoreLayout = () => {
         name="editProfile"
         options={{
           title: "Editar Perfil",
-          headerTransparent: true,
           headerTitleAlign: "center",
           headerShadowVisible: false,
           headerStyle: {

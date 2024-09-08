@@ -25,13 +25,18 @@ const Algorithms: React.FC = () => {
     }
   };
 
+  const [refreshing, setRefreshing] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
   const onRefresh = async () => {
     setRefreshing(true);
     fetchAlgorithms();
     setRefreshing(false);
   };
 
-  const [refreshing, setRefreshing] = useState(false);
+  const filteredData = algorithms.filter((item) =>
+    item.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <SafeAreaView className="bg-[#F6F6F6] h-full p-6 py-10">
@@ -41,10 +46,12 @@ const Algorithms: React.FC = () => {
           <SearchInput
             placeholder="Pesquise por um algoritmo"
             icon="search-outline"
+            onChangeText={setSearchQuery}
           />
         </View>
         <FlatList
-          data={algorithms}
+          data={filteredData}
+          showsVerticalScrollIndicator={false}
           keyExtractor={(item) => item._id}
           renderItem={({ item }) => (
             <ItemCard

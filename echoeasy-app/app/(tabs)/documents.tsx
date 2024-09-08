@@ -38,6 +38,7 @@ const Documents: React.FC = () => {
   const [searchByTitle, setSearchByTitle] = useState("");
   const [searchByCategories, setSearchByCategories] = useState<Category[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [searchCategoryByTitle, setSearchCategoryByTitle] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const debouncedSearchTitle = useDebounce(searchByTitle, 50);
   const [localSelectedCategories, setLocalSelectedCategories] =
@@ -93,6 +94,13 @@ const Documents: React.FC = () => {
     }
   };
 
+  const filterCategories = () => {
+    if (!searchCategoryByTitle) return categories;
+    return categories.filter((category) =>
+      category.title.toLowerCase().includes(searchCategoryByTitle.toLowerCase())
+    );
+  };
+
   useEffect(() => {
     fetchDocuments();
     fetchCategories();
@@ -101,6 +109,7 @@ const Documents: React.FC = () => {
   useEffect(() => {
     if (modalVisible) {
       setLocalSelectedCategories(searchByCategories);
+      setSearchCategoryByTitle("");
     }
   }, [modalVisible, searchByCategories]);
 
@@ -122,9 +131,9 @@ const Documents: React.FC = () => {
   };
 
   return (
-    <SafeAreaView className="bg-[#F6F6F6] h-full p-6 py-10">
+    <SafeAreaView className="bg-[#F6F6F6] h-full p-6 pt-10 pb-2 ">
       <Text className="font-interMedium text-2xl">Documentos</Text>
-      <View className="w-full h-full flex items-center">
+      <View className="w-full h-full flex-1 items-center">
         <View className="flex-row items-center">
           <SearchInput
             placeholder="Pesquise por um documento"
@@ -140,27 +149,34 @@ const Documents: React.FC = () => {
         </View>
 
         {localSelectedCategories.length > 0 && (
-          <View className="self-start">
+          <View className="self-start h-14">
             <Text className="font-interLight text-xs ml-2 mb-1">
               Filtrado por:
             </Text>
-            <View className="flex-row self-start">
-              {searchByCategories.map((category) => (
-                <CategoryTag
-                  key={category._id}
-                  isDisabled={true}
-                  category={category.title}
-                  isSelected={true}
-                  onPress={() => handleCategoryToggle(category._id)}
-                />
-              ))}
-            </View>
+            <FlatList
+              data={searchByCategories}
+              keyExtractor={(item) => item._id}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              renderItem={({ item }) => (
+                <View>
+                  <CategoryTag
+                    key={item._id}
+                    isDisabled={true}
+                    category={item.title}
+                    isSelected={true}
+                    onPress={() => handleCategoryToggle(item._id)}
+                  />
+                </View>
+              )}
+              contentContainerStyle={{ paddingHorizontal: 8 }}
+            />
           </View>
         )}
 
-        <View className="px-1 mb-20">
           <FlatList
             data={docs}
+            showsVerticalScrollIndicator={false}
             keyExtractor={(item) => item._id}
             renderItem={({ item }) => (
               <ItemCard
@@ -182,7 +198,7 @@ const Documents: React.FC = () => {
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }
           />
-        </View>
+        
 
         <Modal
           transparent={true}
@@ -198,8 +214,16 @@ const Documents: React.FC = () => {
                   <Ionicons name="close-outline" size={25} />
                 </TouchableOpacity>
               </View>
-              <View className="flex-row flex-wrap justify-center p-2 pt-3">
-                {categories.map((category) => (
+              <View className="w-full h-14 mt-1 self-center">
+                <SearchInput
+                  placeholder="Pesquise por uma categoria"
+                  icon="search-outline"
+                  onChangeText={setSearchCategoryByTitle}
+                  modal={true}
+                />
+              </View>
+              <View className="flex-row flex-wrap justify-center mb-2">
+                {filterCategories().map((category) => (
                   <CategoryTag
                     key={category._id}
                     isDisabled={false}
