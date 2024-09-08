@@ -122,9 +122,9 @@ const Documents: React.FC = () => {
   };
 
   return (
-    <SafeAreaView className="bg-[#F6F6F6] h-full p-6 py-10">
+    <SafeAreaView className="bg-[#F6F6F6] h-full p-6 pt-10 pb-20">
       <Text className="font-interMedium text-2xl">Documentos</Text>
-      <View className="w-full h-full flex items-center">
+      <View className="w-full h-full flex-1 items-center">
         <View className="flex-row items-center">
           <SearchInput
             placeholder="Pesquise por um documento"
@@ -158,7 +158,7 @@ const Documents: React.FC = () => {
           </View>
         )}
 
-        <View className="px-1 mb-20">
+        <View className="px-1">
           <FlatList
             data={docs}
             keyExtractor={(item) => item._id}
