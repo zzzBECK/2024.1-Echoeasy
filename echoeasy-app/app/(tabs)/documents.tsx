@@ -38,6 +38,7 @@ const Documents: React.FC = () => {
   const [searchByTitle, setSearchByTitle] = useState("");
   const [searchByCategories, setSearchByCategories] = useState<Category[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [searchCategoryByTitle, setSearchCategoryByTitle] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const debouncedSearchTitle = useDebounce(searchByTitle, 50);
   const [localSelectedCategories, setLocalSelectedCategories] =
@@ -93,6 +94,13 @@ const Documents: React.FC = () => {
     }
   };
 
+  const filterCategories = () => {
+    if (!searchCategoryByTitle) return categories;
+    return categories.filter((category) =>
+      category.title.toLowerCase().includes(searchCategoryByTitle.toLowerCase())
+    );
+  };
+
   useEffect(() => {
     fetchDocuments();
     fetchCategories();
@@ -101,6 +109,7 @@ const Documents: React.FC = () => {
   useEffect(() => {
     if (modalVisible) {
       setLocalSelectedCategories(searchByCategories);
+      setSearchCategoryByTitle("");
     }
   }, [modalVisible, searchByCategories]);
 
@@ -198,8 +207,16 @@ const Documents: React.FC = () => {
                   <Ionicons name="close-outline" size={25} />
                 </TouchableOpacity>
               </View>
-              <View className="flex-row flex-wrap justify-center p-2 pt-3">
-                {categories.map((category) => (
+              <View className="w-full h-14 mt-1 self-center">
+                <SearchInput
+                  placeholder="Pesquise por uma categoria"
+                  icon="search-outline"
+                  onChangeText={setSearchCategoryByTitle}
+                  modal={true}
+                />
+              </View>
+              <View className="flex-row flex-wrap justify-center mb-2">
+                {filterCategories().map((category) => (
                   <CategoryTag
                     key={category._id}
                     isDisabled={false}
