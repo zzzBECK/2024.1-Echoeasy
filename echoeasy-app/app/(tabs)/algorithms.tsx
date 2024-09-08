@@ -9,21 +9,28 @@ type Item = {
   description: string;
   image: string;
 };
+
 const data: Item[] = [
-  // {
-  //   title: "Disfunção Diastólica Incluindo o Strain",
-  //   description: "",
-  //   image: "",
-  // },
+  { title: "Algoritmo A", description: "Descrição A", image: "imageA.png" },
+  { title: "Disfunção Diastólica Incluindo o Strain Algoritmo", description: "Descrição B", image: "imageB.png" },
+  { title: "Algoritmo A", description: "Descrição A", image: "imageA.png" },
+  { title: "Disfunção Diastólica Incluindo o Strain Algoritmo", description: "Descrição B", image: "imageB.png" },
+  { title: "Algoritmo A", description: "Descrição A", image: "imageA.png" },
+  { title: "Disfunção Diastólica Incluindo o Strain Algoritmo", description: "Descrição B", image: "imageB.png" },
 ];
 
 const Algorithms: React.FC = () => {
+  const [refreshing, setRefreshing] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
   const onRefresh = async () => {
     setRefreshing(true);
     setRefreshing(false);
   };
 
-  const [refreshing, setRefreshing] = useState(false);
+  const filteredData = data.filter((item) =>
+    item.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <SafeAreaView className="bg-[#F6F6F6] h-full p-6 py-10">
@@ -33,10 +40,11 @@ const Algorithms: React.FC = () => {
           <SearchInput
             placeholder="Pesquise por um algoritmo"
             icon="search-outline"
+            onChangeText={setSearchQuery}
           />
         </View>
         <FlatList
-          data={data}
+          data={filteredData}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
             <ItemCard
