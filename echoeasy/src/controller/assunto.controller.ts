@@ -23,8 +23,7 @@ import { Assunto } from '../schema/Assunto';
 import { AssuntoService } from '../service/assunto.service';
 
 @Controller('assuntos')
-@UseGuards(AuthGuard)
-@UseGuards(RolesGuard)
+@UseGuards(AuthGuard, RolesGuard)
 export class AssuntoController {
   constructor(private assuntoService: AssuntoService) {}
 

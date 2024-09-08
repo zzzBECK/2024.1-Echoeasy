@@ -1,137 +1,74 @@
-import { HttpException, Injectable, Logger } from '@nestjs/common';
-import { Types } from 'mongoose';
-import { AlgoritmoCompletoDto } from 'src/dto/AlgoritmoCompletoDto';
-import { AlgoritmoDto } from 'src/dto/AlgoritmoDto';
-import { AlgoritmoUpdateDto } from 'src/dto/AlgoritmoUpdateDto';
-import { NodeDto } from 'src/dto/NodeDto';
-import { NodeUpdateDto } from 'src/dto/NodeUpdateDto';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  Logger,
+  NotFoundException,
+} from '@nestjs/common';
+import { CreateAlgoritmoDto } from 'src/dto/CreateAlgoritmoDto';
+import { UpdateAlgoritmoDto } from 'src/dto/UpdateAlgoritmoDto';
 import { AlgoritmoRepository } from 'src/repositories/algoritmo.repository';
 import { Algoritmo } from 'src/schema/Algoritmo';
-import { Node } from 'src/schema/utils/Node';
 
 @Injectable()
 export class AlgoritmoService {
   private readonly logger = new Logger(AlgoritmoService.name);
+
   constructor(private readonly algoritmoRepository: AlgoritmoRepository) {}
 
-  async createAlgoritmo(algoritmoData: AlgoritmoDto): Promise<Algoritmo> {
+  async create(createAlgoritmoDto: CreateAlgoritmoDto): Promise<Algoritmo> {
     try {
-      this.logger.log('Inicializando criação de algoritmo...');
-      const algoritmo =
-        await this.algoritmoRepository.createAlgoritmo(algoritmoData);
-      this.logger.log('Finalizando criação de algoritmo...');
-
-      return algoritmo;
+      return await this.algoritmoRepository.create(createAlgoritmoDto);
     } catch (error) {
-      throw new HttpException(error.message, 400);
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
-  async createNode(nodeData: NodeDto): Promise<Node> {
+  async findAll(): Promise<Algoritmo[]> {
     try {
-      this.logger.log('Inicializando criação de nó...');
-      const node = await this.algoritmoRepository.createNode(nodeData);
-      await this.algoritmoRepository.LinkNodeIdToAlgoritmo(
-        nodeData.algorithm_id,
-        node._id as Types.ObjectId,
-      );
-      this.logger.log('Finalizando criação de nó...');
-
-      return node;
+      return await this.algoritmoRepository.findAll();
     } catch (error) {
-      throw new HttpException(error.message, 400);
+      this.logger.error('Erro ao buscar algoritmos', error);
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
-  async listAlgoritmos(_id: Types.ObjectId): Promise<AlgoritmoCompletoDto> {
+  async findOne(id: string): Promise<Algoritmo> {
     try {
-      this.logger.log('Inicializando listagem de algoritmos...');
-      const algoritmos = await this.algoritmoRepository.listAlgoritmos(_id);
-      this.logger.log('Finalizando listagem de algoritmos...');
-
-      return algoritmos;
-    } catch (error) {
-      throw new HttpException(error.message, 400);
-    }
-  }
-
-  async listAlgoritmosSemNodes(): Promise<Algoritmo[]> {
-    try {
-      this.logger.log('Inicializando listagem de algoritmos sem nodes...');
-      const algoritmos =
-        await this.algoritmoRepository.listAlgoritmosSemNodes();
-      this.logger.log('Finalizando listagem de algoritmos sem nodes...');
-
-      return algoritmos;
-    } catch (error) {
-      throw new HttpException(error.message, 400);
-    }
-  }
-
-  async updateAlgoritmo(algoritmoData: AlgoritmoUpdateDto): Promise<Algoritmo> {
-    try {
-      this.logger.log('Inicializando atualização de algoritmo...');
-      const algoritmo =
-        await this.algoritmoRepository.updateAlgoritmo(algoritmoData);
-      this.logger.log('Finalizando atualização de algoritmo...');
-
-      return algoritmo;
-    } catch (error) {
-      throw new HttpException(error.message, 400);
-    }
-  }
-
-  async updateNode(
-    _id: Types.ObjectId,
-    nodeData: NodeUpdateDto,
-  ): Promise<Node> {
-    try {
-      this.logger.log('Inicializando atualização de nó...');
-      const node = await this.algoritmoRepository.updateOneNode(_id, nodeData);
-      this.logger.log('Finalizando atualização de nó...');
-
-      return node;
-    } catch (error) {
-      throw new HttpException(error.message, 400);
-    }
-  }
-
-  async deleteAlgoritmo(_id: Types.ObjectId): Promise<Algoritmo> {
-    try {
-      const nodes = await this.algoritmoRepository.listNodesByAlgoritmoId(_id);
-      if (nodes.length > 0) {
-        await this.algoritmoRepository.deleteManyNodesByAlgorithmId(_id);
+      const algoritmo = await this.algoritmoRepository.findOne(id);
+      if (!algoritmo) {
+        throw new NotFoundException(`Algoritmo com ID ${id} não encontrado`);
       }
-      this.logger.log('Inicializando deleção de algoritmo...');
-      const algoritmo = await this.algoritmoRepository.deleteAlgoritmo(_id);
-      this.logger.log('Finalizando deleção de algoritmo...');
-
       return algoritmo;
     } catch (error) {
-      throw new HttpException(error.message, 400);
+      this.logger.error(`Erro ao buscar o algoritmo com ID ${id}`, error);
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
-  async deleteNode(_id: Types.ObjectId): Promise<Node> {
+  async update(
+    id: string,
+    updateAlgoritmoDto: UpdateAlgoritmoDto,
+  ): Promise<Algoritmo> {
+    await this.findOne(id);
     try {
-      this.logger.log('Inicializando busca de nó...');
-      const node = await this.algoritmoRepository.findNodeById(_id);
-      this.logger.log('Finalizando busca de nó...');
-
-      this.logger.log('Inicializando deleção de nó...');
-      const nodeDeleted = await this.algoritmoRepository.deleteNode(_id);
-      this.logger.log('Finalizando deleção de nó...');
-
-      this.logger.log('Inicializando retirada do algoritmo...');
-      await this.algoritmoRepository.UnlinkNodeIdFromAlgoritmo(
-        node.algorithm_id as Types.ObjectId,
-        node._id as Types.ObjectId,
-      );
-      this.logger.log('Finalizando retirada do algoritmo...');
-
-      return nodeDeleted;
+      return await this.algoritmoRepository.update(id, updateAlgoritmoDto);
     } catch (error) {
-      throw new HttpException(error.message, 400);
+      this.logger.error(`Erro ao atualizar o algoritmo com ID ${id}`, error);
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async remove(id: string): Promise<void> {
+    await this.findOne(id);
+    try {
+      await this.algoritmoRepository.remove(id);
+    } catch (error) {
+      this.logger.error(`Erro ao remover o algoritmo com ID ${id}`, error);
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }
