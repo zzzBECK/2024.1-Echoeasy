@@ -1,5 +1,5 @@
 import { router } from "expo-router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FlatList, RefreshControl, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ItemCard from "../../components/ItemCard";
@@ -37,6 +37,10 @@ const Algorithms: React.FC = () => {
   const filteredData = algorithms.filter((item) =>
     item.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  useEffect(() => {
+    fetchAlgorithms();
+  }, []);
 
   return (
     <SafeAreaView className="bg-[#F6F6F6] h-full p-6 py-10">
