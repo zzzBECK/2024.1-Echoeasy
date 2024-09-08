@@ -2,6 +2,7 @@ import { useLocalSearchParams } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { Image, RefreshControl, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Loader from "../../../components/Loader";
 import { SubjectService } from "../../../src/service/SubjectService";
 
 type Item = {
@@ -41,9 +42,7 @@ const SubjectId: React.FC = () => {
 
   if (!content) {
     return (
-      <View>
-        <Text>"Loading..."</Text>
-      </View>
+      <Loader isLoading={true}/>
     );
   }
 

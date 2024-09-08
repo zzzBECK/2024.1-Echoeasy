@@ -14,19 +14,23 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { Roles } from 'src/decorators/roles.decorator';
 import { AuthGuard } from 'src/guards/auth.guard';
+import { RolesGuard } from 'src/guards/roles.guard';
 import { MulterFile } from 'src/types/File';
+import { RolesEnum } from 'src/utils/enums/roles.enum';
 import { DocumentoDto } from '../dto/DocumentoDto';
 import { Documento } from '../schema/Documento';
 import { DocumentoService } from '../service/documento.service';
 
 @Controller('documentos')
+@UseGuards(AuthGuard, RolesGuard)
 export class DocumentoController {
   constructor(private documentoService: DocumentoService) {}
 
   @Post()
   @UseInterceptors(FileInterceptor('image'))
-  @UseGuards(AuthGuard)
+  @Roles(RolesEnum.ADMIN)
   async criarDocumento(
     @Body() documentoData: DocumentoDto,
     @UploadedFile() file: MulterFile,
@@ -39,7 +43,6 @@ export class DocumentoController {
   }
 
   @Get('all')
-  @UseGuards(AuthGuard)
   async getDocumentos(
     @Query('title') title?: string,
     @Query('categorias') categorias?: string | string[],
@@ -63,7 +66,6 @@ export class DocumentoController {
   }
 
   @Get('search')
-  @UseGuards(AuthGuard)
   async findDocumentoById(
     @Query('_id') _id: string,
   ): Promise<Documento | null> {
@@ -75,7 +77,7 @@ export class DocumentoController {
   }
 
   @Put('update')
-  @UseGuards(AuthGuard)
+  @Roles(RolesEnum.ADMIN)
   async updateDocumento(
     @Query('_id') _id: string,
     @Body() documentoData: DocumentoDto,
@@ -89,7 +91,7 @@ export class DocumentoController {
 
   @Post('update_photo')
   @UseInterceptors(FileInterceptor('image'))
-  @UseGuards(AuthGuard)
+  @Roles(RolesEnum.ADMIN)
   async updatePhoto(
     @Query('_id') _id: string,
     @UploadedFile() file: MulterFile,
@@ -102,7 +104,7 @@ export class DocumentoController {
   }
 
   @Delete('delete')
-  @UseGuards(AuthGuard)
+  @Roles(RolesEnum.ADMIN)
   async deleteDocumentoById(
     @Query('_id') _id: string,
   ): Promise<Documento | null> {
@@ -114,7 +116,7 @@ export class DocumentoController {
   }
 
   @Put(':id/add-categoria')
-  @UseGuards(AuthGuard)
+  @Roles(RolesEnum.ADMIN)
   async addCategoria(
     @Param('id') id: string,
     @Query('categoriaId') categoriaId: string,
@@ -127,7 +129,7 @@ export class DocumentoController {
   }
 
   @Put(':id/remove-categoria')
-  @UseGuards(AuthGuard)
+  @Roles(RolesEnum.ADMIN)
   async removeCategoria(
     @Param('id') id: string,
     @Query('categoriaId') categoriaId: string,

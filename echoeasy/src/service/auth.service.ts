@@ -3,6 +3,7 @@ import { DecodedIdToken } from 'firebase-admin/lib/auth/token-verifier';
 import { FirebaseError } from 'firebase/app';
 import {
   createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
 } from 'firebase/auth';
 import { auth } from 'src/config/firebase';
@@ -12,7 +13,6 @@ import { SignUpEmailDto } from 'src/dto/signup-email.dto';
 import { UpdateUsuarioDto } from 'src/dto/update-usuario.dto';
 import { UsuarioDto } from 'src/dto/UsuarioDto';
 import { UsuarioService } from './usuario.service';
-
 @Injectable()
 export class AuthService {
   constructor(private readonly usuarioService: UsuarioService) {}
@@ -143,6 +143,25 @@ export class AuthService {
         `Erro ao buscar dados do usuário: ${error.message}`,
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
+    }
+  }
+
+  async resetPasswordWithEmail(email: string) {
+    try {
+      const user = await this.usuarioService.findOne(email);
+
+      if (!user) {
+        throw new HttpException(
+          'Usuário não encontrado. Verifique o email e tente novamente.',
+          HttpStatus.UNAUTHORIZED,
+        );
+      }
+
+      const data = await sendPasswordResetEmail(auth, email);
+
+      return data;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

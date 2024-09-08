@@ -13,19 +13,22 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { Roles } from 'src/decorators/roles.decorator';
 import { AuthGuard } from 'src/guards/auth.guard';
+import { RolesGuard } from 'src/guards/roles.guard';
 import { MulterFile } from 'src/types/File';
+import { RolesEnum } from 'src/utils/enums/roles.enum';
 import { AssuntoDto } from '../dto/AssuntoDto';
 import { Assunto } from '../schema/Assunto';
 import { AssuntoService } from '../service/assunto.service';
 
 @Controller('assuntos')
+@UseGuards(AuthGuard, RolesGuard)
 export class AssuntoController {
   constructor(private assuntoService: AssuntoService) {}
 
   @Post()
   @UseInterceptors(FileInterceptor('image'))
-  @UseGuards(AuthGuard)
   async criarAssunto(
     @Body() assuntoData: AssuntoDto,
     @UploadedFile() file: MulterFile,
@@ -38,7 +41,6 @@ export class AssuntoController {
   }
 
   @Get('all')
-  @UseGuards(AuthGuard)
   async getAssuntos(
     @Query('document_id') documentId?: string,
   ): Promise<Assunto[]> {
@@ -53,7 +55,6 @@ export class AssuntoController {
   }
 
   @Get('search')
-  @UseGuards(AuthGuard)
   async findAssuntoById(@Query('_id') _id: string): Promise<Assunto | null> {
     try {
       return this.assuntoService.findOne(_id);
@@ -63,7 +64,7 @@ export class AssuntoController {
   }
 
   @Put('update')
-  @UseGuards(AuthGuard)
+  @Roles(RolesEnum.ADMIN)
   async updateAssunto(
     @Query('_id') _id: string,
     @Body() assuntoData: AssuntoDto,
@@ -77,7 +78,7 @@ export class AssuntoController {
 
   @Post('update_photo')
   @UseInterceptors(FileInterceptor('image'))
-  @UseGuards(AuthGuard)
+  @Roles(RolesEnum.ADMIN)
   async uploadPhoto(
     @Query('_id') _id: string,
     @UploadedFile() file: MulterFile,
@@ -90,7 +91,7 @@ export class AssuntoController {
   }
 
   @Delete('delete')
-  @UseGuards(AuthGuard)
+  @Roles(RolesEnum.ADMIN)
   async deleteAssuntoById(@Query('_id') _id: string): Promise<Assunto | null> {
     try {
       return this.assuntoService.deleteOne(_id);
