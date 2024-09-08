@@ -1,7 +1,6 @@
 import { router, useLocalSearchParams } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { FlatList, RefreshControl, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import SubItemCard from "../../components/SubItemCard";
 import { DocService } from "../../src/service/DocService";
 import { SubjectService } from "../../src/service/SubjectService";
@@ -54,10 +53,9 @@ const DocumentId: React.FC = () => {
   }, []);
 
   return (
-    <SafeAreaView className="bg-[#F6F6F6] h-full px-6">
-      <View className="w-full h-full flex">
-        <Text className="font-interMedium text-2xl">{document?.title}</Text>
-
+      <View className="bg-[#F6F6F6] w-full h-full flex px-6 pb-6">
+        <Text className="font-interMedium text-center text-2xl mb-1">{document?.title}</Text>
+      
         <FlatList
           data={subjects}
           keyExtractor={(item) => item._id}
@@ -79,7 +77,6 @@ const DocumentId: React.FC = () => {
           }
         />
       </View>
-    </SafeAreaView>
   );
 };
 
