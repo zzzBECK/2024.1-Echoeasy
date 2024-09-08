@@ -1,7 +1,7 @@
+import { router } from "expo-router";
 import { Formik } from "formik";
 import React from "react";
 import { Text, View } from "react-native";
-import Toast from "react-native-root-toast";
 import * as yup from "yup";
 import CustomButton from "../../components/CustomButton";
 import FormField from "../../components/FormField";
@@ -20,16 +20,8 @@ const ForgotPassword: React.FC = () => {
       const usuarioService = new UsuarioService();
       await usuarioService.passwordReset(values);
       console.log("E-mail enviado para:", values.email);
-      return (
-        <Toast
-        position={50}
-        shadow={false}
-        animation={false}
-        hideOnPress={true}
-      >
-        This is a message
-      </Toast>
-      )
+      
+      router.replace("/sign-in");
     } catch (error: any) {
       console.log(error);
     } finally {

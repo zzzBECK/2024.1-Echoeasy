@@ -1,7 +1,7 @@
-import { Link, router } from "expo-router";
+import { router } from "expo-router";
 import { Formik } from "formik";
 import React, { useState } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as yup from "yup";
 import CustomButton from "../../components/CustomButton";
@@ -189,13 +189,11 @@ const SignUp: React.FC = () => {
 
                 <Text className="text-center font-interRegular mb-4">
                   <Text>Ao se cadastrar, você concorda com os nossos </Text>
-                  <Link href="+not-found" className="text-[#209B85]">
-                    Termos
-                  </Link>
+                  <Text className="text-[#209B85]">Termos</Text>
                   <Text> e </Text>
-                  <Link href="+not-found" className="text-[#209B85]">
+                  <Text className="text-[#209B85]">
                     Política de Privacidade
-                  </Link>
+                  </Text>
                   <Text>.</Text>
                 </Text>
 
@@ -216,12 +214,11 @@ const SignUp: React.FC = () => {
                   <Text className="font-interRegular text-base">
                     Já tem uma conta?{" "}
                   </Text>
-                  <Link
-                    href="/sign-in"
-                    className="font-interBold text-base text-[#209B85]"
-                  >
-                    Conecte-se
-                  </Link>
+                  <TouchableOpacity onPress={() => router.replace("/sign-in")}>
+                    <Text className="font-interBold text-base text-[#209B85]">
+                      Conecte-se
+                    </Text>
+                  </TouchableOpacity>
                 </View>
               </>
             )}

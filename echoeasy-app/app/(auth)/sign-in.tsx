@@ -1,8 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Link, router } from "expo-router";
+import { router } from "expo-router";
 import { Formik } from "formik";
 import React, { useState } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as yup from "yup";
 import CustomButton from "../../components/CustomButton";
@@ -100,12 +100,14 @@ const SignIn: React.FC = () => {
                   }
                 />
 
-                <Link
-                  href="forgotPassword"
-                  className="self-end text-base text-[#209B85] font-interRegular my-2"
+                <TouchableOpacity
+                  className="self-end"
+                  onPress={() => router.replace("/forgotPassword")}
                 >
-                  Esqueceu a senha?
-                </Link>
+                  <Text className="text-base text-[#209B85] font-interRegular my-2">
+                    Esqueceu a senha?
+                  </Text>
+                </TouchableOpacity>
 
                 <CustomButton
                   title="Entrar"
@@ -127,12 +129,11 @@ const SignIn: React.FC = () => {
             <Text className="font-interRegular text-base">
               Não possui uma conta?{" "}
             </Text>
-            <Link
-              href="/sign-up"
-              className="font-interBold text-base text-[#209B85]"
-            >
-              Cadastre-se
-            </Link>
+            <TouchableOpacity onPress={() => router.replace("/sign-up")}>
+              <Text className="font-interBold text-base text-[#209B85]">
+                Cadastre-se
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
