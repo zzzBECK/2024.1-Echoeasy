@@ -9,16 +9,23 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
+import { Roles } from 'src/decorators/roles.decorator';
 import { CriarCategoriaDto } from 'src/dto/CategoriaDto';
+import { AuthGuard } from 'src/guards/auth.guard';
+import { RolesGuard } from 'src/guards/roles.guard';
 import { Categoria } from 'src/schema/Categoria';
 import { CategoriaService } from 'src/service/categoria.service';
+import { RolesEnum } from 'src/utils/enums/roles.enum';
 
 @Controller('categorias')
+@UseGuards(AuthGuard, RolesGuard)
 export class CategoriaController {
   constructor(private readonly categoriaService: CategoriaService) {}
 
   @Post()
+  @Roles(RolesEnum.ADMIN)
   async create(@Body() body: CriarCategoriaDto): Promise<Categoria> {
     try {
       return await this.categoriaService.createCategoria(body.title);
@@ -49,6 +56,7 @@ export class CategoriaController {
   }
 
   @Put(':id')
+  @Roles(RolesEnum.ADMIN)
   async update(
     @Param('id') id: string,
     @Body('title') title: string,
@@ -61,6 +69,7 @@ export class CategoriaController {
   }
 
   @Delete(':id')
+  @Roles(RolesEnum.ADMIN)
   async delete(@Param('id') id: string): Promise<Categoria> {
     try {
       return await this.categoriaService.deleteCategoria(id);

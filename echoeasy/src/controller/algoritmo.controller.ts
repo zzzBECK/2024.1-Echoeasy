@@ -11,22 +11,26 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { Types } from 'mongoose';
+import { Roles } from 'src/decorators/roles.decorator';
 import { AlgoritmoCompletoDto } from 'src/dto/AlgoritmoCompletoDto';
 import { AlgoritmoUpdateDto } from 'src/dto/AlgoritmoUpdateDto';
 import { NodeDto } from 'src/dto/NodeDto';
 import { NodeUpdateDto } from 'src/dto/NodeUpdateDto';
 import { AuthGuard } from 'src/guards/auth.guard';
+import { RolesGuard } from 'src/guards/roles.guard';
 import { Algoritmo } from 'src/schema/Algoritmo';
 import { Node } from 'src/schema/utils/Node';
 import { AlgoritmoService } from 'src/service/algoritmo.service';
+import { RolesEnum } from 'src/utils/enums/roles.enum';
 import { AlgoritmoDto } from '../dto/AlgoritmoDto';
 
 @Controller('algoritmos')
+@UseGuards(AuthGuard, RolesGuard)
 export class AlgoritmoController {
   constructor(private algoritmoService: AlgoritmoService) {}
 
   @Post()
-  @UseGuards(AuthGuard)
+  @Roles(RolesEnum.ADMIN)
   async criarAlgoritmo(
     @Body() algoritmoData: AlgoritmoDto,
   ): Promise<Algoritmo> {
@@ -38,7 +42,7 @@ export class AlgoritmoController {
   }
 
   @Post('nodes')
-  @UseGuards(AuthGuard)
+  @Roles(RolesEnum.ADMIN)
   async criarNode(@Body() nodeData: NodeDto): Promise<Node> {
     try {
       return this.algoritmoService.createNode(nodeData);
@@ -48,7 +52,6 @@ export class AlgoritmoController {
   }
 
   @Get('list')
-  @UseGuards(AuthGuard)
   async listarAlgoritmos(
     @Query('_id') _id: Types.ObjectId,
   ): Promise<AlgoritmoCompletoDto> {
@@ -60,7 +63,6 @@ export class AlgoritmoController {
   }
 
   @Get('listAllwithoutNodes')
-  @UseGuards(AuthGuard)
   async listarAlgoritmosSemNodes(): Promise<Algoritmo[]> {
     try {
       return this.algoritmoService.listAlgoritmosSemNodes();
@@ -70,7 +72,7 @@ export class AlgoritmoController {
   }
 
   @Put('update')
-  @UseGuards(AuthGuard)
+  @Roles(RolesEnum.ADMIN)
   async atualizarAlgoritmo(
     @Body() algoritmoData: AlgoritmoUpdateDto,
   ): Promise<Algoritmo> {
@@ -82,7 +84,7 @@ export class AlgoritmoController {
   }
 
   @Put('update_node')
-  @UseGuards(AuthGuard)
+  @Roles(RolesEnum.ADMIN)
   async atualizarNode(
     @Query('_id') _id: Types.ObjectId,
     @Body() nodeData: NodeUpdateDto,
@@ -95,7 +97,7 @@ export class AlgoritmoController {
   }
 
   @Delete('delete_algoritmo')
-  @UseGuards(AuthGuard)
+  @Roles(RolesEnum.ADMIN)
   async deletarAlgoritmo(
     @Query('_id') _id: Types.ObjectId,
   ): Promise<Algoritmo> {
@@ -107,7 +109,7 @@ export class AlgoritmoController {
   }
 
   @Delete('delete_node')
-  @UseGuards(AuthGuard)
+  @Roles(RolesEnum.ADMIN)
   async deletarNode(@Query('_id') _id: Types.ObjectId): Promise<Node> {
     try {
       return this.algoritmoService.deleteNode(_id);
