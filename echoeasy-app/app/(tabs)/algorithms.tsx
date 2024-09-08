@@ -1,25 +1,33 @@
+import { router } from "expo-router";
 import React, { useState } from "react";
 import { FlatList, RefreshControl, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ItemCard from "../../components/ItemCard";
 import SearchInput from "../../components/SearchInput";
+import { AlgorithmService } from "../../src/service/AlgorithmService";
 
 type Item = {
+  _id: string;
   title: string;
   description: string;
-  image: string;
 };
-const data: Item[] = [
-  // {
-  //   title: "Disfunção Diastólica Incluindo o Strain",
-  //   description: "",
-  //   image: "",
-  // },
-];
 
 const Algorithms: React.FC = () => {
+  const [algorithms, setAlgorithms] = useState<Item[]>([]);
+
+  const fetchAlgorithms = async () => {
+    try {
+      const algorithmService = new AlgorithmService();
+      const response = await algorithmService.getAllAlgorithms();
+      setAlgorithms(response.data as Item[]);
+    } catch (error: any) {
+      console.error("Error fetching algorithms:", error.message || error);
+    }
+  };
+
   const onRefresh = async () => {
     setRefreshing(true);
+    fetchAlgorithms();
     setRefreshing(false);
   };
 
@@ -36,13 +44,13 @@ const Algorithms: React.FC = () => {
           />
         </View>
         <FlatList
-          data={data}
-          keyExtractor={(item, index) => index.toString()}
+          data={algorithms}
+          keyExtractor={(item) => item._id}
           renderItem={({ item }) => (
             <ItemCard
               title={item.title}
               description={item.description}
-              image={item.image}
+              handlePress={() => router.push(`(algorithms)/${item._id}`)}
             />
           )}
           ListEmptyComponent={() => (
