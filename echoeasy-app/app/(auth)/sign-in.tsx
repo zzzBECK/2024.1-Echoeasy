@@ -101,7 +101,7 @@ const SignIn: React.FC = () => {
                 />
 
                 <Link
-                  href="+not-found"
+                  href="forgotPassword"
                   className="self-end text-base text-[#209B85] font-interRegular my-2"
                 >
                   Esqueceu a senha?

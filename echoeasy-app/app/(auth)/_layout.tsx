@@ -16,7 +16,19 @@ const AuthLayout = () => {
           },
         }}
       />
+      <Stack.Screen
+        name="forgotPassword"
+        options={{
+          title: "",
+          headerTitleAlign: "center",
+          headerShadowVisible: false,
+          headerStyle: {
+            backgroundColor: "#F6F6F6",
+          },
+        }}
+      />
     </Stack>
+    
   );
 };
 
