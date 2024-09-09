@@ -1,4 +1,4 @@
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import * as ScreenCapture from "expo-screen-capture";
 import React, { useEffect, useState } from "react";
 import {
@@ -18,6 +18,7 @@ type Item = {
   title: string;
   description: string;
   image: string;
+  algorithm_link: string;
 };
 
 const SubjectId: React.FC = () => {
@@ -87,6 +88,16 @@ const SubjectId: React.FC = () => {
                 />
               </TouchableOpacity>
             </View>
+          )}
+          {content.algorithm_link && (
+            <View className="flex-1 justify-end items-end p-2">
+            <TouchableOpacity
+              onPress={() => router.navigate(`/(algorithms)/${content.algorithm_link}`)}
+              className="bg-[#3CC1A9] rounded-lg py-2 px-4 shadow-md"
+            >
+              <Text className="text-white font-interMedium text-center">Ir ao algoritmo</Text>
+            </TouchableOpacity>
+          </View>
           )}
         </View>
 
