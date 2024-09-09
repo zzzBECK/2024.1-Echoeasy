@@ -1,14 +1,19 @@
-import { Link } from "expo-router";
+import { Redirect } from "expo-router";
 import React from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useGlobalContext } from "../src/context/GlobalProvider";
 
 const Welcome: React.FC = () => {
+  const { loading, isLogged } = useGlobalContext();
+  if (!loading && !isLogged) return <Redirect href="/sign-in" />;
+  if (!loading && isLogged) return <Redirect href="/documents" />;
+
   return (
     <SafeAreaView className="flex-1 justify-center p-4">
       
       <View className="flex items-center justify-center space-y-4">
-        <Link href="/sign-in" className="text-blue-500">
+        {/* <Link href="/sign-in" className="text-blue-500">
           SignIn
         </Link>
         <Link href="/sign-up" className="text-blue-500">
@@ -39,7 +44,7 @@ const Welcome: React.FC = () => {
           Editar Perfil
         </Link>
 
-        <Text>Futuramente, aqui pode ser uma tela de bem vindo</Text>
+        <Text>Futuramente, aqui pode ser uma tela de bem vindo</Text> */}
       </View>
     </SafeAreaView>
   );

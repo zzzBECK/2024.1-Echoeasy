@@ -6,6 +6,7 @@ import GlobalProvider from "../src/context/GlobalProvider";
 SplashScreen.preventAutoHideAsync();
 
 const RootLayout = () => {
+
   const [fontsLoaded, error] = useFonts({
     "Inter-Light": require("../assets/fonts/Inter-Light.otf"),
     "Inter-Regular": require("../assets/fonts/Inter-Regular.otf"),
