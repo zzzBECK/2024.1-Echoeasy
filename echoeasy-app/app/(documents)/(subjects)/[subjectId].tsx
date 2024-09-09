@@ -1,4 +1,5 @@
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
+import * as ScreenCapture from "expo-screen-capture";
 import React, { useEffect, useState } from "react";
 import {
   Image,
@@ -17,6 +18,7 @@ type Item = {
   title: string;
   description: string;
   image: string;
+  algorithm_link: string;
 };
 
 const SubjectId: React.FC = () => {
@@ -44,8 +46,20 @@ const SubjectId: React.FC = () => {
   };
 
   useEffect(() => {
+    const blockScreenCapture = async () => {
+      await ScreenCapture.preventScreenCaptureAsync();
+    };
+
     fetchContent();
-  }, []);
+    blockScreenCapture();
+
+    return () => {
+      const allowScreenCapture = async () => {
+        await ScreenCapture.allowScreenCaptureAsync();
+      };
+      allowScreenCapture();
+    };
+  }, [subjectId]);
 
   if (!content) {
     return <Loader isLoading={true} />;
@@ -69,15 +83,24 @@ const SubjectId: React.FC = () => {
               <TouchableOpacity onPress={() => setModalVisible(true)}>
                 <Image
                   source={{ uri: content.image }}
-                  style={{ width: '100%', height: 280 }}
+                  style={{ width: "100%", height: 280 }}
                   resizeMode="contain"
                 />
               </TouchableOpacity>
             </View>
           )}
+          {content.algorithm_link && (
+            <View className="flex-1 justify-end items-end p-2">
+            <TouchableOpacity
+              onPress={() => router.navigate(`/(algorithms)/${content.algorithm_link}`)}
+              className="bg-[#3CC1A9] rounded-lg py-2 px-4 shadow-md"
+            >
+              <Text className="text-white font-interMedium text-center">Ir ao algoritmo</Text>
+            </TouchableOpacity>
+          </View>
+          )}
         </View>
 
-        {/* Modal para exibir a imagem em tela cheia */}
         <Modal
           visible={modalVisible}
           transparent={true}
@@ -85,12 +108,17 @@ const SubjectId: React.FC = () => {
           onRequestClose={() => setModalVisible(false)}
         >
           <TouchableOpacity
-            style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "rgba(0, 0, 0, 0.8)",
+            }}
             onPress={() => setModalVisible(false)}
           >
             <Image
               source={{ uri: content.image }}
-              style={{ width: '100%', height: '80%' }}
+              style={{ width: "100%", height: "80%" }}
               resizeMode="contain"
             />
           </TouchableOpacity>
