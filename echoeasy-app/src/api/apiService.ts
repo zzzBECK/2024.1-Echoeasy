@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
 const httpClient = axios.create({
-  baseURL: `http://${process.env.EXPO_PUBLIC_LOCAL_IP}:3000`,
+  baseURL: `http://${process.env.NEXT_PUBLIC_API_URL}`,
 });
 
 httpClient.interceptors.request.use(
@@ -18,7 +18,6 @@ httpClient.interceptors.request.use(
     return config;
   },
   (error) => {
-    // Handle request error
     return Promise.reject(error);
   }
 );
