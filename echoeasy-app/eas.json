@@ -10,6 +10,9 @@
     "preview": {
       "android": {
         "buildType": "apk"
+      },
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://two024-1-echoeasy-cf9c.onrender.com"
       }
     },
     "production": {}
