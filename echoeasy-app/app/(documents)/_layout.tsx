@@ -1,6 +1,10 @@
-import { Stack } from "expo-router";
+import { Redirect, Stack } from "expo-router";
+import { useGlobalContext } from "../../src/context/GlobalProvider";
 
 const DocumentLayout = () => {
+  const { loading, isLogged } = useGlobalContext();
+  if (!loading && !isLogged) return <Redirect href="/sign-in" />;
+
   return (
     <Stack>
       <Stack.Screen

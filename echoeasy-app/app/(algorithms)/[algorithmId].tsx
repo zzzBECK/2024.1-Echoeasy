@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { WebView } from "react-native-webview";
 import CustomButton from "../../components/CustomButton";
+import Loader from "../../components/Loader";
 import { AlgorithmService } from "../../src/service/AlgorithmService";
 
 interface Item {
@@ -58,7 +59,7 @@ const Algorithm: React.FC = () => {
   };
 
   if (!algorithm) {
-    return <Text>Loading...</Text>;
+    return  <Loader isLoading={true} />;
   }
 
   return (
