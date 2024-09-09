@@ -1,4 +1,5 @@
 import { useLocalSearchParams } from "expo-router";
+import * as ScreenCapture from "expo-screen-capture";
 import React, { useEffect, useState } from "react";
 import {
   Image,
@@ -44,8 +45,20 @@ const SubjectId: React.FC = () => {
   };
 
   useEffect(() => {
+    const blockScreenCapture = async () => {
+      await ScreenCapture.preventScreenCaptureAsync();
+    };
+
     fetchContent();
-  }, []);
+    blockScreenCapture();
+
+    return () => {
+      const allowScreenCapture = async () => {
+        await ScreenCapture.allowScreenCaptureAsync();
+      };
+      allowScreenCapture();
+    };
+  }, [subjectId]);
 
   if (!content) {
     return <Loader isLoading={true} />;
@@ -69,7 +82,7 @@ const SubjectId: React.FC = () => {
               <TouchableOpacity onPress={() => setModalVisible(true)}>
                 <Image
                   source={{ uri: content.image }}
-                  style={{ width: '100%', height: 280 }}
+                  style={{ width: "100%", height: 280 }}
                   resizeMode="contain"
                 />
               </TouchableOpacity>
@@ -77,7 +90,6 @@ const SubjectId: React.FC = () => {
           )}
         </View>
 
-        {/* Modal para exibir a imagem em tela cheia */}
         <Modal
           visible={modalVisible}
           transparent={true}
@@ -85,12 +97,17 @@ const SubjectId: React.FC = () => {
           onRequestClose={() => setModalVisible(false)}
         >
           <TouchableOpacity
-            style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "rgba(0, 0, 0, 0.8)",
+            }}
             onPress={() => setModalVisible(false)}
           >
             <Image
               source={{ uri: content.image }}
-              style={{ width: '100%', height: '80%' }}
+              style={{ width: "100%", height: "80%" }}
               resizeMode="contain"
             />
           </TouchableOpacity>
