@@ -1,8 +1,8 @@
 import { HttpException, Injectable, Logger } from '@nestjs/common';
 import { UpdateUsuarioDto } from 'src/dto/update-usuario.dto';
+import { UsuarioRepository } from 'src/repositories/usuario.repository';
 import { UsuarioDto } from '../dto/UsuarioDto';
 import { Usuario } from '../schema/Usuario';
-import { UsuarioRepository } from 'src/repositories/usuario.repository';
 
 @Injectable()
 export class UsuarioService {
@@ -88,6 +88,14 @@ export class UsuarioService {
       }
 
       return this.usuarioRepository.delete(_id);
+    } catch (error) {
+      throw new HttpException(error.message, 400);
+    }
+  }
+
+  async updateRole(_id: string, role: string): Promise<Usuario> {
+    try {
+      return this.usuarioRepository.updateRole(_id, role);
     } catch (error) {
       throw new HttpException(error.message, 400);
     }

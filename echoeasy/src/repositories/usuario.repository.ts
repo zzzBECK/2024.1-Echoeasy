@@ -207,4 +207,20 @@ export class UsuarioRepository {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
+
+  async updateRole(_id: string, role: string): Promise<Usuario> {
+    try {
+      if (!Types.ObjectId.isValid(_id)) {
+        throw new HttpException('ID inválido', HttpStatus.BAD_REQUEST);
+      }
+      if (!role) {
+        throw new HttpException('Função inválido', HttpStatus.BAD_REQUEST);
+      }
+      return this.usuarioModel
+        .findOneAndUpdate({ _id }, { role }, { new: true })
+        .exec();
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
 }

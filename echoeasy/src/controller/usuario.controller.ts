@@ -5,6 +5,7 @@ import {
   Get,
   HttpException,
   HttpStatus,
+  Patch,
   Post,
   Put,
   Query,
@@ -16,6 +17,7 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Roles } from 'src/decorators/roles.decorator';
 import { UpdateUsuarioDto } from 'src/dto/update-usuario.dto';
+import { UpdateRoleDto } from 'src/dto/UpdateRoleDto';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { RolesGuard } from 'src/guards/roles.guard';
 import { AuthService } from 'src/service/auth.service';
@@ -61,6 +63,16 @@ export class UsuarioController {
   ): Promise<Usuario> {
     try {
       return this.authService.updateUsuario(req.headers.authorization, body);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  @Patch('update_role')
+  @Roles(RolesEnum.ADMIN)
+  async udpateUsuarioRole(@Body() body: UpdateRoleDto): Promise<Usuario> {
+    try {
+      return this.usuarioService.updateRole(body._id, body.role);
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }

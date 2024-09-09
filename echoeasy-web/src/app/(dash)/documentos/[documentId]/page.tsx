@@ -39,6 +39,7 @@ import {
 } from "@/components/ui/table";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/use-toast";
+import { useGetAllAlgoritmos } from "@/hooks/useGetAllAlgoritmos";
 import { useGetAllAssuntosByDocumentId } from "@/hooks/useGetAllAssuntosByDocumentId";
 import { useGetDocumentById } from "@/hooks/useGetDocumentById";
 import { api } from "@/services/api";
@@ -74,6 +75,13 @@ export default function EditarDocumento({
 
   const { data: assuntosList, mutate: refetchAssuntos } =
     useGetAllAssuntosByDocumentId(params.documentId);
+
+  const { data: algoritmos } = useGetAllAlgoritmos();
+
+  const getAlgoritmoTitleById = (algorithmId: string | null) => {
+    const algoritmo = algoritmos?.find((alg: any) => alg._id === algorithmId);
+    return algoritmo ? algoritmo.title : "Nenhum";
+  };
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -191,7 +199,7 @@ export default function EditarDocumento({
             <Button
               className="w-fit self-center text-xs p-2 h-fit"
               onClick={handleSaveImage}
-              type="button" // Mudança aqui para evitar envio de formulário
+              type="button"
             >
               Salvar
             </Button>
@@ -328,7 +336,10 @@ export default function EditarDocumento({
                 <TableRow key={assunto._id}>
                   <TableCell className="font-medium">{assunto.title}</TableCell>
                   <TableCell>{assunto.description}</TableCell>
-                  <TableCell>{assunto.algorithm_link}</TableCell>
+                  <TableCell>
+                    {getAlgoritmoTitleById(assunto.algorithm_link)}{" "}
+                    {/* Título do algoritmo */}
+                  </TableCell>
                   <TableCell>{assunto.order}</TableCell>
                   <TableCell>
                     <div className="flex gap-2">

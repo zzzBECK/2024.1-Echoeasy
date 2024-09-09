@@ -17,7 +17,6 @@ import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
 import { api } from "@/services/api";
 import { Loader2 } from "lucide-react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -25,46 +24,46 @@ const FormSchema = z.object({
   email: z.string().email({
     message: "Please enter a valid email address.",
   }),
-  password: z.string().min(6, {
-    message: "Password must be at least 6 characters.",
-  }),
 });
 
-export function LoginForm() {
-  const router = useRouter();
+export function RedefinirSenhaForm() {
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       email: "",
-      password: "",
     },
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     try {
       setIsLoading(true);
-      const response = await api.post("/auth/signin/email", data);
+      const response = await api.post("/auth/reset-password/email", data);
 
-      sessionStorage.setItem(
-        "authToken",
-        response.data.stsTokenManager.accessToken
-      );
-
-      toast({
-        title: "Login confirmado!",
-        description: "Você está logado.",
-      });
-
-      router.push("/");
+      if (response.status === 201) {
+        toast({
+          title: "Email Enviado!",
+          description:
+            "Verifique sua caixa de entrada para redefinir sua senha.",
+        });
+        router.push("/login");
+      } else {
+        toast({
+          title: "Erro ao enviar email",
+          description: "Tente novamente mais tarde.",
+          variant: "destructive",
+        });
+      }
       setIsLoading(false);
     } catch (error: any) {
       console.log(error);
       setIsLoading(false);
       toast({
-        title: "Falha no Login",
-        description: error.response.data.message,
+        title: "Falha no envio",
+        description:
+          error.response?.data?.message || "Ocorreu um erro inesperado.",
         variant: "destructive",
       });
     }
@@ -86,32 +85,15 @@ export function LoginForm() {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Senha</FormLabel>
-              <FormControl>
-                <Input type="password" placeholder="******" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <div>
-          <Link href="/redefinir-senha">Esqueceu a senha?</Link>
-        </div>
 
         {isLoading ? (
           <Button className="w-full" disabled>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            Logging in...
+            Enviando...
           </Button>
         ) : (
           <Button type="submit" className="w-full">
-            Log in
+            Enviar Email de Redefinição
           </Button>
         )}
       </form>

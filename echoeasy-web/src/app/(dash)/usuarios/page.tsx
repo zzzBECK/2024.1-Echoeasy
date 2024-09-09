@@ -16,6 +16,7 @@ import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
@@ -78,6 +79,29 @@ export default function Usuarios() {
     }
   };
 
+  const handleUpdateRole = async (userId: string, newRole: string) => {
+    try {
+      await api.patch("/usuarios/update_role", {
+        _id: userId,
+        role: newRole,
+      });
+
+      toast({
+        title: "Função atualizada",
+        description: `Função atualizada para ${getRole(newRole)} com sucesso.`,
+      });
+
+      mutate();
+    } catch (error) {
+      console.error("Erro ao atualizar função:", error);
+      toast({
+        title: "Erro ao atualizar função",
+        description: "Ocorreu um erro ao tentar atualizar a função.",
+        variant: "destructive",
+      });
+    }
+  };
+
   const columns: ColumnDef<User>[] = [
     {
       accessorKey: "name",
@@ -121,7 +145,31 @@ export default function Usuarios() {
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       ),
-      cell: ({ row }) => <div>{getRole(row.getValue("role"))}</div>,
+      cell: ({ row }) => (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              className="w-full text-start justify-between"
+              variant="outline"
+            >
+              {getRole(row.getValue("role"))}{" "}
+              <ChevronDown className="ml-2 h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem
+              onClick={() => handleUpdateRole(row.original._id, "user")}
+            >
+              Usuário
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => handleUpdateRole(row.original._id, "admin")}
+            >
+              Administrador
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      ),
     },
     {
       accessorKey: "createdAt",
