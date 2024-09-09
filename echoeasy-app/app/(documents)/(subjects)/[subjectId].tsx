@@ -1,6 +1,14 @@
 import { useLocalSearchParams } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { Image, RefreshControl, ScrollView, Text, View } from "react-native";
+import {
+  Image,
+  Modal,
+  RefreshControl,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import Loader from "../../../components/Loader";
 import { SubjectService } from "../../../src/service/SubjectService";
 
@@ -14,8 +22,8 @@ type Item = {
 const SubjectId: React.FC = () => {
   const { subjectId } = useLocalSearchParams();
   const [content, setContent] = useState<Item>();
-
   const [refreshing, setRefreshing] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const onRefresh = async () => {
     setRefreshing(true);
@@ -55,14 +63,38 @@ const SubjectId: React.FC = () => {
             {content.title}
           </Text>
           <Text className="mb-2 text-justify">{content.description}</Text>
+
           {content.image && (
-            <Image
-              source={{ uri: content.image }}
-              className="w-full h-96"
-              resizeMode="contain"
-            />
+            <View className="w-full">
+              <TouchableOpacity onPress={() => setModalVisible(true)}>
+                <Image
+                  source={{ uri: content.image }}
+                  style={{ width: '100%', height: 280 }}
+                  resizeMode="contain"
+                />
+              </TouchableOpacity>
+            </View>
           )}
         </View>
+
+        {/* Modal para exibir a imagem em tela cheia */}
+        <Modal
+          visible={modalVisible}
+          transparent={true}
+          animationType="fade"
+          onRequestClose={() => setModalVisible(false)}
+        >
+          <TouchableOpacity
+            style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
+            onPress={() => setModalVisible(false)}
+          >
+            <Image
+              source={{ uri: content.image }}
+              style={{ width: '100%', height: '80%' }}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
+        </Modal>
       </View>
     </ScrollView>
   );
