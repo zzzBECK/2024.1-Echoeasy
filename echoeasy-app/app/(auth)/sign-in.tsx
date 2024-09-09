@@ -86,6 +86,7 @@ const SignIn: React.FC = () => {
                   onChangeText={handleChange("email")}
                   onBlur={handleBlur("email")}
                   error={touched.email && errors.email ? errors.email : ""}
+                  autoCapitalize="none"
                 />
                 <FormField
                   label="Senha"
@@ -98,6 +99,7 @@ const SignIn: React.FC = () => {
                   error={
                     touched.password && errors.password ? errors.password : ""
                   }
+                  autoCapitalize="none"
                 />
 
                 <TouchableOpacity

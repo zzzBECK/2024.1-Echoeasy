@@ -14,14 +14,14 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.leanars.echoeasyapp"
+      "bundleIdentifier": "com.echoeasy.echoeasy-app"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.leanars.echoeasyapp"
+      "package": "com.echoeasy.echoeasyapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -34,7 +34,7 @@
         "origin": false
       },
       "eas": {
-        "projectId": "0d7ba6c6-a4d0-440d-8529-cbc8195ef529"
+        "projectId": "95431f02-6e1a-441a-89a2-3970dc5c6602"
       }
     }
   }
