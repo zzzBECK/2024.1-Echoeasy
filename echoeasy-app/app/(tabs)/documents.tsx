@@ -3,6 +3,7 @@ import { useDebounce } from "@uidotdev/usehooks";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
+  ActivityIndicator,
   FlatList,
   Modal,
   RefreshControl,
@@ -35,12 +36,13 @@ type Category = {
 const Documents: React.FC = () => {
   const [docs, setDocs] = useState<Item[]>([]);
   const [refreshing, setRefreshing] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [searchByTitle, setSearchByTitle] = useState("");
   const [searchByCategories, setSearchByCategories] = useState<Category[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [searchCategoryByTitle, setSearchCategoryByTitle] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
-  const debouncedSearchTitle = useDebounce(searchByTitle, 50);
+  const debouncedSearchTitle = useDebounce(searchByTitle, 500);
   const [localSelectedCategories, setLocalSelectedCategories] =
     useState<Category[]>(searchByCategories);
 
@@ -52,11 +54,12 @@ const Documents: React.FC = () => {
   };
 
   const fetchDocuments = async () => {
+    setLoading(true);
     try {
       const docService = new DocService();
       const response = await docService.getAllDocuments(
         debouncedSearchTitle,
-        searchByCategories.map((cat) => cat._id) // IDs das categorias
+        searchByCategories.map((cat) => cat._id)
       );
       const docsWithCategories = await Promise.all(
         response.data.map(async (doc: Item) => {
@@ -71,16 +74,21 @@ const Documents: React.FC = () => {
       setDocs(docsWithCategories);
     } catch (error: any) {
       console.error("Error fetching documents:", error.message || error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const fetchCategories = async () => {
+    setLoading(true);
     try {
       const categoryService = new CategoryService();
       const response = await categoryService.getAllCategories();
       setCategories(response.data);
     } catch (error: any) {
       console.error("Error fetching categories:", error.message || error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -104,7 +112,13 @@ const Documents: React.FC = () => {
   useEffect(() => {
     fetchDocuments();
     fetchCategories();
-  }, [refreshing, debouncedSearchTitle, searchByCategories]);
+  }, []);
+
+  useEffect(() => {
+    if (debouncedSearchTitle || searchByCategories.length) {
+      fetchDocuments();
+    }
+  }, [debouncedSearchTitle, searchByCategories]);
 
   useEffect(() => {
     if (modalVisible) {
@@ -174,6 +188,9 @@ const Documents: React.FC = () => {
           </View>
         )}
 
+        {loading ? (
+          <ActivityIndicator size="large" color="#0000ff" />
+        ) : (
           <FlatList
             data={docs}
             showsVerticalScrollIndicator={false}
@@ -198,7 +215,7 @@ const Documents: React.FC = () => {
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }
           />
-        
+        )}
 
         <Modal
           transparent={true}
