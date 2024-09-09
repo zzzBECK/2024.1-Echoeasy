@@ -15,6 +15,7 @@ export class AssuntoDto {
   image: string;
 
   @IsString({ message: 'Link do algoritmo inválido' })
+  @IsOptional()
   algorithm_link: string;
 
   @IsNumberString({}, { message: 'Ordem inválida' })
