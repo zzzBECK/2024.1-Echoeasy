@@ -102,7 +102,7 @@ const SignIn: React.FC = () => {
 
                 <TouchableOpacity
                   className="self-end"
-                  onPress={() => router.replace("/forgotPassword")}
+                  onPress={() => router.navigate("/forgotPassword")}
                 >
                   <Text className="text-base text-[#209B85] font-interRegular my-2">
                     Esqueceu a senha?
@@ -129,7 +129,7 @@ const SignIn: React.FC = () => {
             <Text className="font-interRegular text-base">
               Não possui uma conta?{" "}
             </Text>
-            <TouchableOpacity onPress={() => router.replace("/sign-up")}>
+            <TouchableOpacity onPress={() => router.navigate("/sign-up")}>
               <Text className="font-interBold text-base text-[#209B85]">
                 Cadastre-se
               </Text>
