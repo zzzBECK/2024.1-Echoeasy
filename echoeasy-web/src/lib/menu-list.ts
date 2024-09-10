@@ -3,6 +3,7 @@ import {
   LayoutGrid,
   Library,
   LucideIcon,
+  Network,
   UserCog,
   Users,
 } from "lucide-react";
@@ -29,7 +30,7 @@ type Group = {
 export function getMenuList(pathname: string): Group[] {
   return [
     {
-      groupLabel: "Páginas",
+      groupLabel: "Geral",
       menus: [
         {
           href: "/",
@@ -38,11 +39,16 @@ export function getMenuList(pathname: string): Group[] {
           icon: LayoutGrid,
           submenus: [],
         },
+      ],
+    },
+    {
+      groupLabel: "Gerenciamento",
+      menus: [
         {
-          href: "/documentos",
-          label: "Documentos",
-          active: pathname.includes("/documentos"),
-          icon: FileText,
+          href: "/algoritmos",
+          label: "Algoritmos",
+          active: pathname.includes("/algoritmos"),
+          icon: Network,
           submenus: [],
         },
         {
@@ -50,6 +56,13 @@ export function getMenuList(pathname: string): Group[] {
           label: "Categorias",
           active: pathname.includes("/categorias"),
           icon: Library,
+          submenus: [],
+        },
+        {
+          href: "/documentos",
+          label: "Documentos",
+          active: pathname.includes("/documentos"),
+          icon: FileText,
           submenus: [],
         },
         {
