@@ -4,6 +4,14 @@ import { ContentLayout } from "@/components/content-layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
   Form,
   FormControl,
   FormField,
@@ -12,12 +20,18 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/use-toast";
+import { useGetAllAlgoritmos } from "@/hooks/useGetAllAlgoritmos";
 import { useGetAllAssuntosByDocumentId } from "@/hooks/useGetAllAssuntosByDocumentId";
 import { api } from "@/services/api";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowLeft, Loader2 } from "lucide-react";
+import { ArrowLeft, Check, ChevronsUpDown, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -26,9 +40,7 @@ import { z } from "zod";
 const FormSchema = z.object({
   title: z.string().min(1, { message: "Título é obrigatório" }),
   description: z.string().min(1, { message: "Descrição é obrigatória" }),
-  algorithm_link: z
-    .string()
-    .min(1, { message: "Link do Algoritmo é obrigatório" }),
+  algorithm_link: z.string().optional(),
   image: z.instanceof(File).optional(),
 });
 
@@ -43,6 +55,12 @@ export default function CriarAssunto({
   const { data: assuntosList } = useGetAllAssuntosByDocumentId(
     params.documentId
   );
+  const { data: algoritmos } = useGetAllAlgoritmos();
+
+  const [selectedAlgoritmo, setSelectedAlgoritmo] = useState<string | null>(
+    null
+  );
+  const [comboboxOpen, setComboboxOpen] = useState(false);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -62,8 +80,8 @@ export default function CriarAssunto({
       formData.append("document_id", params.documentId);
       formData.append("title", data.title);
       formData.append("description", data.description);
-      formData.append("algorithm_link", data.algorithm_link);
-      formData.append("order", (assuntosList?.length + 1) as string);
+      formData.append("algorithm_link", selectedAlgoritmo || "");
+      formData.append("order", (assuntosList?.length + 1).toString());
 
       if (data.image) formData.append("image", data.image);
 
@@ -140,16 +158,66 @@ export default function CriarAssunto({
               <FormField
                 control={form.control}
                 name="algorithm_link"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Link do Algoritmo</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="text"
-                        placeholder="Digite o link do algoritmo"
-                        {...field}
-                      />
-                    </FormControl>
+                render={() => (
+                  <FormItem className="lg:w-fit lg:min-w-80">
+                    <FormLabel>Selecione o Algoritmo</FormLabel>
+                    <Popover open={comboboxOpen} onOpenChange={setComboboxOpen}>
+                      <PopoverTrigger asChild>
+                        <Button variant="outline" className="w-full">
+                          {selectedAlgoritmo
+                            ? algoritmos?.find(
+                                (alg: any) => alg._id === selectedAlgoritmo
+                              )?.title
+                            : "Nenhum"}
+                          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-full p-0">
+                        <Command>
+                          <CommandInput placeholder="Busque um algoritmo..." />
+                          <CommandList>
+                            <CommandEmpty>
+                              Nenhum algoritmo encontrado.
+                            </CommandEmpty>
+                            <CommandGroup>
+                              <CommandItem
+                                onSelect={() => {
+                                  setSelectedAlgoritmo(null);
+                                  setComboboxOpen(false);
+                                }}
+                              >
+                                <Check
+                                  className={`mr-2 h-4 w-4 ${
+                                    selectedAlgoritmo === null
+                                      ? "opacity-100"
+                                      : "opacity-0"
+                                  }`}
+                                />
+                                Nenhum
+                              </CommandItem>
+                              {algoritmos?.map((algoritmo: any) => (
+                                <CommandItem
+                                  key={algoritmo._id}
+                                  onSelect={() => {
+                                    setSelectedAlgoritmo(algoritmo._id);
+                                    setComboboxOpen(false);
+                                  }}
+                                >
+                                  <Check
+                                    className={`mr-2 h-4 w-4 ${
+                                      selectedAlgoritmo === algoritmo._id
+                                        ? "opacity-100"
+                                        : "opacity-0"
+                                    }`}
+                                  />
+                                  {algoritmo.title}
+                                </CommandItem>
+                              ))}
+                            </CommandGroup>
+                          </CommandList>
+                        </Command>
+                      </PopoverContent>
+                    </Popover>
                     <FormMessage />
                   </FormItem>
                 )}
