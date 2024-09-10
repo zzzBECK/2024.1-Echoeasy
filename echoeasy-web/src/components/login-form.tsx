@@ -45,7 +45,7 @@ export function LoginForm() {
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     try {
       setIsLoading(true);
-      const response = await api.post("/auth/signin/email", data);
+      const response = await api.post("/auth/signin/email/admin", data);
 
       sessionStorage.setItem(
         "authToken",

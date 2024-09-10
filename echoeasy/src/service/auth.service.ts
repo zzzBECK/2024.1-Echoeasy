@@ -72,13 +72,20 @@ export class AuthService {
     }
   }
 
-  async signInWithEmail(email: string, password: string) {
+  async signInWithEmail(email: string, password: string, admin = false) {
     try {
       const existingUser = await this.usuarioService.findOne(email);
 
       if (!existingUser) {
         throw new HttpException(
           'Usuário não encontrado. Verifique o email e tente novamente.',
+          HttpStatus.UNAUTHORIZED,
+        );
+      }
+
+      if (admin && !existingUser.role.includes('admin')) {
+        throw new HttpException(
+          'Você não tem permissão para acessar esta rota.',
           HttpStatus.UNAUTHORIZED,
         );
       }

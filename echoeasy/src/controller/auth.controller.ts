@@ -31,6 +31,15 @@ export class AuthController {
     );
   }
 
+  @Post('signin/email/admin')
+  async signInWithEmailAdmin(@Body() signInEmailDto: SignInEmailDto) {
+    return this.authService.signInWithEmail(
+      signInEmailDto.email,
+      signInEmailDto.password,
+      true,
+    );
+  }
+
   @Post('reset-password/email')
   async resetPasswordWithEmail(@Body() signInEmailDto: ResetPasswordDto) {
     return this.authService.resetPasswordWithEmail(signInEmailDto.email);
